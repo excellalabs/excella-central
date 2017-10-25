@@ -52,5 +52,13 @@ describe('HomePage', () => {
           expect(component.navCtrl.push).toHaveBeenCalledWith(LoginPage);
         });
       });
+
+      describe('logoutUser', () => {
+        it('should log out user', () => {
+          component.loggedIn = true;
+          component.logoutUser();
+          expect(component.loggedIn).toBe(false);
+        });
+      });
       
 }); 
