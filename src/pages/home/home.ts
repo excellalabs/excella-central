@@ -11,4 +11,13 @@ export class HomePage {
 
   }
 
+  returnTrue(integer: number) {
+    if (integer == 1) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
 }
