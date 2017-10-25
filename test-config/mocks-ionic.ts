@@ -110,6 +110,15 @@ export class NavMock {
 
 }
 
+export class NavParamsMock {
+    data = {
+    };
+  
+    get(param){
+      return this.data[param];
+    }
+}
+
 export class DeepLinkerMock {
 
 }

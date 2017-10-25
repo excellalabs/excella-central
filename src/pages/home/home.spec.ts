@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule, Platform, NavController} from 'ionic-angular/index';
+import { IonicModule, Platform, NavController, NavParams} from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -8,7 +8,8 @@ import { HomePage } from './home';
 import {
   PlatformMock,
   StatusBarMock,
-  SplashScreenMock
+  SplashScreenMock,
+  NavParamsMock
 } from '../../../test-config/mocks-ionic';
 
 describe('HomePage', () => {
@@ -23,9 +24,11 @@ describe('HomePage', () => {
           ],
           providers: [
             NavController,
+            { provide: NavParams, useClass: NavParamsMock},
             { provide: Platform, useClass: PlatformMock},
             { provide: StatusBar, useClass: StatusBarMock },
             { provide: SplashScreen, useClass: SplashScreenMock },
+            
           ]
         });
       }));
@@ -38,12 +41,4 @@ describe('HomePage', () => {
       it('should be created', () => {
         expect(component).toBeDefined();
       });
-
-      it('returnTrue should return true', () => {
-          expect(component.returnTrue(1)).toBeTruthy();
-      });
-
-      it('returnTrue should return false', () => {
-        expect(component.returnTrue(0)).toBeFalsy();
-    });
 });
