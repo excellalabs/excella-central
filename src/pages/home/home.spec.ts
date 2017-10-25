@@ -1,14 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule, Platform, NavController, NavParams} from 'ionic-angular';
-
+import { DirectoryPage } from '../directory/directory';
+import { LoginPage } from '../login/login';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from './home';
 import {
-  PlatformMock,
-  StatusBarMock,
-  SplashScreenMock,
+  NavMock,
   NavParamsMock
 } from '../../../test-config/mocks-ionic';
 
@@ -23,12 +22,8 @@ describe('HomePage', () => {
             IonicModule.forRoot(HomePage)
           ],
           providers: [
-            NavController,
-            { provide: NavParams, useClass: NavParamsMock},
-            { provide: Platform, useClass: PlatformMock},
-            { provide: StatusBar, useClass: StatusBarMock },
-            { provide: SplashScreen, useClass: SplashScreenMock },
-            
+            { provide: NavController, useClass: NavMock},
+            { provide: NavParams, useClass: NavParamsMock}
           ]
         });
       }));
@@ -41,4 +36,21 @@ describe('HomePage', () => {
       it('should be created', () => {
         expect(component).toBeDefined();
       });
-});
+
+      describe('openDirectoryPage', () => {
+        it('should open DirectoryPage', () => {
+          spyOn(component.navCtrl, 'push');
+          component.openDirectoryPage();
+          expect(component.navCtrl.push).toHaveBeenCalledWith(DirectoryPage);
+        });
+      });
+
+      describe('openLoginPage', () => {
+        it('should open LoginPage', () => {
+          spyOn(component.navCtrl, 'push');
+          component.openLoginPage();
+          expect(component.navCtrl.push).toHaveBeenCalledWith(LoginPage);
+        });
+      });
+      
+}); 
