@@ -1,30 +1,30 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { Nav } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DirectoryPage } from '../directory/directory';
+import { LoginPage } from '../login/login'
 
-import { DirectoryPage } from '../../pages/directory/directory';
-import { LoginPage } from '../../pages/login/login';
+/**
+ * Generated class for the HomePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
+@IonicPage()
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
 })
 export class HomePage {
-  rootPage: any = HomePage;
-  pages: Array<{title: string, component: any}>;
-  @ViewChild(Nav) nav: Nav;
-  
-  constructor(public navCtrl: NavController) {
-    this.pages = [
-      { title: 'Directory', component: DirectoryPage },
-      { title: 'Login', component: LoginPage }
-    ];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+  openDirectoryPage() {
+    this.navCtrl.push(DirectoryPage);
   }
 
+  openLoginPage() {
+    this.navCtrl.push(LoginPage);
+  }
 }
