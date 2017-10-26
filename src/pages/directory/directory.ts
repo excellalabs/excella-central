@@ -14,12 +14,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'directory.html',
 })
 export class DirectoryPage {
-
+  searchText: string;
+  employees = [
+    {firstName: 'Barbra', lastName:  'Striesand', avatarUrl: "https://randomuser.me/api/portraits/thumb/men/83.jpg"},
+    {firstName: 'John', lastName:  'Doe', avatarUrl: "https://randomuser.me/api/portraits/thumb/men/83.jpg"}
+  ]
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.searchText = "";
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DirectoryPage');
   }
 
+  goToDirectoryDetail(employee){
+    //this.navCtrl.push("" , employee)
+  }
 }

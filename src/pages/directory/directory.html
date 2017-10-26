@@ -7,12 +7,17 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>directory</ion-title>
+    <ion-title>Directory</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <input [(ngModel)]="searchText" placeholder="Search">
+  <ion-list>
+    <div ion-item *ngFor="let employee of employees | search: searchText" (click)="goToDirectoryDetail(employee)">
+    <employee-card [employee]="employee"></employee-card>
+    </div>
+  </ion-list>
 </ion-content>
