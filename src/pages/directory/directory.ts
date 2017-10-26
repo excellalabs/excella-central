@@ -33,7 +33,7 @@ export class DirectoryPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DirectoryPage, num users = ' + this.users.length);
+    console.log('ionViewDidLoad DirectoryPage');
   }
 
 }
