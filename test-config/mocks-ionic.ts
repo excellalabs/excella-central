@@ -1,6 +1,8 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Pipe, PipeTransform, Component, Directive, Input } from '@angular/core';
+import { Pipe, PipeTransform, Component, Directive, Input, Provider } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
+import { User } from '../src/models/user/user';
 
 export class PlatformMock {
   public ready(): Promise<string> {
@@ -134,6 +136,12 @@ export class SearchPipeMock implements PipeTransform {
 export class UserCardComponentMock {
   @Input()
   user: any;
+}
+
+export class ApiServiceProviderMock {
+  getUsers() {
+    return new Promise<User[]>((resolve, reject) => {});
+  }
 }
 
 export class DeepLinkerMock {

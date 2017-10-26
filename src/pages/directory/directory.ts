@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ApiServiceProvider } from '../../providers/api-service/api-service';
+import { ApiServiceProvider } from '../../providers/api.service/api.service';
 import { User, generateFullName } from '../../models/user/user';
 
 /**
@@ -16,25 +16,20 @@ import { User, generateFullName } from '../../models/user/user';
   templateUrl: 'directory.html',
 })
 export class DirectoryPage {
-  users: User[] = [];
+  users: Promise<User[]>;
   generateFullName = generateFullName;
   searchText: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apiServiceProvider: ApiServiceProvider) {
-    this.searchText = "";
-    this.apiServiceProvider.getUsers().subscribe(data => {
-      JSON.parse(data["_body"])["results"].forEach(user => {
-        this.users.push({
-          firstName: user.name.first,
-          lastName: user.name.last,
-          avatarUrl: user.picture.thumbnail
-        });
-      });
-    });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DirectoryPage');
+    this.searchText = "";
+    this.users = this.getUsers();
+  }
+
+  async getUsers() {
+    return await this.apiServiceProvider.getUsers();
   }
 
   goToDirectoryDetail(user){

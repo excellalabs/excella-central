@@ -12,7 +12,7 @@ import { PipesModule } from '../pipes/pipes.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { ApiServiceProvider } from '../providers/api-service/api-service';
+import { ApiServiceProvider } from '../providers/api.service/api.service';
 
 @NgModule({
   declarations: [

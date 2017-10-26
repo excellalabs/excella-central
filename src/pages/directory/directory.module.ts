@@ -10,6 +10,6 @@ import { UserCardComponent } from '../../components/user-card/user-card';
     UserCardComponent
   ],
   imports: [
-  ],
+  ]
 })
 export class DirectoryPageModule {}
