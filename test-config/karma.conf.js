@@ -49,6 +49,13 @@ module.exports = function(config) {
       fixWebpackSourcePaths: true
     },
 
+    customLaunchers: {
+      Chrome_travis_ci: {
+          base: 'Chrome',
+          flags: ['--no-sandbox']
+      }
+    },
+
     reporters: config.coverage ? ['kjhtml', 'dots', 'coverage-istanbul'] : ['kjhtml', 'dots'],
     port: 9876,
     colors: true,
@@ -57,6 +64,10 @@ module.exports = function(config) {
     browsers: ['Chrome'],
     singleRun: true
   };
+
+  if (process.env.TRAVIS) {
+    _config.browsers = ['Chrome_travis_ci'];
+  }
 
   config.set(_config);
 };
