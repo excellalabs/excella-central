@@ -7,12 +7,22 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>directory</ion-title>
+    <ion-title>Directory</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let user of users">
+      <ion-avatar item-start>
+        <img src="{{user.avatarUrl}}"/>
+      </ion-avatar>
+      {{generateFullName(user.firstName, user.lastName)}}
+      <div class="item-note" item-end>
+        {{user.primarySkill}}
+      </div>
+    </button>
+  </ion-list>
 </ion-content>
