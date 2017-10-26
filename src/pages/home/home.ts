@@ -16,6 +16,7 @@ import { LoginPage } from '../login/login'
   templateUrl: 'home.html',
 })
 export class HomePage {
+  loggedIn=false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -27,4 +28,10 @@ export class HomePage {
   openLoginPage() {
     this.navCtrl.push(LoginPage);
   }
+
+  logoutUser(){
+    console.log("User logged out");
+    this.loggedIn=false;
+  }
 }
+
