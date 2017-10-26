@@ -8,6 +8,6 @@ export class User {
   funFact?: string = 'Part of JSSA';
 }
 
-export function generateFullName(firstName, lastName) {
+export function generateFullName(firstName: string, lastName: string) {
   return `${firstName} ${lastName}`;
 }

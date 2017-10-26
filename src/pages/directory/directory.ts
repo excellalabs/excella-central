@@ -37,7 +37,7 @@ export class DirectoryPage {
     console.log('ionViewDidLoad DirectoryPage');
   }
 
-  goToDirectoryDetail(employee){
-    //this.navCtrl.push("" , employee)
+  goToDirectoryDetail(user){
+    //this.navCtrl.push("" , user)
   }
 }
