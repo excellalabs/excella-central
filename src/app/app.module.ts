@@ -11,13 +11,15 @@ import { PipesModule } from '../pipes/pipes.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import {DirectoryDetailPage} from "../pages/directory-detail/directory-detail";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     DirectoryPage,
-    LoginPage
+    LoginPage,
+    DirectoryDetailPage
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     HomePage,
     DirectoryPage,
-    LoginPage
+    LoginPage,
+    DirectoryDetailPage
   ],
   providers: [
     StatusBar,

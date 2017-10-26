@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DirectoryPage } from '../directory/directory';
 import { LoginPage } from '../login/login'
+import {DirectoryDetailPage} from "../directory-detail/directory-detail";
 
 /**
  * Generated class for the HomePage page.

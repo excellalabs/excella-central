@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {DirectoryDetailPage} from "../directory-detail/directory-detail";
 
 /**
  * Generated class for the DirectoryPage page.
@@ -16,8 +17,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class DirectoryPage {
   searchText: string;
   employees = [
-    {firstName: 'Barbra', lastName:  'Striesand', avatarUrl: "https://randomuser.me/api/portraits/thumb/men/83.jpg"},
-    {firstName: 'John', lastName:  'Doe', avatarUrl: "https://randomuser.me/api/portraits/thumb/men/83.jpg"}
+    {firstName: 'Barbra', lastName:  'Striesand', primarySkill: "Singer", avatarUrl: "https://randomuser.me/api/portraits/women/23.jpg", client: "DHS", funFact: "Fun fact 1"},
+    {firstName: 'John', lastName:  'Doe', primarySkill: "Stuff Doer", avatarUrl: "https://randomuser.me/api/portraits/thumb/men/82.jpg", client: "USCIS", funFact:"Fun fact 2."}
   ]
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.searchText = "";
@@ -28,6 +29,6 @@ export class DirectoryPage {
   }
 
   goToDirectoryDetail(employee){
-    //this.navCtrl.push("" , employee)
+    this.navCtrl.push(DirectoryDetailPage , {'user':employee});
   }
 }
