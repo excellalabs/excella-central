@@ -4,7 +4,6 @@ import { DirectoryPage } from './directory';
 
 @NgModule({
   declarations: [
-    DirectoryPage,
   ],
   imports: [
     IonicPageModule.forChild(DirectoryPage),
