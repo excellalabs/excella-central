@@ -34,7 +34,6 @@ describe('ApiServiceProvider', () => {
           ]
         };
 
-        this.createMockUser();
         mockBackend.connections.subscribe((connection) => {
           connection.mockRespond(new Response(new ResponseOptions({
             body: JSON.stringify(mockResponse)
