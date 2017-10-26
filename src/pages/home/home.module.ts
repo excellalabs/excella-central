@@ -6,7 +6,6 @@ import { HomePage } from './home';
   declarations: [
   ],
   imports: [
-    IonicPageModule.forChild(HomePage),
   ],
 })
 export class HomePageModule {}
