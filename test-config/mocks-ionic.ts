@@ -122,9 +122,9 @@ export class NavParamsMock {
 
 @Pipe({name: 'search'})
 export class SearchPipeMock implements PipeTransform {
-    transform(value: number): number {
+    transform(items: any[], searchText: string): any[] {
         //Do stuff here, if you want
-        return value;
+        return items;
     }
 }
 
