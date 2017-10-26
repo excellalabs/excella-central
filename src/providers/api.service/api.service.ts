@@ -1,22 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { User } from '../../models/user/user';
+import { USERS_API_URL } from '../../app/app-config';
 
-/*
-  Generated class for the ApiServiceProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class ApiServiceProvider {
-  constructor(public http: Http) {
+  constructor(private http: Http, @Inject(USERS_API_URL) private apiUrl) {
   }
 
   async getUsers(): Promise<User[]> {
     let users = new Array<User>();
-    await this.http.get('https://randomuser.me/api/?results=10').subscribe(data => {
+    await this.http.get(this.apiUrl).subscribe(data => {
       JSON.parse(data["_body"])["results"].forEach(user => {
         users.push({
           firstName: user.name.first,
