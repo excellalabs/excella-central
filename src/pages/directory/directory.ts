@@ -14,7 +14,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'directory.html',
 })
 export class DirectoryPage {
-
+  employees = [
+    {firstName: 'Barbra', lastName:  'Striesand', avatarUrl: "https://randomuser.me/api/portraits/thumb/men/83.jpg"},
+    {firstName: 'John', lastName:  'Doe', avatarUrl: "https://randomuser.me/api/portraits/thumb/men/83.jpg"}
+  ]
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -22,4 +25,7 @@ export class DirectoryPage {
     console.log('ionViewDidLoad DirectoryPage');
   }
 
+  goToDirectoryDetail(employee){
+    //this.navCtrl.push("" , employee)
+  }
 }
