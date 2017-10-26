@@ -12,17 +12,11 @@
 
 </ion-header>
 
-
-<ion-content>
+<ion-content padding>
+  <input [(ngModel)]="searchText" placeholder="Search">
   <ion-list>
-    <button ion-item *ngFor="let user of users">
-      <ion-avatar item-start>
-        <img src="{{user.avatarUrl}}"/>
-      </ion-avatar>
-      {{generateFullName(user.firstName, user.lastName)}}
-      <div class="item-note" item-end>
-        {{user.primarySkill}}
-      </div>
+    <button ion-item *ngFor="let user of users | search: searchText" (click)="goToDirectoryDetail(user)">
+      <user-card [user]="user"></user-card>
     </button>
   </ion-list>
 </ion-content>

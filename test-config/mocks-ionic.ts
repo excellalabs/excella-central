@@ -1,5 +1,6 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Pipe, PipeTransform, Component, Directive, Input } from '@angular/core';
 
 export class PlatformMock {
   public ready(): Promise<string> {
@@ -117,6 +118,22 @@ export class NavParamsMock {
     get(param){
       return this.data[param];
     }
+}
+
+@Pipe({name: 'search'})
+export class SearchPipeMock implements PipeTransform {
+    transform(value: number): number {
+        //Do stuff here, if you want
+        return value;
+    }
+}
+
+@Directive({
+  selector: 'employee-card'
+})
+export class EmployeeCardComponentMock {
+  @Input()
+  employee: any;
 }
 
 export class DeepLinkerMock {
