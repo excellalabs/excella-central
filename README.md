@@ -6,6 +6,7 @@ To get started, clone the repo and run the following commands:
 
 ```bash
 $ npm install -g ionic cordova
+$ npm install
 $ cd [DIRECTORY]/excella-central/
 $ ionic serve
 ```
