@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {DirectoryDetailPage} from "../directory-detail/directory-detail";
+import { ApiServiceProvider } from '../../providers/api.service/api.service';
+import { User, generateFullName } from '../../models/user/user';
 
 /**
  * Generated class for the DirectoryPage page.
@@ -15,20 +16,23 @@ import {DirectoryDetailPage} from "../directory-detail/directory-detail";
   templateUrl: 'directory.html',
 })
 export class DirectoryPage {
+  users: Promise<User[]>;
+  generateFullName = generateFullName;
   searchText: string;
-  employees = [
-    {firstName: 'Barbra', lastName:  'Striesand', primarySkill: "Singer", avatarUrl: "https://randomuser.me/api/portraits/women/23.jpg", client: "DHS", funFact: "Fun fact 1"},
-    {firstName: 'John', lastName:  'Doe', primarySkill: "Stuff Doer", avatarUrl: "https://randomuser.me/api/portraits/thumb/men/82.jpg", client: "USCIS", funFact:"Fun fact 2."}
-  ]
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.searchText = "";
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private apiServiceProvider: ApiServiceProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DirectoryPage');
+    this.searchText = "";
+    this.users = this.getUsers();
   }
 
-  goToDirectoryDetail(employee){
-    this.navCtrl.push(DirectoryDetailPage , {'user':employee});
+  async getUsers() {
+    return await this.apiServiceProvider.getUsers();
+  }
+
+  goToDirectoryDetail(user){
+    //this.navCtrl.push("" , user)
   }
 }

@@ -12,12 +12,11 @@
 
 </ion-header>
 
-
 <ion-content padding>
-  <input [(ngModel)]="searchText" placeholder="Search">
+  <input [(ngModel)]="searchText" placeholder="Search" id="search-input" float-left>
   <ion-list>
-    <div ion-item *ngFor="let employee of employees | search: searchText" (click)="goToDirectoryDetail(employee)">
-    <employee-card [employee]="employee"></employee-card>
-    </div>
+    <button ion-item *ngFor="let user of users | async | search: searchText" (click)="goToDirectoryDetail(user)">
+      <user-card [user]="user"></user-card>
+    </button>
   </ion-list>
 </ion-content>
