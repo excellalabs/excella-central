@@ -8,7 +8,7 @@ import {
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { ApiServiceProvider } from '../api.service/api.service';
-import { USERS_API_URL } from '../../app/app-config';
+import { ConnectionString, UsersApi, UsersInjectionToken } from '../../app/app-config';
 
 describe('ApiServiceProvider', () => {
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe('ApiServiceProvider', () => {
       providers: [
         ApiServiceProvider,
         { provide: XHRBackend, useClass: MockBackend },
-        { provide: USERS_API_URL, useValue: '' }
+        { provide: UsersInjectionToken, useValue: '' }
       ]
     });
   });
@@ -33,7 +33,6 @@ describe('ApiServiceProvider', () => {
             this.createMockUser(3),
           ]
         };
-
         mockBackend.connections.subscribe((connection) => {
           connection.mockRespond(new Response(new ResponseOptions({
             body: JSON.stringify(mockResponse)
