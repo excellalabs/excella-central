@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ApiServiceProvider } from '../../providers/api.service/api.service';
 import { User, generateFullName } from '../../models/user/user';
+import {DirectoryDetailPage} from "../directory-detail/directory-detail";
 
 /**
  * Generated class for the DirectoryPage page.
@@ -33,6 +34,6 @@ export class DirectoryPage {
   }
 
   goToDirectoryDetail(user){
-    //this.navCtrl.push("" , user)
+    this.navCtrl.push(DirectoryDetailPage, {user: user});
   }
 }

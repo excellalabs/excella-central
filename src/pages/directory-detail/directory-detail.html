@@ -17,7 +17,7 @@
   <ion-grid>
     <ion-row>
       <ion-col col-4>
-        <ion-img class="profile-icon" style="height:100%; width:100%;" [src]="user.avatarUrl"></ion-img>
+        <img class="profile-icon" style="height:auto; width:100%;" [src]="user.avatarUrl" />
       </ion-col>
       <ion-col col-8 text-start class="header-detail">
         <h3 class="name">{{ user.firstName }} {{ user.lastName }}</h3>
@@ -28,10 +28,10 @@
       <ion-col col-12>
         <ion-list>
           <ion-item text-wrap>
-            Client: <strong>{{ user.client }}</strong>
+            Client: <strong>{{ user.client || 'N/A' }}</strong>
           </ion-item>
           <ion-item text-wrap>
-            Fun Fact: <strong>{{ user.funFact }}</strong>
+            Fun Fact: <strong>{{ user.funFact || 'N/A' }}</strong>
           </ion-item>
         </ion-list>
 
