@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -11,8 +11,7 @@ import { DirectoryPage } from '../pages/directory/directory';
 import { LoginPage } from '../pages/login/login';
 import { ComponentsModule } from '../components/components.module';
 import { PipesModule } from '../pipes/pipes.module';
-
-import {DirectoryDetailPage} from "../pages/directory-detail/directory-detail";
+import { DirectoryDetailPage } from "../pages/directory-detail/directory-detail";
 import { ApiServiceProvider } from '../providers/api.service/api.service';
 import { UsersApi, UsersInjectionToken } from '../app/app-config';
 
