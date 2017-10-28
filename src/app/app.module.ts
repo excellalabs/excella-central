@@ -11,6 +11,8 @@ import { DirectoryPage } from '../pages/directory/directory';
 import { LoginPage } from '../pages/login/login';
 import { ComponentsModule } from '../components/components.module';
 import { PipesModule } from '../pipes/pipes.module';
+
+import {DirectoryDetailPage} from "../pages/directory-detail/directory-detail";
 import { ApiServiceProvider } from '../providers/api.service/api.service';
 import { UsersApi, UsersInjectionToken } from '../app/app-config';
 
@@ -19,7 +21,8 @@ import { UsersApi, UsersInjectionToken } from '../app/app-config';
     MyApp,
     HomePage,
     DirectoryPage,
-    LoginPage
+    LoginPage,
+    DirectoryDetailPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { UsersApi, UsersInjectionToken } from '../app/app-config';
     MyApp,
     HomePage,
     DirectoryPage,
-    LoginPage
+    LoginPage,
+    DirectoryDetailPage
   ],
   providers: [
     StatusBar,
