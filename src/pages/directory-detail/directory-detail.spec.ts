@@ -7,17 +7,17 @@ import {
   UserCardComponentMock,
   ApiServiceProviderMock
 } from '../../../test-config/mocks-ionic';
-import { DirectoryPage } from './directory';
+import { DirectoryDetailPage } from './directory-detail';
 import { ApiServiceProvider } from '../../providers/api.service/api.service';
 
-describe('DirectoryPage', () => {
-    let fixture: ComponentFixture<DirectoryPage>;
-    let component: DirectoryPage;
+describe('DirectoryDetailPage', () => {
+    let fixture: ComponentFixture<DirectoryDetailPage>;
+    let component: DirectoryDetailPage;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-          declarations: [DirectoryPage, SearchPipeMock, UserCardComponentMock],
+          declarations: [DirectoryDetailPage, SearchPipeMock, UserCardComponentMock],
           imports: [
-            IonicModule.forRoot(DirectoryPage)
+            IonicModule.forRoot(DirectoryDetailPage)
           ],
           providers: [
             { provide: NavController, useClass: NavMock },
@@ -28,7 +28,7 @@ describe('DirectoryPage', () => {
       }));
 
       beforeEach(() => {
-        fixture = TestBed.createComponent(DirectoryPage);
+        fixture = TestBed.createComponent(DirectoryDetailPage);
         component = fixture.componentInstance;
       });
 

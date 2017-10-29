@@ -1,14 +1,13 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import {
   HttpModule,
-  Http,
   Response,
   ResponseOptions,
   XHRBackend
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { ApiServiceProvider } from '../api.service/api.service';
-import { ConnectionString, UsersApi, UsersInjectionToken } from '../../app/app-config';
+import { UsersInjectionToken } from '../../app/app-config';
 
 describe('ApiServiceProvider', () => {
   beforeEach(() => {

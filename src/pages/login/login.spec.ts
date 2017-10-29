@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule, Platform, NavController, NavParams} from 'ionic-angular';
+import { IonicModule, NavController, NavParams} from 'ionic-angular';
 import { NavMock, NavParamsMock } from '../../../test-config/mocks-ionic';
 import { LoginPage } from './login';
 

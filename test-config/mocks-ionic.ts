@@ -1,7 +1,6 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Pipe, PipeTransform, Component, Directive, Input, Provider } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Pipe, PipeTransform, Directive, Input } from '@angular/core';
 import { User } from '../src/models/user/user';
 
 export class PlatformMock {
