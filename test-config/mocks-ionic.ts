@@ -1,6 +1,15 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Pipe, PipeTransform, Component, Directive, Input } from '@angular/core';
+import {
+  Pipe,
+  PipeTransform,
+  Component,
+  Directive,
+  Input,
+  Provider,
+  Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
+import { User } from '../src/models/user/user';
 
 export class PlatformMock {
   public ready(): Promise<string> {
@@ -80,19 +89,19 @@ export class SplashScreenMock extends SplashScreen {
 }
 
 export class NavMock {
- 
+
   public pop(): any {
     return new Promise(function(resolve: Function): void {
       resolve();
     });
   }
- 
+
   public push(): any {
     return new Promise(function(resolve: Function): void {
       resolve();
     });
   }
- 
+
   public getActive(): any {
     return {
       'instance': {
@@ -100,7 +109,7 @@ export class NavMock {
       },
     };
   }
- 
+
   public setRoot(): any {
     return true;
   }
@@ -114,7 +123,7 @@ export class NavMock {
 export class NavParamsMock {
     data = {
     };
-  
+
     get(param){
       return this.data[param];
     }
@@ -129,13 +138,16 @@ export class SearchPipeMock implements PipeTransform {
 }
 
 @Directive({
-  selector: 'employee-card'
+  selector: 'user-card'
 })
-export class EmployeeCardComponentMock {
+export class UserCardComponentMock {
   @Input()
-  employee: any;
+  user: any;
 }
 
-export class DeepLinkerMock {
-
+@Injectable()
+export class ApiServiceProviderMock {
+  getUsers(): Promise<User[]> {
+    return new Promise<User[]>((resolve, reject) => {});
+  }
 }
