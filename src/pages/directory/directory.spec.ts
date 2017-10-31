@@ -43,7 +43,7 @@ describe('DirectoryPage', () => {
       expect(component).toBeDefined();
     });
 
-    xit('should have as many User Cards as users', async(() => {
+    it('should have as many User Cards as users', async(() => {
       let mockUsers: User[] = [
         new User('1', '', ''),
         new User('2', '', ''),
