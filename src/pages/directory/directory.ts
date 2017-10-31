@@ -2,14 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ApiServiceProvider } from '../../providers/api.service/api.service';
 import { User, generateFullName } from '../../models/user/user';
-import {DirectoryDetailPage} from "../directory-detail/directory-detail";
-
-/**
- * Generated class for the DirectoryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { DirectoryDetailPage } from "../directory-detail/directory-detail";
 
 @IonicPage()
 @Component({
