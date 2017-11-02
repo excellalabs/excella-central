@@ -26,14 +26,14 @@ export class DirectoryPage {
 
   ionViewDidLoad() {
     this.searchText = "";
-    this.profiles = this.getUsers();
+    this.profiles = this.getProfiles();
   }
 
-  async getUsers() {
-    return await this.apiServiceProvider.getUsers();
+  async getProfiles() {
+    return await this.apiServiceProvider.getProfiles();
   }
 
-  goToDirectoryDetail(user){
-    this.navCtrl.push(DirectoryDetailPage, {user: user});
+  goToDirectoryDetail(profile){
+    this.navCtrl.push(DirectoryDetailPage, { profile: profile });
   }
 }

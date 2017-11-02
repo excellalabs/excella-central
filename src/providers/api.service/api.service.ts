@@ -11,17 +11,17 @@ export class ApiServiceProvider {
     @Inject(ProfilesInjectionToken) private profilesApi: ConnectionString) {
   }
 
-  async getUsers(): Promise<Profile[]> {
-    let users = new Array<Profile>();
+  async getProfiles(): Promise<Profile[]> {
+    let profiles = new Array<Profile>();
     await this.http.get(this.profilesApi.url).subscribe(data => {
-      JSON.parse(data["_body"])["results"].forEach(user => {
-        users.push({
-          firstName: user.name.first,
-          lastName: user.name.last,
-          avatarUrl: user.picture.thumbnail
+      JSON.parse(data["_body"])["results"].forEach(profile => {
+        profiles.push({
+          firstName: profile.name.first,
+          lastName: profile.name.last,
+          avatarUrl: profile.picture.thumbnail
         });
       });
     });
-    return users;
+    return profiles;
   }
 }

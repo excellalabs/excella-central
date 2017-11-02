@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Profile } from '../../models/profile/profile';
 
 /**
  * Generated class for the DirectoryDetailPage page.
@@ -14,26 +15,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'directory-detail.html',
 })
 export class DirectoryDetailPage {
-  user : {firstName: string, lastName: string, primarySkill: string, avatarUrl: string, client: string, funFact: string};
+  profile: Profile;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    console.log(navParams.get("user"));
-    if(navParams.get('user')!==undefined){
-      this.user=navParams.get('user');
-    }else{
-      this.user = {
-        firstName: 'test',
-        lastName: 'test',
-        primarySkill: 'test',
-        avatarUrl: 'test',
-        client: 'test',
-        funFact: 'test'
-      }
+    if (navParams.get('profile') !== undefined) {
+      this.profile = navParams.get('profile');
+    } else {
+      this.profile = new Profile('test', 'test', 'test', 'test', 'test', 'test');
     }
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DirectoryDetailPage');
-  }
-
 }

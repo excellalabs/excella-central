@@ -6,6 +6,15 @@ export class Profile {
   primarySkill?: string = 'Developer';
   client?: string = 'NRECA';
   funFact?: string = 'Part of JSSA';
+
+  constructor(
+    firstName: string,
+    lastName: string,
+    avatarUrl: string,
+    primarySkill?: string,
+    client?: string,
+    funFact?: string) {
+    }
 }
 
 export function generateFullName(firstName: string, lastName: string) {
