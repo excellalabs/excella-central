@@ -8,11 +8,12 @@ import {
 import { MockBackend } from '@angular/http/testing';
 import { ApiServiceProvider } from '../api.service/api.service';
 import { ProfilesInjectionToken } from '../../app/app-config';
+import { Profile } from '../../models/profile/profile';
 
 describe('ApiServiceProvider', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [ HttpModule ],
       providers: [
         ApiServiceProvider,
         { provide: XHRBackend, useClass: MockBackend },
@@ -24,14 +25,12 @@ describe('ApiServiceProvider', () => {
   describe('getProfiles', () => {
     it('should return a promise with an array of profiles',
       inject([ApiServiceProvider, XHRBackend], (apiServiceProvider, mockBackend) => {
-        const mockResponse = {
-          results: [
-            this.createMockProfile(0),
-            this.createMockProfile(1),
-            this.createMockProfile(2),
-            this.createMockProfile(3),
-          ]
-        };
+      const mockResponse = [
+          this.createMockProfile("0"),
+          this.createMockProfile("1"),
+          this.createMockProfile("2"),
+          this.createMockProfile("3"),
+        ];
         mockBackend.connections.subscribe((connection) => {
           connection.mockRespond(new Response(new ResponseOptions({
             body: JSON.stringify(mockResponse)
@@ -48,16 +47,6 @@ describe('ApiServiceProvider', () => {
   });
 });
 
-export function createMockProfile(id: number) {
-  var Profile = {
-    id: id,
-    name: {
-      first: 'Profile ' + id,
-      last: ''
-    },
-    picture: {
-      thumbnail: ''
-    }
-  };
-  return Profile;
+export function createMockProfile(id: string) {
+  return new Profile('Profile ' + id, '', '');
 }

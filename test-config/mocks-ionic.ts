@@ -129,14 +129,6 @@ export class SearchPipeMock implements PipeTransform {
     }
 }
 
-@Directive({
-  selector: 'profile-card'
-})
-export class ProfileCardComponentMock {
-  @Input()
-  profile: any;
-}
-
 export class ApiServiceProviderMock {
   getProfiles() {
     return new Promise<Profile[]>((resolve, reject) => {});

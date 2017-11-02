@@ -36,4 +36,8 @@ export class DirectoryPage {
   goToDirectoryDetail(profile){
     this.navCtrl.push(DirectoryDetailPage, { profile: profile });
   }
+
+  getFullName(profile: Profile): string {
+    return generateFullName(profile.firstName, profile.lastName);
+  }
 }

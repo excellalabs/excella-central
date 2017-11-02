@@ -1,11 +1,11 @@
 export class Profile {
-  id?: string = '1';
+  id?: string;
   firstName: string;
   lastName: string;
   avatarUrl?: string;
-  primarySkill?: string = 'Developer';
-  client?: string = 'NRECA';
-  funFact?: string = 'Part of JSSA';
+  primarySkill?: string;
+  client?: string;
+  funFact?: string;
 
   constructor(
     firstName: string,
@@ -14,6 +14,12 @@ export class Profile {
     primarySkill?: string,
     client?: string,
     funFact?: string) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.avatarUrl = avatarUrl || '';
+      this.primarySkill = primarySkill;
+      this.client = client;
+      this.funFact = funFact;
     }
 }
 
