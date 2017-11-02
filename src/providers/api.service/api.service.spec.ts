@@ -7,7 +7,7 @@ import {
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { ApiServiceProvider } from '../api.service/api.service';
-import { UsersInjectionToken } from '../../app/app-config';
+import { ProfilesInjectionToken } from '../../app/app-config';
 
 describe('ApiServiceProvider', () => {
   beforeEach(() => {
@@ -16,20 +16,20 @@ describe('ApiServiceProvider', () => {
       providers: [
         ApiServiceProvider,
         { provide: XHRBackend, useClass: MockBackend },
-        { provide: UsersInjectionToken, useValue: '' }
+        { provide: ProfilesInjectionToken, useValue: '' }
       ]
     });
   });
 
-  describe('getUsers', () => {
-    it('should return a promise with an array of users',
+  describe('getProfiles', () => {
+    it('should return a promise with an array of profiles',
       inject([ApiServiceProvider, XHRBackend], (apiServiceProvider, mockBackend) => {
         const mockResponse = {
           results: [
-            this.createMockUser(0),
-            this.createMockUser(1),
-            this.createMockUser(2),
-            this.createMockUser(3),
+            this.createMockProfile(0),
+            this.createMockProfile(1),
+            this.createMockProfile(2),
+            this.createMockProfile(3),
           ]
         };
         mockBackend.connections.subscribe((connection) => {
@@ -37,27 +37,27 @@ describe('ApiServiceProvider', () => {
             body: JSON.stringify(mockResponse)
           })));
         });
-        apiServiceProvider.getUsers().then((users) => {
-          expect(users.length).toBe(4);
-          expect(users[0].firstName).toEqual('User 0');
-          expect(users[1].firstName).toEqual('User 1');
-          expect(users[2].firstName).toEqual('User 2');
-          expect(users[3].firstName).toEqual('User 3');
+        apiServiceProvider.getProfiles().then((profiles) => {
+          expect(profiles.length).toBe(4);
+          expect(profiles[0].firstName).toEqual('Profile 0');
+          expect(profiles[1].firstName).toEqual('Profile 1');
+          expect(profiles[2].firstName).toEqual('Profile 2');
+          expect(profiles[3].firstName).toEqual('Profile 3');
         });
     }));
   });
 });
 
-export function createMockUser(id: number) {
-  var user = {
+export function createMockProfile(id: number) {
+  var Profile = {
     id: id,
     name: {
-      first: 'User ' + id,
+      first: 'Profile ' + id,
       last: ''
     },
     picture: {
       thumbnail: ''
     }
   };
-  return user;
+  return Profile;
 }

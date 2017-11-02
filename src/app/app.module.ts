@@ -13,7 +13,7 @@ import { ComponentsModule } from '../components/components.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { DirectoryDetailPage } from "../pages/directory-detail/directory-detail";
 import { ApiServiceProvider } from '../providers/api.service/api.service';
-import { UsersApi, UsersInjectionToken } from '../app/app-config';
+import { ProfilesApi, ProfilesInjectionToken } from '../app/app-config';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,7 @@ import { UsersApi, UsersInjectionToken } from '../app/app-config';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ApiServiceProvider,
-    { provide: UsersInjectionToken, useValue: UsersApi }
+    { provide: ProfilesInjectionToken, useValue: ProfilesApi }
   ]
 })
 export class AppModule {}

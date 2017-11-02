@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { UserCardComponent } from './user-card/user-card';
+import { ProfileCardComponent } from './profile-card/profile-card';
 import { IonicModule } from 'ionic-angular';
 
 @NgModule({
-	declarations: [UserCardComponent],
-	imports: [IonicModule.forRoot(UserCardComponent)],
-	exports: [UserCardComponent]
+	declarations: [ProfileCardComponent],
+	imports: [IonicModule.forRoot(ProfileCardComponent)],
+	exports: [ProfileCardComponent]
 })
 export class ComponentsModule {}

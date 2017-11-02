@@ -15,8 +15,8 @@
 <ion-content padding>
   <input [(ngModel)]="searchText" placeholder="Search" id="search-input" float-left>
   <ion-list>
-    <button ion-item *ngFor="let user of users | async | search: searchText" (click)="goToDirectoryDetail(user)">
-      <user-card [user]="user"></user-card>
+    <button ion-item *ngFor="let profile of profiles | async | search: searchText" (click)="goToDirectoryDetail(profile)">
+      <profile-card [profile]="profile"></profile-card>
     </button>
   </ion-list>
 </ion-content>
