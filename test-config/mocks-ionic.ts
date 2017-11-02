@@ -1,7 +1,7 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Pipe, PipeTransform, Directive, Input } from '@angular/core';
-import { User } from '../src/models/user/user';
+import { Profile } from '../src/models/profile/profile';
 
 export class PlatformMock {
   public ready(): Promise<string> {
@@ -130,16 +130,16 @@ export class SearchPipeMock implements PipeTransform {
 }
 
 @Directive({
-  selector: 'user-card'
+  selector: 'profile-card'
 })
-export class UserCardComponentMock {
+export class ProfileCardComponentMock {
   @Input()
-  user: any;
+  profile: any;
 }
 
 export class ApiServiceProviderMock {
-  getUsers() {
-    return new Promise<User[]>((resolve, reject) => {});
+  getProfiles() {
+    return new Promise<Profile[]>((resolve, reject) => {});
   }
 }
 

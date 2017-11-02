@@ -1,6 +1,6 @@
-import { generateFullName } from "./user";
+import { generateFullName } from "./profile";
 
-describe('User', () => {
+describe('Profile', () => {
   describe('generateFullName', () => {
     it('should return concatenated first and last name', () => {
       const expected = "Alex Hoffman";

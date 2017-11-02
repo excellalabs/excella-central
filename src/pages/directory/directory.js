@@ -45,14 +45,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ApiServiceProvider } from '../../providers/api.service/api.service';
-import { generateFullName } from '../../models/user/user';
+import { generateFullName } from '../../models/profile/profile';
+import { DirectoryDetailPage } from "../directory-detail/directory-detail";
 /**
  * Generated class for the DirectoryPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var DirectoryPage = /** @class */ (function () {
+var DirectoryPage = (function () {
     function DirectoryPage(navCtrl, navParams, apiServiceProvider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -74,17 +75,17 @@ var DirectoryPage = /** @class */ (function () {
         });
     };
     DirectoryPage.prototype.goToDirectoryDetail = function (user) {
-        //this.navCtrl.push("" , user)
+        this.navCtrl.push(DirectoryDetailPage, { user: user });
     };
-    DirectoryPage = __decorate([
-        IonicPage(),
-        Component({
-            selector: 'page-directory',
-            templateUrl: 'directory.html',
-        }),
-        __metadata("design:paramtypes", [NavController, NavParams, ApiServiceProvider])
-    ], DirectoryPage);
     return DirectoryPage;
 }());
+DirectoryPage = __decorate([
+    IonicPage(),
+    Component({
+        selector: 'page-directory',
+        templateUrl: 'directory.html',
+    }),
+    __metadata("design:paramtypes", [NavController, NavParams, ApiServiceProvider])
+], DirectoryPage);
 export { DirectoryPage };
 //# sourceMappingURL=directory.js.map

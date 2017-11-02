@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { SearchPipe } from '../../pipes/search/search';
-import { UserCardComponent } from '../../components/user-card/user-card';
+import { ProfileCardComponent } from '../../components/profile-card/profile-card';
 
 @NgModule({
   declarations: [
     SearchPipe,
-    UserCardComponent
+    ProfileCardComponent
   ],
   imports: [
   ]
