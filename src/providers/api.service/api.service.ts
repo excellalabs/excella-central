@@ -14,11 +14,15 @@ export class ApiServiceProvider {
   async getProfiles(): Promise<Profile[]> {
     let profiles = new Array<Profile>();
     await this.http.get(this.profilesApi.url).subscribe(data => {
-      JSON.parse(data["_body"])["results"].forEach(profile => {
+      data.json().forEach(profile => {
         profiles.push({
-          firstName: profile.name.first,
-          lastName: profile.name.last,
-          avatarUrl: profile.picture.thumbnail
+          id: profile.id,
+          firstName: profile.firstName,
+          lastName: profile.lastName,
+          avatarUrl: profile.avatarUrl,
+          primarySkill: profile.primarySkill,
+          client: profile.client,
+          funFact: profile.funFact
         });
       });
     });

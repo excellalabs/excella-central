@@ -8,6 +8,6 @@ export interface ConnectionString {
 
 export const ProfilesApi: ConnectionString = {
   name: 'profiles',
-  url: 'https://randomuser.me/api/?results=10'
+  url: 'https://central.excellalabs.com/api/profiles'
 }
 export const ProfilesInjectionToken = new InjectionToken<ConnectionString>(ProfilesApi.name);
