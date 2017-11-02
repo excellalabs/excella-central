@@ -4,7 +4,6 @@ import {
   NavMock,
   NavParamsMock,
   SearchPipeMock,
-  ProfileCardComponentMock,
   ApiServiceProviderMock
 } from '../../../test-config/mocks-ionic';
 import { DirectoryDetailPage } from './directory-detail';
@@ -15,7 +14,7 @@ describe('DirectoryDetailPage', () => {
     let component: DirectoryDetailPage;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-          declarations: [ DirectoryDetailPage, SearchPipeMock, ProfileCardComponentMock ],
+          declarations: [ DirectoryDetailPage, SearchPipeMock ],
           imports: [
             IonicModule.forRoot(DirectoryDetailPage)
           ],
