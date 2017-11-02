@@ -7,7 +7,7 @@ import {
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { ApiServiceProvider } from '../api.service/api.service';
-import { UsersInjectionToken } from '../../app/app-config';
+import { ProfilesInjectionToken } from '../../app/app-config';
 
 describe('ApiServiceProvider', () => {
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('ApiServiceProvider', () => {
       providers: [
         ApiServiceProvider,
         { provide: XHRBackend, useClass: MockBackend },
-        { provide: UsersInjectionToken, useValue: '' }
+        { provide: ProfilesInjectionToken, useValue: '' }
       ]
     });
   });

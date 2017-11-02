@@ -6,8 +6,8 @@ export interface ConnectionString {
   url: string;
 }
 
-export const UsersApi: ConnectionString = {
-  name: 'users',
+export const ProfilesApi: ConnectionString = {
+  name: 'profiles',
   url: 'https://randomuser.me/api/?results=10'
 }
-export const UsersInjectionToken = new InjectionToken<ConnectionString>(UsersApi.name);
+export const ProfilesInjectionToken = new InjectionToken<ConnectionString>(ProfilesApi.name);
