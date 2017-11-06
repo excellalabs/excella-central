@@ -1,7 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule, NavController, NavParams} from 'ionic-angular';
-import { DirectoryPage } from '../directory/directory';
-import { LoginPage } from '../login/login';
 
 import { HomePage } from './home';
 import {
@@ -39,7 +37,7 @@ describe('HomePage', () => {
         it('should open DirectoryPage', () => {
           spyOn(component.navCtrl, 'push');
           component.openDirectoryPage();
-          expect(component.navCtrl.push).toHaveBeenCalledWith(DirectoryPage);
+          expect(component.navCtrl.push).toHaveBeenCalledWith('DirectoryPage');
         });
       });
 
@@ -47,7 +45,7 @@ describe('HomePage', () => {
         it('should open LoginPage', () => {
           spyOn(component.navCtrl, 'push');
           component.openLoginPage();
-          expect(component.navCtrl.push).toHaveBeenCalledWith(LoginPage);
+          expect(component.navCtrl.push).toHaveBeenCalledWith('LoginPage');
         });
       });
 
