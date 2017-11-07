@@ -6,37 +6,23 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { DirectoryPage } from '../pages/directory/directory';
-import { LoginPage } from '../pages/login/login';
 import { ComponentsModule } from '../components/components.module';
 import { PipesModule } from '../pipes/pipes.module';
-import { DirectoryDetailPage } from "../pages/directory-detail/directory-detail";
 import { ApiServiceProvider } from '../providers/api.service/api.service';
 import { ProfilesApi, ProfilesInjectionToken } from '../app/app-config';
 
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage,
-    DirectoryPage,
-    LoginPage,
-    DirectoryDetailPage
+    MyApp
   ],
   imports: [
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    ComponentsModule,
-    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage,
-    DirectoryPage,
-    LoginPage,
-    DirectoryDetailPage
+    MyApp
   ],
   providers: [
     StatusBar,

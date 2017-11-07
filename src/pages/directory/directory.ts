@@ -2,14 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ApiServiceProvider } from '../../providers/api.service/api.service';
 import { Profile, generateFullName } from '../../models/profile/profile';
-import { DirectoryDetailPage } from "../directory-detail/directory-detail";
-
-/**
- * Generated class for the DirectoryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -34,7 +26,7 @@ export class DirectoryPage {
   }
 
   goToDirectoryDetail(profile){
-    this.navCtrl.push(DirectoryDetailPage, { profile: profile });
+    this.navCtrl.push('DirectoryDetailPage', { profile: profile });
   }
 
   getFullName(profile: Profile): string {

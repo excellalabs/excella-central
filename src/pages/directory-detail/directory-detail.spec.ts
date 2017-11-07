@@ -3,7 +3,6 @@ import { IonicModule, NavController, NavParams } from 'ionic-angular';
 import {
   NavMock,
   NavParamsMock,
-  SearchPipeMock,
   ApiServiceProviderMock
 } from '../../../test-config/mocks-ionic';
 import { DirectoryDetailPage } from './directory-detail';
@@ -14,7 +13,7 @@ describe('DirectoryDetailPage', () => {
     let component: DirectoryDetailPage;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-          declarations: [ DirectoryDetailPage, SearchPipeMock ],
+          declarations: [ DirectoryDetailPage ],
           imports: [
             IonicModule.forRoot(DirectoryDetailPage)
           ],
