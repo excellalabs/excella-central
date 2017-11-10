@@ -4,7 +4,7 @@ import {
   NavMock,
   NavParamsMock,
   ApiServiceProviderMock
-} from '../../../test-config/mocks-ionic';
+} from '../../test-config/mocks-ionic';
 import { DirectoryDetailPage } from './directory-detail';
 import { ApiServiceProvider } from '../../providers/api.service/api.service';
 

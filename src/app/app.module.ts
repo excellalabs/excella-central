@@ -10,10 +10,12 @@ import { ComponentsModule } from '../components/components.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { ApiServiceProvider } from '../providers/api.service/api.service';
 import { ProfilesApi, ProfilesInjectionToken } from '../app/app-config';
+import { SearchPipeMock } from '../test-config/mocks-ionic'
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    SearchPipeMock
   ],
   imports: [
     BrowserModule,

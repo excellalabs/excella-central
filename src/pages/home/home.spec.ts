@@ -5,7 +5,7 @@ import { HomePage } from './home';
 import {
   NavMock,
   NavParamsMock
-} from '../../../test-config/mocks-ionic';
+} from '../../test-config/mocks-ionic';
 
 describe('HomePage', () => {
     let component: HomePage;

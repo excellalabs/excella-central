@@ -1,7 +1,7 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Pipe, PipeTransform, Directive, Input } from '@angular/core';
-import { Profile } from '../src/models/profile/profile';
+import { Profile } from '../models/profile/profile';
 
 export class PlatformMock {
   public ready(): Promise<string> {
@@ -123,10 +123,9 @@ export class NavParamsMock {
 
 @Pipe({name: 'search'})
 export class SearchPipeMock implements PipeTransform {
-    transform(value: number): number {
-        //Do stuff here, if you want
-        return value;
-    }
+  transform(value: number): number {
+    return value;
+  }
 }
 
 export class ApiServiceProviderMock {
