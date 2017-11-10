@@ -1,6 +1,6 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Pipe, PipeTransform, Directive, Input } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { Profile } from '../models/profile/profile';
 
 export class PlatformMock {

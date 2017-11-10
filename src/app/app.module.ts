@@ -6,8 +6,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { MyApp } from './app.component';
-import { ComponentsModule } from '../components/components.module';
-import { PipesModule } from '../pipes/pipes.module';
 import { ApiServiceProvider } from '../providers/api.service/api.service';
 import { ProfilesApi, ProfilesInjectionToken } from '../app/app-config';
 import { SearchPipeMock } from '../test-config/mocks-ionic'
