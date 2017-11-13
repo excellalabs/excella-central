@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {App, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import { Profile } from '../../models/profile/profile';
 
 @IonicPage()
@@ -8,13 +8,23 @@ import { Profile } from '../../models/profile/profile';
   templateUrl: 'directory-detail.html',
 })
 export class DirectoryDetailPage {
-  profile: Profile;
+  profile: Profile = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     if (navParams.get('profile') !== undefined) {
       this.profile = navParams.get('profile');
     } else {
-      this.profile = new Profile('test', 'test', 'test', 'test', 'test', 'test');
+      let toast = toastCtrl.create({
+        message: "Sorry, this profile could not be loaded.",
+        duration: 3000,
+        showCloseButton: true,
+        dismissOnPageChange: true
+      });
+      toast.onDidDismiss(() => {
+        this.navCtrl.push('DirectoryPage');
+      });
+      toast.present();
+
     }
   }
 }

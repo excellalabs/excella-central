@@ -2,13 +2,15 @@ import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Profile } from '../../models/profile/profile';
-import { ConnectionString, ProfilesInjectionToken } from '../../app/app-config';
+import {ConnectionString, LoginInjectionToken, ProfilesInjectionToken} from '../../app/app-config';
 
 @Injectable()
 export class ApiServiceProvider {
   constructor(
     private http: Http,
-    @Inject(ProfilesInjectionToken) private profilesApi: ConnectionString) {
+    @Inject(ProfilesInjectionToken) private profilesApi: ConnectionString,
+    @Inject(LoginInjectionToken) private loginApi: ConnectionString
+    ) {
   }
 
   async getProfiles(): Promise<Profile[]> {
@@ -27,5 +29,17 @@ export class ApiServiceProvider {
       });
     });
     return profiles;
+  }
+
+  async checkLogin(username: String, password: String): Promise<boolean> {
+    let loginValid = false;
+    await this.http.post(
+      this.loginApi.url,
+      {username: username, password: password}
+    ).subscribe(data => {
+      //handle login
+      loginValid = true;
+    });
+    return loginValid;
   }
 }

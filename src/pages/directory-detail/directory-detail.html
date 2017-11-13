@@ -14,14 +14,22 @@
 
 
 <ion-content padding >
-  <ion-grid>
+  <ion-grid *ngIf="profile != null">
     <ion-row>
-      <ion-col col-4>
-        <img class="profile-icon" style="height:auto; width:100%;" [src]="profile.avatarUrl" />
-      </ion-col>
-      <ion-col col-8 text-start class="header-detail">
-        <h3 class="name">{{ profile.firstName }} {{ profile.lastName }}</h3>
-        <h5 class="role">{{ profile.primarySkill }}</h5>
+      <ion-col col-12 text-start class="header-detail">
+        <ion-card>
+          <ion-avatar item-start item-left>
+            <img src="{{profile.avatarUrl}}"/>
+          </ion-avatar>
+          <ion-item>
+            <h1>{{ profile.firstName }} {{ profile.lastName }}</h1>
+            <br />
+            <h2>{{ profile.primarySkill }}</h2>
+          </ion-item>
+        </ion-card>
+
+
+
       </ion-col>
     </ion-row>
     <ion-row>
