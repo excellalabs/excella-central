@@ -10,7 +10,7 @@ import {ApiServiceProvider} from "../../providers/api.service/api.service";
 })
 export class LoginPage {
   private userForm: FormGroup;
-  constructor(private toastCtrl: ToastController, private formBuilder: FormBuilder, private apiServiceProvider: ApiServiceProvider) {
+  constructor(public toastCtrl: ToastController, private formBuilder: FormBuilder, private apiServiceProvider: ApiServiceProvider) {
     this.userForm = this.formBuilder.group({
       username: ['', Validators.required],
       password:['', [Validators.required, Validators.minLength(6)]]

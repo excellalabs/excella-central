@@ -10,11 +10,11 @@ import { Profile } from '../../models/profile/profile';
 export class DirectoryDetailPage {
   profile: Profile = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController) {
     if (navParams.get('profile') !== undefined) {
       this.profile = navParams.get('profile');
     } else {
-      let toast = toastCtrl.create({
+      let toast = this.toastCtrl.create({
         message: "Sorry, this profile could not be loaded.",
         duration: 3000,
         showCloseButton: true,

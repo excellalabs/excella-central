@@ -18,9 +18,9 @@
 
 <ion-content padding>
   <h3>Excella Central</h3>
-  <button *ngIf="!loggedIn" ion-button color="primary" (click)="openLoginPage()">Login</button>
+  <button class="main-button" *ngIf="!loggedIn" ion-button color="primary" (click)="openLoginPage()">Login</button>
   <br />
-  <button ion-button color="primary" outline (click)="openDirectoryPage()">View Directory</button>
+  <button class="main-button" ion-button color="primary" outline (click)="openDirectoryPage()">View Directory</button>
   <br />
   <button *ngIf="loggedIn" ion-button (click)="logoutUser()">Logout</button>
 

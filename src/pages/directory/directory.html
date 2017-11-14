@@ -12,8 +12,8 @@
 
 </ion-header>
 
-<ion-content padding>
-  <ion-input type="text" [(ngModel)]="searchText" placeholder="Search"></ion-input>
+<ion-content>
+  <ion-searchbar [(ngModel)]="searchText"></ion-searchbar>
   <ion-list>
     <button ion-item *ngFor="let profile of profiles | async | search: searchText" (click)="goToDirectoryDetail(profile)">
       <ion-avatar item-start>
