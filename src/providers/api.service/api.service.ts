@@ -7,14 +7,14 @@ import {ConnectionString, LoginInjectionToken, ProfilesInjectionToken} from '../
 @Injectable()
 export class ApiServiceProvider {
   constructor(
-    private http: Http,
-    @Inject(ProfilesInjectionToken) private profilesApi: ConnectionString,
-    @Inject(LoginInjectionToken) private loginApi: ConnectionString
+    public http: Http,
+    @Inject(ProfilesInjectionToken) public profilesApi: ConnectionString,
+    @Inject(LoginInjectionToken) public loginApi: ConnectionString
     ) {
   }
 
   async getProfiles(): Promise<Profile[]> {
-    let profiles = new Array<Profile>();
+    let profiles = [];
     await this.http.get(this.profilesApi.url).subscribe(data => {
       data.json().forEach(profile => {
         profiles.push({
