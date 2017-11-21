@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {App, IonicModule, NavController, NavParams, ToastController} from 'ionic-angular';
+import { IonicModule, NavController, NavParams } from 'ionic-angular';
 import {
   NavMock,
   NavParamsMock,
@@ -18,9 +18,9 @@ describe('DirectoryDetailPage', () => {
         IonicModule.forRoot(DirectoryDetailPage)
       ],
       providers: [
-        {provide: NavController, useClass: NavMock},
-        {provide: NavParams, useClass: NavParamsMock},
-        {provide: ApiServiceProvider, useClass: ApiServiceProviderMock}
+        { provide: NavController, useClass: NavMock },
+        { provide: NavParams, useClass: NavParamsMock },
+        { provide: ApiServiceProvider, useClass: ApiServiceProviderMock }
       ]
     });
   }));

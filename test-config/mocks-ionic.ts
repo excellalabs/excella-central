@@ -1,6 +1,6 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Pipe, PipeTransform, Directive, Input } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { Profile } from '../src/models/profile/profile';
 
 export class PlatformMock {
@@ -83,13 +83,13 @@ export class SplashScreenMock extends SplashScreen {
 export class NavMock {
 
   public pop(): any {
-    return new Promise(function(resolve: Function): void {
+    return new Promise(function (resolve: Function): void {
       resolve();
     });
   }
 
   public push(): any {
-    return new Promise(function(resolve: Function): void {
+    return new Promise(function (resolve: Function): void {
       resolve();
     });
   }
@@ -107,31 +107,31 @@ export class NavMock {
   }
 
   public registerChildNav(nav: any): void {
-    return ;
+    return;
   }
 
 }
 
 export class NavParamsMock {
-    data = {
-    };
+  data = {};
 
-    get(param){
-      return this.data[param];
-    }
+  get(param) {
+    return this.data[param];
+  }
 }
 
-@Pipe({name: 'search'})
+@Pipe({ name: 'search' })
 export class SearchPipeMock implements PipeTransform {
-    transform(value: number): number {
-        //Do stuff here, if you want
-        return value;
-    }
+  transform(value: number): number {
+    //Do stuff here, if you want
+    return value;
+  }
 }
 
 export class ApiServiceProviderMock {
   getProfiles() {
-    return new Promise<Profile[]>((resolve, reject) => {});
+    return new Promise<Profile[]>((resolve, reject) => {
+    });
   }
 }
 
