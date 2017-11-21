@@ -7,7 +7,7 @@ import {Http} from "@angular/http";
 @IonicPage()
 @Component({
   selector: 'page-login',
-  providers:[ApiServiceProvider,Http],
+  providers:[ApiServiceProvider],
   templateUrl: 'login.html',
 })
 export class LoginPage {
