@@ -1,7 +1,5 @@
 import {TestBed, inject} from '@angular/core/testing';
 import {
-  BaseRequestOptions,
-  Http,
   HttpModule,
   Response,
   ResponseOptions,
@@ -20,10 +18,7 @@ describe('ApiServiceProvider', () => {
         ApiServiceProvider,
         {provide: XHRBackend, useClass: MockBackend},
         {provide: ProfilesInjectionToken, useValue: ''},
-        {provide: LoginInjectionToken, useValue: ''},
-        {provide: Http, useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {
-          return new Http(backendInstance, defaultOptions);
-        }, deps: [MockBackend, BaseRequestOptions]}
+        {provide: LoginInjectionToken, useValue: ''}
       ]
     });
   });
