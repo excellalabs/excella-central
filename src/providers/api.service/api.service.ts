@@ -2,15 +2,14 @@ import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Profile } from '../../models/profile/profile';
-import {ConnectionString, LoginInjectionToken, ProfilesInjectionToken} from '../../app/app-config';
+import { ConnectionString, LoginInjectionToken, ProfilesInjectionToken } from '../../app/app-config';
+
 
 @Injectable()
 export class ApiServiceProvider {
-  constructor(
-    public http: Http,
-    @Inject(ProfilesInjectionToken) public profilesApi: ConnectionString,
-    @Inject(LoginInjectionToken) public loginApi: ConnectionString
-    ) {
+  constructor(public http: Http,
+              @Inject(ProfilesInjectionToken) public profilesApi: ConnectionString,
+              @Inject(LoginInjectionToken) public loginApi: ConnectionString) {
   }
 
   async getProfiles(): Promise<Profile[]> {
@@ -31,15 +30,19 @@ export class ApiServiceProvider {
     return profiles;
   }
 
-  async checkLogin(username: String, password: String): Promise<boolean> {
-    let loginValid = false;
-    await this.http.post(
-      this.loginApi.url,
-      {username: username, password: password}
-    ).subscribe(data => {
-      //handle login
-      loginValid = true;
-    });
-    return loginValid;
+  checkLogin(username: String, password: String, loginCallback) {
+    this.http.post(this.loginApi.url, { username: username, password: password })
+      .subscribe(data => {
+          //handle login
+          loginCallback(true);
+        },
+        // this call will always 404 right now, so just hack it together
+        err => {
+          if (username === 'login') {
+            loginCallback(true);
+          } else {
+            loginCallback(false);
+          }
+        });
   }
 }
