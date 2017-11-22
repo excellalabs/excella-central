@@ -6,10 +6,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { MyApp } from './app.component';
-import { ComponentsModule } from '../components/components.module';
-import { PipesModule } from '../pipes/pipes.module';
 import { ApiServiceProvider } from '../providers/api.service/api.service';
-import { ProfilesApi, ProfilesInjectionToken } from '../app/app-config';
+import { LoginApi, LoginInjectionToken, ProfilesApi, ProfilesInjectionToken } from '../app/app-config';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -18,6 +17,7 @@ import { ProfilesApi, ProfilesInjectionToken } from '../app/app-config';
   imports: [
     BrowserModule,
     HttpModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -29,7 +29,9 @@ import { ProfilesApi, ProfilesInjectionToken } from '../app/app-config';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ApiServiceProvider,
-    { provide: ProfilesInjectionToken, useValue: ProfilesApi }
+    { provide: ProfilesInjectionToken, useValue: ProfilesApi },
+    { provide: LoginInjectionToken, useValue: LoginApi }
   ]
 })
-export class AppModule {}
+export class AppModule {
+}

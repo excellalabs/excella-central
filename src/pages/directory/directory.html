@@ -12,15 +12,15 @@
 
 </ion-header>
 
-<ion-content padding>
-  <input [(ngModel)]="searchText" placeholder="Search" id="search-input" float-left>
+<ion-content>
+  <ion-searchbar [(ngModel)]="searchText"></ion-searchbar>
   <ion-list>
     <button ion-item *ngFor="let profile of profiles | async | search: searchText" (click)="goToDirectoryDetail(profile)">
       <ion-avatar item-start>
         <img src="{{profile.avatarUrl}}"/>
       </ion-avatar>
       {{getFullName(profile)}}
-      <div class="item-note" item-end>
+      <div item-end>
         {{profile.primarySkill}}
       </div>
     </button>

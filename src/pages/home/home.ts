@@ -7,7 +7,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'home.html',
 })
 export class HomePage {
-  loggedIn=false;
+  loggedIn = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -20,9 +20,9 @@ export class HomePage {
     this.navCtrl.push('LoginPage');
   }
 
-  logoutUser(){
+  logoutUser() {
     console.log("User logged out");
-    this.loggedIn=false;
+    this.loggedIn = false;
   }
 }
 

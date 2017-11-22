@@ -1,23 +1,24 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {TestBed, inject} from '@angular/core/testing';
 import {
   HttpModule,
   Response,
   ResponseOptions,
   XHRBackend
 } from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
-import { ApiServiceProvider } from '../api.service/api.service';
-import { ProfilesInjectionToken } from '../../app/app-config';
-import { Profile } from '../../models/profile/profile';
+import {MockBackend} from '@angular/http/testing';
+import {ApiServiceProvider} from '../api.service/api.service';
+import {LoginInjectionToken, ProfilesInjectionToken} from '../../app/app-config';
+import {Profile} from '../../models/profile/profile';
 
 describe('ApiServiceProvider', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpModule ],
+      imports: [HttpModule],
       providers: [
         ApiServiceProvider,
-        { provide: XHRBackend, useClass: MockBackend },
-        { provide: ProfilesInjectionToken, useValue: '' }
+        {provide: XHRBackend, useClass: MockBackend},
+        {provide: ProfilesInjectionToken, useValue: ''},
+        {provide: LoginInjectionToken, useValue: ''}
       ]
     });
   });
@@ -25,7 +26,7 @@ describe('ApiServiceProvider', () => {
   describe('getProfiles', () => {
     it('should return a promise with an array of profiles',
       inject([ApiServiceProvider, XHRBackend], (apiServiceProvider, mockBackend) => {
-      const mockResponse = [
+        const mockResponse = [
           this.createMockProfile("0"),
           this.createMockProfile("1"),
           this.createMockProfile("2"),
@@ -43,7 +44,7 @@ describe('ApiServiceProvider', () => {
           expect(profiles[2].firstName).toEqual('Profile 2');
           expect(profiles[3].firstName).toEqual('Profile 3');
         });
-    }));
+      }));
   });
 });
 

@@ -8,13 +8,26 @@ import { Profile } from '../../models/profile/profile';
   templateUrl: 'directory-detail.html',
 })
 export class DirectoryDetailPage {
-  profile: Profile;
+  profile: Profile = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams/*, public toastCtrl: ToastController*/) {
     if (navParams.get('profile') !== undefined) {
       this.profile = navParams.get('profile');
     } else {
-      this.profile = new Profile('test', 'test', 'test', 'test', 'test', 'test');
+      //TODO: find out why toastCtrl .present() causes tests to fail
+      /*
+      let toast = this.toastCtrl.create({
+        message: "Sorry, this profile could not be loaded.",
+        duration: 3000,
+        showCloseButton: true,
+        dismissOnPageChange: true
+      });
+      toast.onDidDismiss(() => {
+        this.navCtrl.push('DirectoryPage');
+      });
+      toast.present();
+      */
+      this.navCtrl.push('DirectoryPage');
     }
   }
 }
