@@ -1,44 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
-import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { DirectoryPage } from '../pages/directory/directory';
-import { LoginPage } from '../pages/login/login';
-import { ComponentsModule } from '../components/components.module';
-import { PipesModule } from '../pipes/pipes.module';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { MyApp } from './app.component';
+import { ApiServiceProvider } from '../providers/api.service/api.service';
+import { LoginApi, LoginInjectionToken, ProfilesApi, ProfilesInjectionToken } from '../app/app-config';
+import { HttpClientModule } from "@angular/common/http";
+
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage,
-    DirectoryPage,
-    LoginPage
+    MyApp
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
-    ComponentsModule,
-    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage,
-    DirectoryPage,
-    LoginPage
+    MyApp
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
-  ],
-  schemas: [
-    NO_ERRORS_SCHEMA
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    ApiServiceProvider,
+    { provide: ProfilesInjectionToken, useValue: ProfilesApi },
+    { provide: LoginInjectionToken, useValue: LoginApi }
   ]
 })
-export class AppModule {}
+export class AppModule {
+}

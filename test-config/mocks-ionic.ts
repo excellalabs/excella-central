@@ -1,6 +1,7 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Pipe, PipeTransform, Component, Directive, Input } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
+import { Profile } from '../src/models/profile/profile';
 
 export class PlatformMock {
   public ready(): Promise<string> {
@@ -80,19 +81,19 @@ export class SplashScreenMock extends SplashScreen {
 }
 
 export class NavMock {
- 
+
   public pop(): any {
-    return new Promise(function(resolve: Function): void {
+    return new Promise(function (resolve: Function): void {
       resolve();
     });
   }
- 
+
   public push(): any {
-    return new Promise(function(resolve: Function): void {
+    return new Promise(function (resolve: Function): void {
       resolve();
     });
   }
- 
+
   public getActive(): any {
     return {
       'instance': {
@@ -100,40 +101,38 @@ export class NavMock {
       },
     };
   }
- 
+
   public setRoot(): any {
     return true;
   }
 
   public registerChildNav(nav: any): void {
-    return ;
+    return;
   }
 
 }
 
 export class NavParamsMock {
-    data = {
-    };
-  
-    get(param){
-      return this.data[param];
-    }
+  data = {};
+
+  get(param) {
+    return this.data[param];
+  }
 }
 
-@Pipe({name: 'search'})
+@Pipe({ name: 'search' })
 export class SearchPipeMock implements PipeTransform {
-    transform(value: number): number {
-        //Do stuff here, if you want
-        return value;
-    }
+  transform(value: number): number {
+    //Do stuff here, if you want
+    return value;
+  }
 }
 
-@Directive({
-  selector: 'employee-card'
-})
-export class EmployeeCardComponentMock {
-  @Input()
-  employee: any;
+export class ApiServiceProviderMock {
+  getProfiles() {
+    return new Promise<Profile[]>((resolve, reject) => {
+    });
+  }
 }
 
 export class DeepLinkerMock {

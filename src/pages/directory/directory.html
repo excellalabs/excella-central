@@ -12,12 +12,17 @@
 
 </ion-header>
 
-
-<ion-content padding>
-  <input [(ngModel)]="searchText" placeholder="Search">
+<ion-content>
+  <ion-searchbar [(ngModel)]="searchText"></ion-searchbar>
   <ion-list>
-    <div ion-item *ngFor="let employee of employees | search: searchText" (click)="goToDirectoryDetail(employee)">
-    <employee-card [employee]="employee"></employee-card>
-    </div>
+    <button ion-item *ngFor="let profile of profiles | async | search: searchText" (click)="goToDirectoryDetail(profile)">
+      <ion-avatar item-start>
+        <img src="{{profile.avatarUrl}}"/>
+      </ion-avatar>
+      {{getFullName(profile)}}
+      <div item-end>
+        {{profile.primarySkill}}
+      </div>
+    </button>
   </ion-list>
 </ion-content>

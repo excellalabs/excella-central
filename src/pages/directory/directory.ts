@@ -1,12 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the DirectoryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {ApiServiceProvider} from '../../providers/api.service/api.service';
+import {Profile, generateFullName} from '../../models/profile/profile';
 
 @IonicPage()
 @Component({
@@ -14,20 +9,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'directory.html',
 })
 export class DirectoryPage {
+  profiles: Promise<Profile[]>;
+  generateFullName = generateFullName;
   searchText: string;
-  employees = [
-    {firstName: 'Barbra', lastName:  'Striesand', avatarUrl: "https://randomuser.me/api/portraits/thumb/men/83.jpg"},
-    {firstName: 'John', lastName:  'Doe', avatarUrl: "https://randomuser.me/api/portraits/thumb/men/83.jpg"}
-  ]
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.searchText = "";
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private apiServiceProvider: ApiServiceProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DirectoryPage');
+    this.searchText = "";
+    this.profiles = this.getProfiles();
   }
 
-  goToDirectoryDetail(employee){
-    //this.navCtrl.push("" , employee)
+  async getProfiles() {
+    return await this.apiServiceProvider.getProfiles();
+  }
+
+  goToDirectoryDetail(profile) {
+    this.navCtrl.push('DirectoryDetailPage', {profile: profile});
+  }
+
+  getFullName(profile: Profile): string {
+    return generateFullName(profile.firstName, profile.lastName);
   }
 }

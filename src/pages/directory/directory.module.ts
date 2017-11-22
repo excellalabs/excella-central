@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
+
 import { DirectoryPage } from './directory';
-import { SearchPipe } from '../../pipes/search/search';
-import { EmployeeCardComponent } from '../../components/employee-card/employee-card';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   declarations: [
-    SearchPipe,
-    EmployeeCardComponent
+    DirectoryPage
   ],
   imports: [
+    IonicPageModule.forChild(DirectoryPage),
+    PipesModule
   ],
+  exports: [
+    DirectoryPage
+  ]
 })
 export class DirectoryPageModule {}

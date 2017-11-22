@@ -1,14 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { DirectoryPage } from '../directory/directory';
-import { LoginPage } from '../login/login'
-
-/**
- * Generated class for the HomePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -16,22 +7,22 @@ import { LoginPage } from '../login/login'
   templateUrl: 'home.html',
 })
 export class HomePage {
-  loggedIn=false;
+  loggedIn = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   openDirectoryPage() {
-    this.navCtrl.push(DirectoryPage);
+    this.navCtrl.push('DirectoryPage');
   }
 
   openLoginPage() {
-    this.navCtrl.push(LoginPage);
+    this.navCtrl.push('LoginPage');
   }
 
-  logoutUser(){
+  logoutUser() {
     console.log("User logged out");
-    this.loggedIn=false;
+    this.loggedIn = false;
   }
 }
 
