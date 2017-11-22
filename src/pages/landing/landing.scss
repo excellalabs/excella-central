@@ -1,0 +1,11 @@
+ion-content{
+  text-align:center;
+  h3{
+    margin-top:35px !important;
+  }
+  button.main-button{
+    width:calc(100% - 60px);
+    max-width:800px;
+    margin:10px 0 !important;
+  }
+}
