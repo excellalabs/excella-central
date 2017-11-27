@@ -12,6 +12,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   pages: Array<{ title: string; component: any }>;
   rootPage: any;
+  rememberUser: boolean;
 
   constructor(
     public platform: Platform,
@@ -21,6 +22,7 @@ export class MyApp {
     public storage: Storage
   ) {
     this.storage.get('rememberUser').then(rememberUser => {
+      this.rememberUser = rememberUser;
       if (rememberUser) {
         this.rootPage = 'HomePage';
       } else {
@@ -44,7 +46,7 @@ export class MyApp {
   }
 
   openPage(page) {
-    if (page.title === 'Landing') {
+    if (page.title === 'Landing' || page.title === 'Home') {
       this.nav.setRoot(page.component);
     } else {
       this.nav.push(page.component);
