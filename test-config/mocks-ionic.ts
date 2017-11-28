@@ -5,7 +5,7 @@ import { Profile } from '../src/models/profile/profile';
 
 export class PlatformMock {
   public ready(): Promise<string> {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       resolve('READY');
     });
   }
@@ -15,7 +15,7 @@ export class PlatformMock {
   }
 
   public registerBackButtonAction(fn: Function, priority?: number): Function {
-    return (() => true);
+    return () => true;
   }
 
   public hasFocus(ele: HTMLElement): boolean {
@@ -35,7 +35,7 @@ export class PlatformMock {
       paddingLeft: '10',
       paddingTop: '10',
       paddingRight: '10',
-      paddingBottom: '10',
+      paddingBottom: '10'
     };
   }
 
@@ -43,8 +43,12 @@ export class PlatformMock {
     return callback;
   }
 
-  public registerListener(ele: any, eventName: string, callback: any): Function {
-    return (() => true);
+  public registerListener(
+    ele: any,
+    eventName: string,
+    callback: any
+  ): Function {
+    return () => true;
   }
 
   public win(): Window {
@@ -81,24 +85,23 @@ export class SplashScreenMock extends SplashScreen {
 }
 
 export class NavMock {
-
   public pop(): any {
-    return new Promise(function (resolve: Function): void {
+    return new Promise(function(resolve: Function): void {
       resolve();
     });
   }
 
   public push(): any {
-    return new Promise(function (resolve: Function): void {
+    return new Promise(function(resolve: Function): void {
       resolve();
     });
   }
 
   public getActive(): any {
     return {
-      'instance': {
-        'model': 'something',
-      },
+      instance: {
+        model: 'something'
+      }
     };
   }
 
@@ -109,7 +112,6 @@ export class NavMock {
   public registerChildNav(nav: any): void {
     return;
   }
-
 }
 
 export class NavParamsMock {
@@ -123,18 +125,20 @@ export class NavParamsMock {
 @Pipe({ name: 'search' })
 export class SearchPipeMock implements PipeTransform {
   transform(value: number): number {
-    //Do stuff here, if you want
     return value;
   }
 }
 
 export class ApiServiceProviderMock {
   getProfiles() {
-    return new Promise<Profile[]>((resolve, reject) => {
-    });
+    return new Promise<Profile[]>((resolve, reject) => {});
   }
 }
 
-export class DeepLinkerMock {
-
+export class StorageMock {
+  get(param) {
+    new Promise((resolve, reject) => {});
+  }
 }
+
+export class DeepLinkerMock {}

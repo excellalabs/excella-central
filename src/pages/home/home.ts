@@ -16,10 +16,6 @@ export class HomePage {
     this.navCtrl.push('DirectoryPage');
   }
 
-  openLoginPage() {
-    this.navCtrl.push('LoginPage');
-  }
-
   logoutUser() {
     console.log("User logged out");
     this.loggedIn = false;

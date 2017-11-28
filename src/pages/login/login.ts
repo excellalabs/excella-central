@@ -1,19 +1,23 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ApiServiceProvider } from "../../providers/api.service/api.service";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiServiceProvider } from '../../providers/api.service/api.service';
 
 @IonicPage()
 @Component({
   selector: 'page-login',
   providers: [ApiServiceProvider],
-  templateUrl: 'login.html',
+  templateUrl: 'login.html'
 })
 export class LoginPage {
   private userForm: FormGroup;
 
-  constructor(public navCtrl: NavController, private formBuilder: FormBuilder, private apiServiceProvider: ApiServiceProvider) {
-
+  constructor(
+    /*public toastCtrl: ToastController, */
+    private navCtrl: NavController,
+    private formBuilder: FormBuilder,
+    private apiServiceProvider: ApiServiceProvider
+  ) {
     this.userForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -21,9 +25,7 @@ export class LoginPage {
   }
 
   loginUser() {
-
-
-    this.apiServiceProvider.checkLogin(
+    this.apiServiceProvider.login(
       this.userForm.value.username,
       this.userForm.value.password,
       this.handleLogin.bind(this)
@@ -34,9 +36,8 @@ export class LoginPage {
     if (isValid) {
       // save login credentials
       console.log('valid login');
-      this.navCtrl.push('HomePage');
+      this.navCtrl.setRoot('HomePage');
     } else {
-      // this.navCtrl.push('SplashScreen');
       console.log('invalid login');
       //TODO: find out why toastCtrl .present() causes tests to fail
       /*
