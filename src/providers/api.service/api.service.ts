@@ -49,6 +49,7 @@ export class ApiServiceProvider {
         err => {
           if (username === 'login') {
             loginCallback(true);
+            this.storage.set('rememberUser', true);
           } else {
             loginCallback(false);
           }
