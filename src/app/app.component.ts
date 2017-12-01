@@ -34,7 +34,8 @@ export class MyApp {
 
     this.pages = [
       { title: 'Home', component: 'HomePage' },
-      { title: 'Directory', component: 'DirectoryPage' }
+      { title: 'Directory', component: 'DirectoryPage' },
+      { title: 'Faceoff', component: 'FaceoffPage' }
     ];
   }
 

@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { Profile } from '../../models/profile/profile';
+//import { Profile } from '../../models/profile/profile';
 import {
   ConnectionString,
   LoginInjectionToken,
@@ -18,22 +18,14 @@ export class ApiServiceProvider {
     @Inject(LoginInjectionToken) public loginApi: ConnectionString
   ) {}
 
-  async getProfiles(): Promise<Profile[]> {
+  async getProfiles() {
+    var that = this;
     let profiles = [];
-    await this.http.get(this.profilesApi.url).subscribe(data => {
-      data.json().forEach(profile => {
-        profiles.push({
-          id: profile.id,
-          firstName: profile.firstName,
-          lastName: profile.lastName,
-          avatarUrl: profile.avatarUrl,
-          primarySkill: profile.primarySkill,
-          client: profile.client,
-          funFact: profile.funFact
-        });
+    return new Promise(function(resolve) {
+      that.http.get(that.profilesApi.url).subscribe(data => {
+        resolve(data.json());
       });
     });
-    return profiles;
   }
 
   login(username: string, password: string, loginCallback) {
