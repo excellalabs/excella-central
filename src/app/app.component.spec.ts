@@ -45,9 +45,9 @@ describe('MyApp Component', () => {
     expect(component instanceof MyApp).toBe(true);
   });
 
-  it('should have two pages', () => {
+  it('should have three pages', () => {
     loadHomePageMock(storage);
-    expect(component.pages.length).toBe(2);
+    expect(component.pages.length).toBe(3);
   });
 });
 
