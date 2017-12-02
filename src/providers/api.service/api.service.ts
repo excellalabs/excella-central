@@ -20,7 +20,6 @@ export class ApiServiceProvider {
 
   async getProfiles() {
     var that = this;
-    let profiles = [];
     return new Promise(function(resolve) {
       that.http.get(that.profilesApi.url).subscribe(data => {
         resolve(data.json());
