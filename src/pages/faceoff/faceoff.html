@@ -10,13 +10,15 @@
 
 
 <ion-content>
-  <ion-card>
-    <ion-avatar item-start item-left>
-      <img src="{{correctProfile?.avatarUrl}}" />
+  <ion-card class="faceoff-card">
+    <ion-avatar>
+      <img class="faceoff-photo" src="{{correctProfile?.avatarUrl}}" />
     </ion-avatar>
   </ion-card>
   <ng-container *ngFor="let profile of profilesForQuestion">
-    <button class="main-button" ion-button [color]="profile.buttonColor" outline (click)="answer(profile)">{{profile.firstName + " " + profile.lastName}}</button>
+    <button class="faceoff-button" ion-button [color]="profile.buttonColor" [outline]="!profile.showSolidButton" (click)="answer(profile)">
+      {{profile.firstName + " " + profile.lastName}}
+    </button>
   </ng-container>
 
 </ion-content>

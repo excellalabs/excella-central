@@ -8,6 +8,7 @@ import {
   ProfilesInjectionToken
 } from '../../app/app-config';
 import { Storage } from '@ionic/storage';
+import { Profile } from '../../models/profile/profile';
 
 @Injectable()
 export class ApiServiceProvider {
@@ -18,9 +19,9 @@ export class ApiServiceProvider {
     @Inject(LoginInjectionToken) public loginApi: ConnectionString
   ) {}
 
-  async getProfiles() {
+  async getProfiles(): Promise<Profile[]> {
     var that = this;
-    return new Promise(function(resolve) {
+    return new Promise<Profile[]>(resolve => {
       that.http.get(that.profilesApi.url).subscribe(data => {
         resolve(data.json());
       });

@@ -6,6 +6,8 @@ export class Profile {
   primarySkill?: string;
   client?: string;
   funFact?: string;
+  buttonColor?: string;
+  showSolidButton?: boolean;
 
   constructor(
     firstName: string,
@@ -13,14 +15,15 @@ export class Profile {
     avatarUrl: string,
     primarySkill?: string,
     client?: string,
-    funFact?: string) {
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.avatarUrl = avatarUrl || '';
-      this.primarySkill = primarySkill;
-      this.client = client;
-      this.funFact = funFact;
-    }
+    funFact?: string
+  ) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.avatarUrl = avatarUrl || '';
+    this.primarySkill = primarySkill;
+    this.client = client;
+    this.funFact = funFact;
+  }
 }
 
 export function generateFullName(firstName: string, lastName: string) {
