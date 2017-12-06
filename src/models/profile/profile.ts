@@ -3,9 +3,9 @@ export class Profile {
   firstName: string;
   lastName: string;
   avatarUrl?: string;
-  primarySkill?: string;
+  primarySkillset?: string;
   client?: string;
-  funFact?: string;
+  serviceArea?: string;
   buttonColor?: string;
   showSolidButton?: boolean;
 
@@ -13,16 +13,16 @@ export class Profile {
     firstName: string,
     lastName: string,
     avatarUrl: string,
-    primarySkill?: string,
+    primarySkillset?: string,
     client?: string,
-    funFact?: string
+    serviceArea?: string
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.avatarUrl = avatarUrl || '';
-    this.primarySkill = primarySkill;
+    this.primarySkillset = primarySkillset;
     this.client = client;
-    this.funFact = funFact;
+    this.serviceArea = serviceArea;
   }
 }
 

@@ -3,22 +3,29 @@
   <ion-navbar>
     <ion-title>Faceoff</ion-title>
   </ion-navbar>
-  <ion-toolbar color="primary">
+  <ion-toolbar *ngIf="totalQuestions > answeredQuestions" color="primary">
     <ion-title>Score: {{correctAnswers}}/{{answeredQuestions}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
-  <ion-card class="faceoff-card">
-    <ion-avatar>
-      <img class="faceoff-photo" src="{{correctProfile?.avatarUrl}}" />
-    </ion-avatar>
-  </ion-card>
-  <ng-container *ngFor="let profile of profilesForQuestion">
-    <button class="faceoff-button" ion-button [color]="profile.buttonColor" [outline]="!profile.showSolidButton" (click)="answer(profile)">
-      {{profile.firstName + " " + profile.lastName}}
+  <ng-container *ngIf="totalQuestions > answeredQuestions">
+    <ion-card class="faceoff-card">
+      <ion-avatar>
+        <img class="faceoff-photo" src="{{correctProfile?.avatarUrl}}" />
+      </ion-avatar>
+    </ion-card>
+    <ng-container *ngFor="let profile of profilesForQuestion">
+      <button class="faceoff-button" ion-button [color]="profile.buttonColor" [outline]="!profile.showSolidButton" (click)="answer(profile)">
+        {{profile.firstName + " " + profile.lastName}}
+      </button>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="answeredQuestions >= totalQuestions">
+    <h3>Score: {{correctAnswers}}/{{answeredQuestions}}</h3>
+    <button class="faceoff-button" ion-button color="primary" (click)="startNewGame()">
+      Play Again
     </button>
   </ng-container>
-
 </ion-content>

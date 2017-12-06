@@ -12,9 +12,10 @@ export class FaceoffPage {
   profiles: Profile[];
   correctProfile: Profile;
   profilesForQuestion: Profile[];
-  correctAnswers: number = 0;
-  answeredQuestions: number = 0;
+  correctAnswers: number;
+  answeredQuestions: number;
   showSolidButton: boolean;
+  totalQuestions = 10;
 
   constructor(
     public navCtrl: NavController,
@@ -24,6 +25,12 @@ export class FaceoffPage {
 
   async ionViewDidLoad() {
     this.profiles = await this.apiServiceProvider.getProfiles();
+    this.startNewGame();
+  }
+
+  startNewGame() {
+    this.correctAnswers = 0;
+    this.answeredQuestions = 0;
     this.newFaceoffQuestion();
   }
 
@@ -53,8 +60,14 @@ export class FaceoffPage {
     }
     this.answeredQuestions++;
     setTimeout(() => {
-      this.newFaceoffQuestion();
+      this.advanceGame();
     }, 1800);
+  }
+
+  advanceGame() {
+    if (this.answeredQuestions < this.totalQuestions) {
+      this.newFaceoffQuestion();
+    }
   }
 
   getUniqueProfiles(numberOfProfiles) {
