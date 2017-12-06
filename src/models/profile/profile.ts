@@ -3,11 +3,13 @@ export class Profile {
   firstName: string;
   lastName: string;
   avatarUrl?: string;
-  primarySkill?: string;
+  primarySkillset?: string;
   client?: string;
   funFact?: string;
   buttonColor?: string;
   showSolidButton?: boolean;
+  email?: string;
+  serviceArea?: string;
 
   constructor(
     firstName: string,
@@ -15,14 +17,18 @@ export class Profile {
     avatarUrl: string,
     primarySkill?: string,
     client?: string,
-    funFact?: string
+    funFact?: string,
+    email?: string,
+    serviceArea?: string
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.avatarUrl = avatarUrl || '';
-    this.primarySkill = primarySkill;
+    this.primarySkillset = primarySkill;
     this.client = client;
     this.funFact = funFact;
+    this.email = email;
+    this.serviceArea = serviceArea;
   }
 }
 

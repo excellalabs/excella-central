@@ -17,8 +17,6 @@
           </ion-avatar>
           <ion-item>
             <h1>{{ profile.firstName }} {{ profile.lastName }}</h1>
-            <br />
-            <h2>{{ profile.primarySkill }}</h2>
           </ion-item>
         </ion-card>
 
@@ -30,12 +28,20 @@
       <ion-col col-12>
         <ion-list>
           <ion-item text-wrap>
-            Client:
-            <strong>{{ profile.client || 'N/A' }}</strong>
+            Email:
+            <strong>{{ profile.email || 'N/A' }}</strong>
           </ion-item>
           <ion-item text-wrap>
-            Fun Fact:
-            <strong>{{ profile.funFact || 'N/A' }}</strong>
+            Primary Skillset:
+            <strong>{{ profile.primarySkillset || 'N/A' }}</strong>
+          </ion-item>
+          <ion-item text-wrap>
+            Service Area:
+            <strong>{{ profile.serviceArea || 'N/A' }}</strong>
+          </ion-item>
+          <ion-item text-wrap>
+            Client:
+            <strong>{{ profile.client || 'N/A' }}</strong>
           </ion-item>
         </ion-list>
 
