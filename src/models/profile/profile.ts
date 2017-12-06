@@ -5,29 +5,26 @@ export class Profile {
   avatarUrl?: string;
   primarySkillset?: string;
   client?: string;
-  funFact?: string;
+  serviceArea?: string;
   buttonColor?: string;
   showSolidButton?: boolean;
   email?: string;
-  serviceArea?: string;
 
   constructor(
     firstName: string,
     lastName: string,
     avatarUrl: string,
-    primarySkill?: string,
+    primarySkillset?: string,
     client?: string,
-    funFact?: string,
     email?: string,
     serviceArea?: string
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.avatarUrl = avatarUrl || '';
-    this.primarySkillset = primarySkill;
     this.client = client;
-    this.funFact = funFact;
     this.email = email;
+    this.primarySkillset = primarySkillset;
     this.serviceArea = serviceArea;
   }
 }
