@@ -24,7 +24,7 @@ export class FaceoffPage {
   ) {}
 
   async ionViewDidLoad() {
-    this.profiles = await this.profileServiceProvider.getProfiles();
+    this.profiles = await this.profileServiceProvider.getProfilesWithPhotos();
     this.startNewGame();
   }
 

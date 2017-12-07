@@ -8,6 +8,7 @@ import {
 } from '../../app/app-config';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
+import { AccountJson } from './account.service';
 
 @Injectable()
 export class AccountServiceProvider {
@@ -16,7 +17,7 @@ export class AccountServiceProvider {
     private storage: Storage,
     @Inject(ProfilesInjectionToken) public profilesApi: ConnectionString,
     @Inject(AccountsInjectionToken) public accountsApi: ConnectionString
-  ) { }
+  ) {}
 
   async login(email: string, password: string): Promise<boolean> {
     const loginUrl = this.accountsApi.url + '/login';
@@ -26,24 +27,24 @@ export class AccountServiceProvider {
       .toPromise()
       .then(res => res.json())
       .then(
-      data => {
-        this.storage.set('userToken', data.id);
-        return true;
-      },
-      err => {
-        this.storage.set('userToken', null);
-        return false;
-      }
+        data => {
+          this.storage.set('userToken', data.id);
+          this.storage.set('userId', data.userId);
+          return true;
+        },
+        err => {
+          this.storage.set('userToken', null);
+          this.storage.set('userId', null);
+          return false;
+        }
       );
   }
 
   async logout(): Promise<void> {
     const logoutUrl = this.accountsApi.url + '/logout';
-    this.storage
-      .get('userToken')
-      .then(userToken =>
-        this.http.post(logoutUrl, { access_token: userToken })
-      );
+    this.storage.get('userToken').then(userToken => {
+      this.http.post(logoutUrl, { access_token: userToken });
+    });
   }
 
   async register(email: string, password: string): Promise<boolean> {
@@ -53,12 +54,12 @@ export class AccountServiceProvider {
       .toPromise()
       .then(res => res.json())
       .then(
-      data => {
-        return true;
-      },
-      err => {
-        return false;
-      }
+        data => {
+          return true;
+        },
+        err => {
+          return false;
+        }
       );
   }
 }
