@@ -2,8 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule, NavController, NavParams } from 'ionic-angular';
 import {
   NavMock,
-  NavParamsMock,
-  ApiServiceProviderMock
+  NavParamsMock
 } from '../../../test-config/mocks-ionic';
 import { DirectoryDetailPage } from './directory-detail';
 

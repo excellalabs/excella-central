@@ -3,8 +3,7 @@ import { IonicModule, NavController, NavParams } from 'ionic-angular';
 import {
   NavMock,
   NavParamsMock,
-  SearchPipeMock,
-  ApiServiceProviderMock
+  SearchPipeMock
 } from '../../../test-config/mocks-ionic';
 import { FaceoffPage } from './faceoff';
 
