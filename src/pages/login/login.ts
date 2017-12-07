@@ -31,6 +31,7 @@ export class LoginPage {
         if (loggedIn) {
           this.navCtrl.setRoot('HomePage');
         } else {
+          alert('Login failed.'); // replace with something better
           //TODO: find out why toastCtrl .present() causes tests to fail
           /*
           this.toastCtrl.create({
