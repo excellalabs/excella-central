@@ -8,7 +8,7 @@ import {
 } from '../../app/app-config';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
-import { AccountJson } from './account.service';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class AccountServiceProvider {
@@ -61,5 +61,20 @@ export class AccountServiceProvider {
           return false;
         }
       );
+  }
+
+  async getAccount(id: string): Promise<Account[]> {
+    const getAccountByIdUrl = this.accountsApi.url + '/' + id;
+    return new Promise<Account[]>(resolve => {
+      this.storage.get('userToken').then(userToken => {
+        this.http
+          .get(getAccountByIdUrl, {
+            params: new HttpParams().set('access_token', userToken)
+          })
+          .subscribe(data => {
+            resolve(data.json());
+          });
+      });
+    });
   }
 }
