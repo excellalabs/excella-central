@@ -6,9 +6,9 @@ import {
   XHRBackend
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { ApiServiceProvider } from '../api.service/api.service';
+import { ProfileServiceProvider } from '../profile.service/profile.service';
 import {
-  LoginInjectionToken,
+  AccountsInjectionToken,
   ProfilesInjectionToken
 } from '../../app/app-config';
 import { Profile } from '../../models/profile/profile';
@@ -20,10 +20,10 @@ describe('ApiServiceProvider', () => {
     TestBed.configureTestingModule({
       imports: [HttpModule, IonicStorageModule.forRoot()],
       providers: [
-        ApiServiceProvider,
+        ProfileServiceProvider,
         { provide: XHRBackend, useClass: MockBackend },
         { provide: ProfilesInjectionToken, useValue: '' },
-        { provide: LoginInjectionToken, useValue: '' },
+        { provide: AccountsInjectionToken, useValue: '' },
         { provide: Storage, useClass: StorageMock }
       ]
     });
@@ -33,8 +33,8 @@ describe('ApiServiceProvider', () => {
     it(
       'should return a promise with an array of profiles',
       inject(
-        [ApiServiceProvider, XHRBackend],
-        (apiServiceProvider, mockBackend) => {
+        [ProfileServiceProvider, XHRBackend],
+        (profileServiceProvider, mockBackend) => {
           const mockResponse = [
             this.createMockProfile('0'),
             this.createMockProfile('1'),
@@ -50,7 +50,7 @@ describe('ApiServiceProvider', () => {
               )
             );
           });
-          apiServiceProvider.getProfiles().then(profiles => {
+          profileServiceProvider.getProfiles().then(profiles => {
             expect(profiles.length).toBe(4);
             expect(profiles[0].firstName).toEqual('Profile 0');
             expect(profiles[1].firstName).toEqual('Profile 1');

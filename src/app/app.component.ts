@@ -2,8 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { ApiServiceProvider } from '../providers/api.service/api.service';
 import { Storage } from '@ionic/storage';
+import { AccountServiceProvider } from '../providers/account.service/account.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,7 +18,7 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public apiServiceProvider: ApiServiceProvider,
+    public accountServiceProvider: AccountServiceProvider,
     public storage: Storage
   ) {
     this.storage.get('rememberUser').then(rememberUser => {
@@ -55,7 +55,7 @@ export class MyApp {
   }
 
   logout() {
-    this.apiServiceProvider.logout();
+    this.accountServiceProvider.logout();
     this.nav.setRoot('LandingPage');
   }
 }

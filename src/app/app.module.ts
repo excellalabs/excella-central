@@ -7,14 +7,18 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
-import { ApiServiceProvider } from '../providers/api.service/api.service';
-import { LoginApi, LoginInjectionToken, ProfilesApi, ProfilesInjectionToken } from '../app/app-config';
-import { HttpClientModule } from "@angular/common/http";
+import {
+  AccountsApi,
+  AccountsInjectionToken,
+  ProfilesApi,
+  ProfilesInjectionToken
+} from '../app/app-config';
+import { HttpClientModule } from '@angular/common/http';
+import { ProfileServiceProvider } from '../providers/profile.service/profile.service';
+import { AccountServiceProvider } from '../providers/account.service/account.service';
 
 @NgModule({
-  declarations: [
-    MyApp
-  ],
+  declarations: [MyApp],
   imports: [
     BrowserModule,
     HttpModule,
@@ -23,17 +27,15 @@ import { HttpClientModule } from "@angular/common/http";
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp
-  ],
+  entryComponents: [MyApp],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    ApiServiceProvider,
+    ProfileServiceProvider,
+    AccountServiceProvider,
     { provide: ProfilesInjectionToken, useValue: ProfilesApi },
-    { provide: LoginInjectionToken, useValue: LoginApi }
+    { provide: AccountsInjectionToken, useValue: AccountsApi }
   ]
 })
-export class AppModule {
-}
+export class AppModule {}
