@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AccountServiceProvider } from '../../providers/account.service/account.service';
 import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
-import { Element } from '@angular/compiler';
 @IonicPage()
 @Component({
   selector: 'page-picture-upload',
@@ -11,10 +10,9 @@ import { Element } from '@angular/compiler';
 })
 export class PictureUploadPage {
   image: any;
-  uploadPhotoDisplay: any;
   userId: string;
-  account;
-  profile;
+  account: any;
+  profile: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -33,9 +31,6 @@ export class PictureUploadPage {
         // );
         this.profile = await this.profileServiceProvider.getProfileByEmail(
           'alex.hoffman@excella.com' //this.account.email
-        );
-        var x = await this.profileServiceProvider.getProfileByEmail(
-          'alex.hoffman@excella.com'
         );
       })();
     });
@@ -78,7 +73,6 @@ export class PictureUploadPage {
   }
 
   imgChange(event) {
-    var that = this;
     this.image = event.srcElement.files[0];
     var photoToUpload = document.getElementById(
       'photo-to-upload'
