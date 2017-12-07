@@ -1,3 +1,4 @@
+import { Account } from './../../models/account/account';
 import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import {
@@ -15,7 +16,7 @@ export class AccountServiceProvider {
     private storage: Storage,
     @Inject(ProfilesInjectionToken) public profilesApi: ConnectionString,
     @Inject(AccountsInjectionToken) public accountsApi: ConnectionString
-  ) {}
+  ) { }
 
   async login(email: string, password: string): Promise<boolean> {
     const loginUrl = this.accountsApi.url + '/login';
@@ -25,14 +26,14 @@ export class AccountServiceProvider {
       .toPromise()
       .then(res => res.json())
       .then(
-        data => {
-          this.storage.set('userToken', data.id);
-          return true;
-        },
-        err => {
-          this.storage.set('userToken', null);
-          return false;
-        }
+      data => {
+        this.storage.set('userToken', data.id);
+        return true;
+      },
+      err => {
+        this.storage.set('userToken', null);
+        return false;
+      }
       );
   }
 
@@ -42,6 +43,22 @@ export class AccountServiceProvider {
       .get('userToken')
       .then(userToken =>
         this.http.post(logoutUrl, { access_token: userToken })
+      );
+  }
+
+  async register(email: string, password: string): Promise<boolean> {
+    let newAccount = new Account(email, password, false, false);
+    return await this.http
+      .post(this.accountsApi.url, newAccount)
+      .toPromise()
+      .then(res => res.json())
+      .then(
+      data => {
+        return true;
+      },
+      err => {
+        return false;
+      }
       );
   }
 }
