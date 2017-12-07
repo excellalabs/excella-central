@@ -23,7 +23,7 @@ export class RegisterPage {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('^.+@excella\.com$'), UsernameValidator.checkAccount, UsernameValidator.profileExists]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(8), PasswordValidator.passwordsMatch]]
+      confirmPassword: ['', [Validators.required, PasswordValidator.passwordsMatch]]
     });
   }
 
