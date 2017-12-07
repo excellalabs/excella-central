@@ -8,6 +8,7 @@ export class Profile {
   serviceArea?: string;
   buttonColor?: string;
   showSolidButton?: boolean;
+  email?: string;
 
   constructor(
     firstName: string,
@@ -15,13 +16,15 @@ export class Profile {
     avatarUrl: string,
     primarySkillset?: string,
     client?: string,
+    email?: string,
     serviceArea?: string
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.avatarUrl = avatarUrl || '';
-    this.primarySkillset = primarySkillset;
     this.client = client;
+    this.email = email;
+    this.primarySkillset = primarySkillset;
     this.serviceArea = serviceArea;
   }
 }
