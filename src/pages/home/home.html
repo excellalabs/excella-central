@@ -15,5 +15,6 @@
   <button class="main-button" ion-button color="primary" outline (click)="openFaceoffPage()">Faceoff</button>
   <br />
   <button *ngIf="loggedIn" ion-button (click)="logoutUser()">Logout</button>
-
+  <button (click)="uploadPicture()">Upload Picture</button>
+  <input type="file" name="file" id="file" (change)="imgChange($event)">
 </ion-content>
