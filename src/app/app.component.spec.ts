@@ -44,11 +44,6 @@ describe('MyApp Component', () => {
     loadHomePageMock(storage);
     expect(component instanceof MyApp).toBe(true);
   });
-
-  it('should have three pages', () => {
-    loadHomePageMock(storage);
-    expect(component.pages.length).toBe(3);
-  });
 });
 
 export function loadLandingPageMock(storage: Storage) {
