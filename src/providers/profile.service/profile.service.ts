@@ -17,4 +17,12 @@ export class ProfileServiceProvider {
       });
     });
   }
+
+  async getProfilesWithPhotos(): Promise<Profile[]> {
+    return new Promise<Profile[]>(resolve => {
+      this.http.get(this.profilesApi.url).subscribe(data => {
+        resolve(data.json().filter(profile => profile['photoUrl'] !== undefined));
+      });
+    });
+  }
 }

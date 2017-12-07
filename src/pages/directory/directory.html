@@ -11,7 +11,7 @@
   <ion-list>
     <button ion-item *ngFor="let profile of profiles | async | search: searchText" (click)="goToDirectoryDetail(profile)">
       <ion-avatar item-start>
-        <img src="{{profile.avatarUrl}}" />
+        <img src="{{profile.photoUrl || '/assets/no_photo.png'}}" />
       </ion-avatar>
       {{getFullName(profile)}}
     </button>
