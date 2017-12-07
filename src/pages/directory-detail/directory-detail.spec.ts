@@ -5,10 +5,12 @@ import {
   NavParamsMock
 } from '../../../test-config/mocks-ionic';
 import { DirectoryDetailPage } from './directory-detail';
+import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
 
 describe('DirectoryDetailPage', () => {
   let fixture: ComponentFixture<DirectoryDetailPage>;
   let component: DirectoryDetailPage;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DirectoryDetailPage],

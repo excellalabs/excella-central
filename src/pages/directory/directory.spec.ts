@@ -8,10 +8,12 @@ import {
 } from '../../../test-config/mocks-ionic';
 import { DirectoryPage } from './directory';
 import { ProfileServiceProvider } from './../../providers/profile.service/profile.service';
+import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
 
 describe('DirectoryPage', () => {
   let fixture: ComponentFixture<DirectoryPage>;
   let component: DirectoryPage;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DirectoryPage, SearchPipeMock],
@@ -30,7 +32,7 @@ describe('DirectoryPage', () => {
     fixture = TestBed.createComponent(DirectoryPage);
     component = fixture.componentInstance;
   });
-
+  
   it('should be created', () => {
     expect(component).toBeDefined();
   });

@@ -6,6 +6,7 @@ import {
   SearchPipeMock
 } from '../../../test-config/mocks-ionic';
 import { FaceoffPage } from './faceoff';
+import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
 
 describe('DirectoryPage', () => {
   let fixture: ComponentFixture<FaceoffPage>;
