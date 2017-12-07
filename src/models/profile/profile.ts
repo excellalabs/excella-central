@@ -3,24 +3,30 @@ export class Profile {
   firstName: string;
   lastName: string;
   avatarUrl?: string;
-  primarySkill?: string;
+  primarySkillset?: string;
   client?: string;
-  funFact?: string;
+  serviceArea?: string;
+  buttonColor?: string;
+  showSolidButton?: boolean;
+  email?: string;
 
   constructor(
     firstName: string,
     lastName: string,
     avatarUrl: string,
-    primarySkill?: string,
+    primarySkillset?: string,
     client?: string,
-    funFact?: string) {
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.avatarUrl = avatarUrl || '';
-      this.primarySkill = primarySkill;
-      this.client = client;
-      this.funFact = funFact;
-    }
+    email?: string,
+    serviceArea?: string
+  ) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.avatarUrl = avatarUrl || '';
+    this.client = client;
+    this.email = email;
+    this.primarySkillset = primarySkillset;
+    this.serviceArea = serviceArea;
+  }
 }
 
 export function generateFullName(firstName: string, lastName: string) {

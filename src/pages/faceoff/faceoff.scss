@@ -1,0 +1,14 @@
+button.faceoff-button {
+  width: calc(100% - 60px);
+  max-width: 800px;
+  margin: 5px 0px !important;
+}
+img.faceoff-photo {
+  object-fit: cover;
+  width: 250px;
+  height: 250px;
+}
+.faceoff-card {
+  width: max-content;
+  display: inline-flex;
+}
