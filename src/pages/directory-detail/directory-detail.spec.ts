@@ -6,7 +6,6 @@ import {
   ApiServiceProviderMock
 } from '../../../test-config/mocks-ionic';
 import { DirectoryDetailPage } from './directory-detail';
-import { ApiServiceProvider } from '../../providers/api.service/api.service';
 
 describe('DirectoryDetailPage', () => {
   let fixture: ComponentFixture<DirectoryDetailPage>;
@@ -19,8 +18,7 @@ describe('DirectoryDetailPage', () => {
       ],
       providers: [
         { provide: NavController, useClass: NavMock },
-        { provide: NavParams, useClass: NavParamsMock },
-        { provide: ApiServiceProvider, useClass: ApiServiceProviderMock }
+        { provide: NavParams, useClass: NavParamsMock }
       ]
     });
   }));

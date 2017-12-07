@@ -7,7 +7,6 @@ import {
   ApiServiceProviderMock
 } from '../../../test-config/mocks-ionic';
 import { FaceoffPage } from './faceoff';
-import { ApiServiceProvider } from '../../providers/api.service/api.service';
 
 describe('DirectoryPage', () => {
   let fixture: ComponentFixture<FaceoffPage>;
@@ -19,8 +18,7 @@ describe('DirectoryPage', () => {
         imports: [IonicModule.forRoot(FaceoffPage)],
         providers: [
           { provide: NavController, useClass: NavMock },
-          { provide: NavParams, useClass: NavParamsMock },
-          { provide: ApiServiceProvider, useClass: ApiServiceProviderMock }
+          { provide: NavParams, useClass: NavParamsMock }
         ]
       });
     })
