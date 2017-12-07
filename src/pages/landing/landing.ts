@@ -7,9 +7,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'landing.html'
 })
 export class LandingPage {
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams) { }
 
   openLoginPage(): void {
     this.navCtrl.push('LoginPage');
+  }
+
+  openRegisterPage(): void {
+    this.navCtrl.push('RegisterPage');
   }
 }
