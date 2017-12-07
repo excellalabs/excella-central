@@ -3,8 +3,7 @@ import { IonicModule, NavController, NavParams } from 'ionic-angular';
 import {
   NavMock,
   NavParamsMock,
-  SearchPipeMock,
-  ApiServiceProviderMock
+  SearchPipeMock
 } from '../../../test-config/mocks-ionic';
 import { FaceoffPage } from './faceoff';
 import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
@@ -19,8 +18,7 @@ describe('DirectoryPage', () => {
         imports: [IonicModule.forRoot(FaceoffPage)],
         providers: [
           { provide: NavController, useClass: NavMock },
-          { provide: NavParams, useClass: NavParamsMock },
-          { provide: ProfileServiceProvider, useClass: ApiServiceProviderMock }
+          { provide: NavParams, useClass: NavParamsMock }
         ]
       });
     })

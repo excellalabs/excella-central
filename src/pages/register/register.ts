@@ -1,3 +1,4 @@
+import { AccountServiceProvider } from './../../providers/account.service/account.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -19,7 +20,8 @@ import { UsernameValidator } from "../../../src/validators/usernames";
 export class RegisterPage {
   registerForm: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder,
+    private accountServiceProvider: AccountServiceProvider) {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('^.+@excella\.com$'), UsernameValidator.checkAccount, UsernameValidator.profileExists]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -28,7 +30,15 @@ export class RegisterPage {
   }
 
   registerUser() {
-    console.log('submit the registration yo')
+    this.accountServiceProvider
+      .register(this.registerForm.value.email, this.registerForm.value.password)
+      .then(success => {
+        if (success) {
+          alert('register success')
+          this.navCtrl.setRoot('LandingPage'); // direct to a confirm password email was sent screen
+        } else {
+          alert('register failed') // replace with something better
+        }
+      });
   }
-
 }
