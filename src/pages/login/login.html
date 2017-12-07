@@ -6,10 +6,9 @@
 
 </ion-header>
 
-
 <ion-content padding>
   <form [formGroup]="userForm" (ngSubmit)="loginUser()">
-    <ion-list>
+    <ion-list no-lines>
       <ion-item>
         <ion-label stacked>Email</ion-label>
         <ion-input type="email" formControlName="email"></ion-input>
