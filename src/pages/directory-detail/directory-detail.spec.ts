@@ -2,15 +2,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule, NavController, NavParams } from 'ionic-angular';
 import {
   NavMock,
-  NavParamsMock,
-  ApiServiceProviderMock
+  NavParamsMock
 } from '../../../test-config/mocks-ionic';
 import { DirectoryDetailPage } from './directory-detail';
-import { ApiServiceProvider } from '../../providers/api.service/api.service';
+import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
 
 describe('DirectoryDetailPage', () => {
   let fixture: ComponentFixture<DirectoryDetailPage>;
   let component: DirectoryDetailPage;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DirectoryDetailPage],
@@ -19,8 +19,7 @@ describe('DirectoryDetailPage', () => {
       ],
       providers: [
         { provide: NavController, useClass: NavMock },
-        { provide: NavParams, useClass: NavParamsMock },
-        { provide: ApiServiceProvider, useClass: ApiServiceProviderMock }
+        { provide: NavParams, useClass: NavParamsMock }
       ]
     });
   }));

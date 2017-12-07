@@ -6,16 +6,20 @@ export interface ConnectionString {
   url: string;
 }
 
-
 export const ProfilesApi: ConnectionString = {
   name: 'profiles',
   url: 'https://central.excellalabs.com/api/profiles'
-}
+};
 
-export const LoginApi: ConnectionString = {
-  name: 'login',
-  url: 'https://central.excellalabs.com/api/login'
-}
-export const ProfilesInjectionToken = new InjectionToken<ConnectionString>(ProfilesApi.name);
+export const ProfilesInjectionToken = new InjectionToken<ConnectionString>(
+  ProfilesApi.name
+);
 
-export const LoginInjectionToken = new InjectionToken<ConnectionString>(LoginApi.name);
+export const AccountsApi: ConnectionString = {
+  name: 'accounts',
+  url: 'https://central.excellalabs.com/api/accounts'
+};
+
+export const AccountsInjectionToken = new InjectionToken<ConnectionString>(
+  AccountsApi.name
+);

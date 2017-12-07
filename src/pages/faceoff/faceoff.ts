@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ApiServiceProvider } from '../../providers/api.service/api.service';
 import { Profile } from '../../models/profile/profile';
+import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
 
 @IonicPage()
 @Component({
@@ -20,11 +20,11 @@ export class FaceoffPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public apiServiceProvider: ApiServiceProvider
+    public profileServiceProvider: ProfileServiceProvider
   ) {}
 
   async ionViewDidLoad() {
-    this.profiles = await this.apiServiceProvider.getProfiles();
+    this.profiles = await this.profileServiceProvider.getProfiles();
     this.startNewGame();
   }
 

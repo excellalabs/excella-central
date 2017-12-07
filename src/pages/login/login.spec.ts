@@ -8,8 +8,8 @@ import {
 import { LoginPage } from './login';
 import { HttpModule } from '@angular/http';
 import {
-  LoginApi,
-  LoginInjectionToken,
+  AccountsApi,
+  AccountsInjectionToken,
   ProfilesApi,
   ProfilesInjectionToken
 } from '../../app/app-config';
@@ -27,7 +27,7 @@ describe('LoginPage', () => {
           { provide: NavController, useClass: NavMock },
           { provide: NavParams, useClass: NavParamsMock },
           { provide: ProfilesInjectionToken, useValue: ProfilesApi },
-          { provide: LoginInjectionToken, useValue: LoginApi },
+          { provide: AccountsInjectionToken, useValue: AccountsApi },
           { provide: Storage, useClass: StorageMock }
         ]
       });

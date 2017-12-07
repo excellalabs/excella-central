@@ -1,32 +1,35 @@
-import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {ApiServiceProvider} from '../../providers/api.service/api.service';
-import {Profile, generateFullName} from '../../models/profile/profile';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Profile, generateFullName } from '../../models/profile/profile';
+import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
 
 @IonicPage()
 @Component({
   selector: 'page-directory',
-  templateUrl: 'directory.html',
+  templateUrl: 'directory.html'
 })
 export class DirectoryPage {
   profiles: Promise<Profile[]>;
   generateFullName = generateFullName;
   searchText: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private apiServiceProvider: ApiServiceProvider) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private profileServiceProvider: ProfileServiceProvider
+  ) {}
 
   ionViewDidLoad() {
-    this.searchText = "";
+    this.searchText = '';
     this.profiles = this.getProfiles();
   }
 
   async getProfiles() {
-    return await this.apiServiceProvider.getProfiles();
+    return await this.profileServiceProvider.getProfiles();
   }
 
   goToDirectoryDetail(profile) {
-    this.navCtrl.push('DirectoryDetailPage', {profile: profile});
+    this.navCtrl.push('DirectoryDetailPage', { profile: profile });
   }
 
   getFullName(profile: Profile): string {

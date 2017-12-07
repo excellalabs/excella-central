@@ -10,10 +10,12 @@ import {
   PlatformMock,
   StatusBarMock,
   SplashScreenMock,
-  ApiServiceProviderMock,
+  ProfileServiceProviderMock,
+  AccountServiceProviderMock,
   StorageMock
 } from '../../test-config/mocks-ionic';
-import { ApiServiceProvider } from '../providers/api.service/api.service';
+import { ProfileServiceProvider } from '../providers/profile.service/profile.service';
+import { AccountServiceProvider } from '../providers/account.service/account.service';
 
 describe('MyApp Component', () => {
   let fixture: ComponentFixture<MyApp>;
@@ -29,7 +31,8 @@ describe('MyApp Component', () => {
           { provide: StatusBar, useClass: StatusBarMock },
           { provide: SplashScreen, useClass: SplashScreenMock },
           { provide: Platform, useClass: PlatformMock },
-          { provide: ApiServiceProvider, useClass: ApiServiceProviderMock },
+          { provide: ProfileServiceProvider, useClass: ProfileServiceProviderMock },
+          { provide: AccountServiceProvider, useClass: AccountServiceProviderMock },
           { provide: Storage, useClass: StorageMock }
         ],
         schemas: [NO_ERRORS_SCHEMA]
@@ -43,11 +46,6 @@ describe('MyApp Component', () => {
   it('should be created', () => {
     loadHomePageMock(storage);
     expect(component instanceof MyApp).toBe(true);
-  });
-
-  it('should have three pages', () => {
-    loadHomePageMock(storage);
-    expect(component.pages.length).toBe(3);
   });
 });
 
