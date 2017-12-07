@@ -7,7 +7,6 @@ import {
   ProfileServiceProviderMock
 } from '../../../test-config/mocks-ionic';
 import { DirectoryPage } from './directory';
-import { ProfileServiceProvider } from './../../providers/profile.service/profile.service';
 import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
 
 describe('DirectoryPage', () => {
@@ -32,7 +31,7 @@ describe('DirectoryPage', () => {
     fixture = TestBed.createComponent(DirectoryPage);
     component = fixture.componentInstance;
   });
-  
+
   it('should be created', () => {
     expect(component).toBeDefined();
   });

@@ -2,7 +2,7 @@ export class Profile {
   id?: string;
   firstName: string;
   lastName: string;
-  avatarUrl?: string;
+  photoUrl?: string;
   primarySkillset?: string;
   client?: string;
   serviceArea?: string;
@@ -21,7 +21,7 @@ export class Profile {
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
-    this.avatarUrl = avatarUrl || '';
+    this.photoUrl = avatarUrl || '';
     this.client = client;
     this.email = email;
     this.primarySkillset = primarySkillset;
