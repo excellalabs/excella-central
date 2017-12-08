@@ -45,6 +45,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+import { Account } from './../../models/account/account';
 import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import { AccountsInjectionToken, ProfilesInjectionToken } from '../../app/app-config';
@@ -72,9 +73,11 @@ var AccountServiceProvider = (function () {
                                 .then(function (res) { return res.json(); })
                                 .then(function (data) {
                                 _this.storage.set('userToken', data.id);
+                                _this.storage.set('userId', data.userId);
                                 return true;
                             }, function (err) {
                                 _this.storage.set('userToken', null);
+                                _this.storage.set('userId', null);
                                 return false;
                             })];
                     case 1: return [2 /*return*/, _a.sent()];
@@ -88,12 +91,31 @@ var AccountServiceProvider = (function () {
             var logoutUrl;
             return __generator(this, function (_a) {
                 logoutUrl = this.accountsApi.url + '/logout';
-                this.storage
-                    .get('userToken')
-                    .then(function (userToken) {
-                    return _this.http.post(logoutUrl, { access_token: userToken });
+                this.storage.get('userToken').then(function (userToken) {
+                    _this.http.post(logoutUrl, { access_token: userToken });
                 });
                 return [2 /*return*/];
+            });
+        });
+    };
+    AccountServiceProvider.prototype.register = function (email, password) {
+        return __awaiter(this, void 0, void 0, function () {
+            var newAccount;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        newAccount = new Account(email, password, false, false);
+                        return [4 /*yield*/, this.http
+                                .post(this.accountsApi.url, newAccount)
+                                .toPromise()
+                                .then(function (res) { return res.json(); })
+                                .then(function (data) {
+                                return true;
+                            }, function (err) {
+                                return false;
+                            })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
             });
         });
     };

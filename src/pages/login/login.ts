@@ -6,7 +6,6 @@ import { AccountServiceProvider } from '../../providers/account.service/account.
 @IonicPage()
 @Component({
   selector: 'page-login',
-  providers: [AccountServiceProvider],
   templateUrl: 'login.html'
 })
 export class LoginPage {

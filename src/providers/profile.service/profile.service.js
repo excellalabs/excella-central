@@ -65,6 +65,18 @@ var ProfileServiceProvider = (function () {
             });
         });
     };
+    ProfileServiceProvider.prototype.getProfilesWithPhotos = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.http.get(_this.profilesApi.url).subscribe(function (data) {
+                            resolve(data.json().filter(function (profile) { return profile['photoUrl'] !== undefined; }));
+                        });
+                    })];
+            });
+        });
+    };
     return ProfileServiceProvider;
 }());
 ProfileServiceProvider = __decorate([

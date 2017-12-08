@@ -16,7 +16,7 @@ export class DirectoryPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private profileServiceProvider: ProfileServiceProvider
+    public profileServiceProvider: ProfileServiceProvider
   ) {}
 
   ionViewDidLoad() {

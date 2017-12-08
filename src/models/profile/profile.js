@@ -1,10 +1,11 @@
 var Profile = (function () {
-    function Profile(firstName, lastName, avatarUrl, primarySkillset, client, serviceArea) {
+    function Profile(firstName, lastName, avatarUrl, primarySkillset, client, email, serviceArea) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.avatarUrl = avatarUrl || '';
-        this.primarySkillset = primarySkillset;
+        this.photoUrl = avatarUrl || '';
         this.client = client;
+        this.email = email;
+        this.primarySkillset = primarySkillset;
         this.serviceArea = serviceArea;
     }
     return Profile;
