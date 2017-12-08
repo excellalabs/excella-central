@@ -46,30 +46,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import { Injectable, Inject } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { ProfilesInjectionToken } from '../../app/app-config';
-import { Storage } from '@ionic/storage';
+import { AuthenticationService } from '../authentication.service/authentication.service';
 var ProfileService = (function () {
-    function ProfileService(http, storage, profilesApi) {
+    function ProfileService(http, authService, profilesApi) {
         this.http = http;
-        this.storage = storage;
+        this.authService = authService;
         this.profilesApi = profilesApi;
     }
     ProfileService.prototype.getProfiles = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var userToken, headers;
+            var requestHeaders;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.storage.get('userToken')];
+                    case 0: return [4 /*yield*/, this.authService.buildAuthenticationRequest()];
                     case 1:
-                        userToken = _a.sent();
-                        headers = new Headers();
-                        headers.append('Authorization', userToken);
+                        requestHeaders = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve) {
-                                _this.http
-                                    .get(_this.profilesApi.url, new RequestOptions({ headers: headers }))
-                                    .subscribe(function (data) {
+                                _this.http.get(_this.profilesApi.url, requestHeaders).subscribe(function (data) {
                                     resolve(data.json());
                                 });
                             })];
@@ -80,18 +76,14 @@ var ProfileService = (function () {
     ProfileService.prototype.getProfilesWithPhotos = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var userToken, headers;
+            var requestHeaders;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.storage.get('userToken')];
+                    case 0: return [4 /*yield*/, this.authService.buildAuthenticationRequest()];
                     case 1:
-                        userToken = _a.sent();
-                        headers = new Headers();
-                        headers.append('Authorization', userToken);
+                        requestHeaders = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve) {
-                                _this.http
-                                    .get(_this.profilesApi.url, new RequestOptions({ headers: headers }))
-                                    .subscribe(function (data) {
+                                _this.http.get(_this.profilesApi.url, requestHeaders).subscribe(function (data) {
                                     resolve(data.json().filter(function (profile) { return profile['photoUrl'] !== undefined; }));
                                 });
                             })];
@@ -105,7 +97,7 @@ ProfileService = __decorate([
     Injectable(),
     __param(2, Inject(ProfilesInjectionToken)),
     __metadata("design:paramtypes", [Http,
-        Storage, Object])
+        AuthenticationService, Object])
 ], ProfileService);
 export { ProfileService };
 //# sourceMappingURL=profile.service.js.map
