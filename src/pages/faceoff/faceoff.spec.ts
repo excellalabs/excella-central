@@ -4,10 +4,10 @@ import {
   NavMock,
   NavParamsMock,
   SearchPipeMock,
-  ProfileServiceProviderMock
+  ProfileServiceMock
 } from '../../../test-config/mocks-ionic';
 import { FaceoffPage } from './faceoff';
-import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
+import { ProfileService } from '../../providers/profile.service/profile.service';
 
 describe('FaceoffPage', () => {
   let fixture: ComponentFixture<FaceoffPage>;
@@ -21,8 +21,8 @@ describe('FaceoffPage', () => {
           { provide: NavController, useClass: NavMock },
           { provide: NavParams, useClass: NavParamsMock },
           {
-            provide: ProfileServiceProvider,
-            useClass: ProfileServiceProviderMock
+            provide: ProfileService,
+            useClass: ProfileServiceMock
           }
         ]
       });

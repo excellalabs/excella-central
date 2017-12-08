@@ -14,8 +14,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { AccountsApi, AccountsInjectionToken, ProfilesApi, ProfilesInjectionToken } from '../app/app-config';
 import { HttpClientModule } from '@angular/common/http';
-import { ProfileServiceProvider } from '../providers/profile.service/profile.service';
-import { AccountServiceProvider } from '../providers/account.service/account.service';
+import { ProfileService } from '../providers/profile.service/profile.service';
+import { AccountService } from '../providers/account.service/account.service';
 var AppModule = (function () {
     function AppModule() {
     }
@@ -37,8 +37,8 @@ AppModule = __decorate([
             StatusBar,
             SplashScreen,
             { provide: ErrorHandler, useClass: IonicErrorHandler },
-            ProfileServiceProvider,
-            AccountServiceProvider,
+            ProfileService,
+            AccountService,
             { provide: ProfilesInjectionToken, useValue: ProfilesApi },
             { provide: AccountsInjectionToken, useValue: AccountsApi }
         ]

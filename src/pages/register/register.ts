@@ -1,4 +1,4 @@
-import { AccountServiceProvider } from './../../providers/account.service/account.service';
+import { AccountService } from './../../providers/account.service/account.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -24,7 +24,7 @@ export class RegisterPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private formBuilder: FormBuilder,
-    private accountServiceProvider: AccountServiceProvider
+    private accountService: AccountService
   ) {
     this.registerForm = this.formBuilder.group({
       email: [
@@ -45,7 +45,7 @@ export class RegisterPage {
   }
 
   registerUser() {
-    this.accountServiceProvider
+    this.accountService
       .register(this.registerForm.value.email, this.registerForm.value.password)
       .then(success => {
         if (success) {

@@ -45,12 +45,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { generateFullName } from '../../models/profile/profile';
-import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
+import { ProfileService } from '../../providers/profile.service/profile.service';
 var DirectoryPage = (function () {
-    function DirectoryPage(navCtrl, navParams, profileServiceProvider) {
+    function DirectoryPage(navCtrl, navParams, profileService) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.profileServiceProvider = profileServiceProvider;
+        this.profileService = profileService;
         this.generateFullName = generateFullName;
     }
     DirectoryPage.prototype.ionViewDidLoad = function () {
@@ -61,7 +61,7 @@ var DirectoryPage = (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.profileServiceProvider.getProfiles()];
+                    case 0: return [4 /*yield*/, this.profileService.getProfiles()];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -83,7 +83,7 @@ DirectoryPage = __decorate([
     }),
     __metadata("design:paramtypes", [NavController,
         NavParams,
-        ProfileServiceProvider])
+        ProfileService])
 ], DirectoryPage);
 export { DirectoryPage };
 //# sourceMappingURL=directory.js.map

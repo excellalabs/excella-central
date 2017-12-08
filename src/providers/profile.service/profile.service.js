@@ -49,13 +49,13 @@ import { Injectable, Inject } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { ProfilesInjectionToken } from '../../app/app-config';
 import { Storage } from '@ionic/storage';
-var ProfileServiceProvider = (function () {
-    function ProfileServiceProvider(http, storage, profilesApi) {
+var ProfileService = (function () {
+    function ProfileService(http, storage, profilesApi) {
         this.http = http;
         this.storage = storage;
         this.profilesApi = profilesApi;
     }
-    ProfileServiceProvider.prototype.getProfiles = function () {
+    ProfileService.prototype.getProfiles = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             var userToken, headers;
@@ -77,7 +77,7 @@ var ProfileServiceProvider = (function () {
             });
         });
     };
-    ProfileServiceProvider.prototype.getProfilesWithPhotos = function () {
+    ProfileService.prototype.getProfilesWithPhotos = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             var userToken, headers;
@@ -99,13 +99,13 @@ var ProfileServiceProvider = (function () {
             });
         });
     };
-    return ProfileServiceProvider;
+    return ProfileService;
 }());
-ProfileServiceProvider = __decorate([
+ProfileService = __decorate([
     Injectable(),
     __param(2, Inject(ProfilesInjectionToken)),
     __metadata("design:paramtypes", [Http,
         Storage, Object])
-], ProfileServiceProvider);
-export { ProfileServiceProvider };
+], ProfileService);
+export { ProfileService };
 //# sourceMappingURL=profile.service.js.map

@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { AccountServiceProvider } from './../../providers/account.service/account.service';
+import { AccountService } from './../../providers/account.service/account.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -20,11 +20,11 @@ import { UsernameValidator } from '../../../src/validators/usernames';
  * Ionic pages and navigation.
  */
 var RegisterPage = (function () {
-    function RegisterPage(navCtrl, navParams, formBuilder, accountServiceProvider) {
+    function RegisterPage(navCtrl, navParams, formBuilder, accountService) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.formBuilder = formBuilder;
-        this.accountServiceProvider = accountServiceProvider;
+        this.accountService = accountService;
         this.registerForm = this.formBuilder.group({
             email: [
                 '',
@@ -44,7 +44,7 @@ var RegisterPage = (function () {
     }
     RegisterPage.prototype.registerUser = function () {
         var _this = this;
-        this.accountServiceProvider
+        this.accountService
             .register(this.registerForm.value.email, this.registerForm.value.password)
             .then(function (success) {
             if (success) {
@@ -66,7 +66,7 @@ RegisterPage = __decorate([
     __metadata("design:paramtypes", [NavController,
         NavParams,
         FormBuilder,
-        AccountServiceProvider])
+        AccountService])
 ], RegisterPage);
 export { RegisterPage };
 //# sourceMappingURL=register.js.map

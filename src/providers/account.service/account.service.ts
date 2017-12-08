@@ -10,7 +10,7 @@ import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class AccountServiceProvider {
+export class AccountService {
   constructor(
     public http: Http,
     private storage: Storage,

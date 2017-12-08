@@ -5,7 +5,7 @@ import { Profile } from '../../models/profile/profile';
 import { Storage } from '@ionic/storage';
 
 @Injectable()
-export class ProfileServiceProvider {
+export class ProfileService {
   constructor(
     public http: Http,
     public storage: Storage,

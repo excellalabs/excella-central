@@ -1,18 +1,20 @@
 var UsernameValidator = (function () {
-    function UsernameValidator() {
+    function UsernameValidator(accountService, profileService) {
+        this.accountService = accountService;
+        this.profileService = profileService;
     }
     UsernameValidator.checkAccount = function (control) {
-        if (control.value == "accountExists@excella.com") {
+        if (control.value == 'accountExists@excella.com') {
             return {
-                "accountExists": true
+                accountExists: true
             };
         }
         return null;
     };
     UsernameValidator.profileExists = function (control) {
-        if (control.value == "profileDoesNotExist@excella.com") {
+        if (control.value == 'profileDoesNotExist@excella.com') {
             return {
-                "profileDoesNotExist": true
+                profileDoesNotExist: true
             };
         }
         return null;

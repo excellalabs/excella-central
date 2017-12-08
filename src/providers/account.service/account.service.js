@@ -51,14 +51,14 @@ import { Http } from '@angular/http';
 import { AccountsInjectionToken, ProfilesInjectionToken } from '../../app/app-config';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
-var AccountServiceProvider = (function () {
-    function AccountServiceProvider(http, storage, profilesApi, accountsApi) {
+var AccountService = (function () {
+    function AccountService(http, storage, profilesApi, accountsApi) {
         this.http = http;
         this.storage = storage;
         this.profilesApi = profilesApi;
         this.accountsApi = accountsApi;
     }
-    AccountServiceProvider.prototype.login = function (email, password) {
+    AccountService.prototype.login = function (email, password) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             var loginUrl, accountInfo;
@@ -85,7 +85,7 @@ var AccountServiceProvider = (function () {
             });
         });
     };
-    AccountServiceProvider.prototype.logout = function () {
+    AccountService.prototype.logout = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             var logoutUrl;
@@ -98,7 +98,7 @@ var AccountServiceProvider = (function () {
             });
         });
     };
-    AccountServiceProvider.prototype.register = function (email, password) {
+    AccountService.prototype.register = function (email, password) {
         return __awaiter(this, void 0, void 0, function () {
             var newAccount;
             return __generator(this, function (_a) {
@@ -119,14 +119,14 @@ var AccountServiceProvider = (function () {
             });
         });
     };
-    return AccountServiceProvider;
+    return AccountService;
 }());
-AccountServiceProvider = __decorate([
+AccountService = __decorate([
     Injectable(),
     __param(2, Inject(ProfilesInjectionToken)),
     __param(3, Inject(AccountsInjectionToken)),
     __metadata("design:paramtypes", [Http,
         Storage, Object, Object])
-], AccountServiceProvider);
-export { AccountServiceProvider };
+], AccountService);
+export { AccountService };
 //# sourceMappingURL=account.service.js.map

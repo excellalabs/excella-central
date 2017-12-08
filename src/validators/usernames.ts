@@ -1,23 +1,30 @@
 import { FormControl } from '@angular/forms';
+import { AccountService } from '../providers/account.service/account.service';
+import { ProfileService } from '../providers/profile.service/profile.service';
 
 export class UsernameValidator {
-    static checkAccount(control: FormControl) {
-        if (control.value == "accountExists@excella.com") {
-            return {
-                "accountExists": true
-            };
-        }
+  constructor(
+    public accountService: AccountService,
+    public profileService: ProfileService
+  ) {}
 
-        return null;
+  static checkAccount(control: FormControl) {
+    if (control.value == 'accountExists@excella.com') {
+      return {
+        accountExists: true
+      };
     }
 
-    static profileExists(control: FormControl) {
-        if (control.value == "profileDoesNotExist@excella.com") {
-            return {
-                "profileDoesNotExist": true
-            };
-        }
+    return null;
+  }
 
-        return null;
+  static profileExists(control: FormControl) {
+    if (control.value == 'profileDoesNotExist@excella.com') {
+      return {
+        profileDoesNotExist: true
+      };
     }
+
+    return null;
+  }
 }

@@ -12,14 +12,14 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
-import { AccountServiceProvider } from '../providers/account.service/account.service';
+import { AccountService } from '../providers/account.service/account.service';
 var MyApp = (function () {
-    function MyApp(platform, statusBar, splashScreen, accountServiceProvider, storage) {
+    function MyApp(platform, statusBar, splashScreen, accountService, storage) {
         var _this = this;
         this.platform = platform;
         this.statusBar = statusBar;
         this.splashScreen = splashScreen;
-        this.accountServiceProvider = accountServiceProvider;
+        this.accountService = accountService;
         this.storage = storage;
         this.storage.get('rememberUser').then(function (rememberUser) {
             _this.rememberUser = rememberUser;
@@ -53,7 +53,7 @@ var MyApp = (function () {
         }
     };
     MyApp.prototype.logout = function () {
-        this.accountServiceProvider.logout();
+        this.accountService.logout();
         this.nav.setRoot('LandingPage');
     };
     return MyApp;
@@ -69,7 +69,7 @@ MyApp = __decorate([
     __metadata("design:paramtypes", [Platform,
         StatusBar,
         SplashScreen,
-        AccountServiceProvider,
+        AccountService,
         Storage])
 ], MyApp);
 export { MyApp };
