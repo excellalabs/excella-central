@@ -32,7 +32,11 @@ export class ProfileServiceProvider {
     return new Promise<Profile>(resolve => {
       this.http
         .get(this.profilesApi.url, {
-          params: { filter: { where: { email: email } } }
+          params: {
+            filter: {
+              where: { email: email }
+            }
+          }
         })
         .subscribe(data => {
           resolve(data.json()[0]);
