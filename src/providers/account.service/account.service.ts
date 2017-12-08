@@ -8,7 +8,6 @@ import {
 } from '../../app/app-config';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
-import { AccountJson } from './account.service';
 
 @Injectable()
 export class AccountServiceProvider {

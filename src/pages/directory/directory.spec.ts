@@ -13,24 +13,25 @@ describe('DirectoryPage', () => {
   let fixture: ComponentFixture<DirectoryPage>;
   let component: DirectoryPage;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [DirectoryPage, SearchPipeMock],
-      imports: [
-        IonicModule.forRoot(DirectoryPage)
-      ],
-      providers: [
-        { provide: NavController, useClass: NavMock },
-        { provide: NavParams, useClass: NavParamsMock },
-        { provide: ProfileServiceProvider, useClass: ProfileServiceProviderMock }
-      ]
-    });
-  }));
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [DirectoryPage, SearchPipeMock],
+        imports: [IonicModule.forRoot(DirectoryPage)],
+        providers: [
+          { provide: NavController, useClass: NavMock },
+          { provide: NavParams, useClass: NavParamsMock },
+          {
+            provide: ProfileServiceProvider,
+            useClass: ProfileServiceProviderMock
+          }
+        ]
+      });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DirectoryPage);
-    component = fixture.componentInstance;
-  });
+      fixture = TestBed.createComponent(DirectoryPage);
+      component = fixture.componentInstance;
+    })
+  );
 
   it('should be created', () => {
     expect(component).toBeDefined();

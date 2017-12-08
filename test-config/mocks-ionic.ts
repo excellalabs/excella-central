@@ -86,13 +86,13 @@ export class SplashScreenMock extends SplashScreen {
 
 export class NavMock {
   public pop(): any {
-    return new Promise(function (resolve: Function): void {
+    return new Promise(function(resolve: Function): void {
       resolve();
     });
   }
 
   public push(): any {
-    return new Promise(function (resolve: Function): void {
+    return new Promise(function(resolve: Function): void {
       resolve();
     });
   }
@@ -131,26 +131,32 @@ export class SearchPipeMock implements PipeTransform {
 
 export class ProfileServiceProviderMock {
   getProfiles() {
-    return new Promise<Profile[]>((resolve, reject) => { });
+    return new Promise<Profile[]>((resolve, reject) => {});
+  }
+
+  async getProfilesWithPhotos(): Promise<Profile[]> {
+    return new Promise<Profile[]>((resolve, reject) => {});
   }
 }
 
 export class AccountServiceProviderMock {
   login(email: string, password: string) {
-    return new Promise<Profile[]>((resolve, reject) => { });
+    return new Promise<Profile[]>((resolve, reject) => {});
   }
+
   logout() {
-    return new Promise<Profile[]>((resolve, reject) => { });
+    return new Promise<Profile[]>((resolve, reject) => {});
   }
+
   register(email: string, password: string) {
-    return new Promise<Profile[]>((resolve, reject) => { });
+    return new Promise<Profile[]>((resolve, reject) => {});
   }
 }
 
 export class StorageMock {
   get(param) {
-    new Promise((resolve, reject) => { });
+    new Promise((resolve, reject) => {});
   }
 }
 
-export class DeepLinkerMock { }
+export class DeepLinkerMock {}

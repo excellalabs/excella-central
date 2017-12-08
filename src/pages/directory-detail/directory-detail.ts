@@ -5,12 +5,15 @@ import { Profile } from '../../models/profile/profile';
 @IonicPage()
 @Component({
   selector: 'page-directory-detail',
-  templateUrl: 'directory-detail.html',
+  templateUrl: 'directory-detail.html'
 })
 export class DirectoryDetailPage {
   profile: Profile = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams/*, public toastCtrl: ToastController*/) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams /*, public toastCtrl: ToastController*/
+  ) {
     if (navParams.get('profile') !== undefined) {
       this.profile = navParams.get('profile');
     } else {
