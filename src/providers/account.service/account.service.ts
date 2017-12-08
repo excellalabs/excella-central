@@ -8,10 +8,7 @@ import {
 } from '../../app/app-config';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
-<<<<<<< HEAD
 import { HttpParams } from '@angular/common/http';
-=======
->>>>>>> master
 
 @Injectable()
 export class AccountServiceProvider {
