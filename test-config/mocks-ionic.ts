@@ -130,7 +130,7 @@ export class SearchPipeMock implements PipeTransform {
 }
 
 export class ProfileServiceProviderMock {
-  getProfiles() {
+  async getProfiles() {
     return new Promise<Profile[]>((resolve, reject) => {});
   }
 

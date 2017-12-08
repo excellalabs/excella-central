@@ -32,7 +32,7 @@ describe('DirectoryPage', () => {
     })
   );
 
-  xit('should be created', () => {
+  it('should be created', () => {
     expect(component).toBeDefined();
   });
 });
