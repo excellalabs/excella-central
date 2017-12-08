@@ -11,10 +11,8 @@
 
 <ion-content>
   <ng-container *ngIf="totalQuestions > answeredQuestions">
-    <ion-card class="faceoff-card">
-      <ion-avatar>
-        <img class="faceoff-photo" src="{{correctProfile?.photoUrl}}" />
-      </ion-avatar>
+    <ion-card class="faceoff-card fourty-percent-photo-card">
+      <img class="faceoff-photo" src="{{correctProfile?.photoUrl}}" />
     </ion-card>
     <ng-container *ngFor="let profile of profilesForQuestion">
       <button class="faceoff-button" ion-button [color]="profile.buttonColor" [outline]="!profile.showSolidButton" [disabled]="buttonsDisabled"

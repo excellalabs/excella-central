@@ -2,14 +2,18 @@ ion-card img {
   object-fit: contain;
   display: block;
   margin: 1% auto;
-  height: 70%;
+  height: 97%;
   width: 95% !important;
+}
+
+ion-card.with-text img {
+  height: 70% !important;
 }
 
 ion-item.photo {
   text-align: center;
 }
 
-ion-card.upload-photo {
+ion-card.fourty-percent-photo-card {
   height: 40%;
 }
