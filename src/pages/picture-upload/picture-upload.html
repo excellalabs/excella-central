@@ -18,18 +18,14 @@
     <ion-item class="upload-photo">
       <h1>Current Photo</h1>
     </ion-item>
-    <ion-avatar item-start item-left>
-      <img class="upload-photo" src="{{ profile?.avatarUrl || '/assets/no_photo.png'}}" />
-    </ion-avatar>
+    <img class="upload-photo" src="{{ profile?.avatarUrl || '/assets/no_photo.png'}}" />
 
   </ion-card>
   <ion-card class="upload-photo">
     <ion-item class="upload-photo">
       <h1>New Photo</h1>
     </ion-item>
-    <ion-avatar item-start item-left>
-      <img class="upload-photo" id="photo-to-upload" src="/assets/no_photo.png" />
-    </ion-avatar>
+    <img class="upload-photo" id="photo-to-upload" src="/assets/no_photo.png" />
   </ion-card>
   <input type="file" name="file" id="file" (change)="imgChange($event)">
   <button class="main-button" ion-button color="primary" (click)="uploadPicture()">Upload New Picture</button>

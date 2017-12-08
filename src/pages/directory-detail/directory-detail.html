@@ -9,21 +9,12 @@
 
 <ion-content padding>
   <ion-grid *ngIf="profile != null">
-    <ion-row>
-      <ion-col col-12 text-start class="header-detail">
-        <ion-card>
-          <ion-avatar item-start item-left>
-            <img class="profile-photo" src="{{profile.photoUrl}}" />
-          </ion-avatar>
-          <ion-item>
-            <h1>{{ profile.firstName }} {{ profile.lastName }}</h1>
-          </ion-item>
-        </ion-card>
-
-
-
-      </ion-col>
-    </ion-row>
+    <ion-card class="directory-photo">
+      <img class="profile-photo" src="{{profile.photoUrl}}" />
+      <ion-item class="photo">
+        <h1>{{ profile.firstName }} {{ profile.lastName }}</h1>
+      </ion-item>
+    </ion-card>
     <ion-row>
       <ion-col col-12>
         <ion-list>

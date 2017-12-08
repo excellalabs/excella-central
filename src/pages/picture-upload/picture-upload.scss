@@ -1,12 +1,12 @@
-img.upload-photo {
-  object-fit: cover;
+ion-card img {
+  object-fit: contain;
   display: block;
-  margin: 0 auto;
-  height: auto;
-  width: auto;
+  margin: 5px auto;
+  height: 80%;
+  width: 95% !important;
 }
 
-ion-item.upload-photo {
+ion-item.photo {
   text-align: center;
 }
 
