@@ -27,7 +27,6 @@ describe('DirectoryPage', () => {
           }
         ]
       });
-
       fixture = TestBed.createComponent(DirectoryPage);
       component = fixture.componentInstance;
     })

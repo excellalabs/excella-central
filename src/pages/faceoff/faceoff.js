@@ -59,7 +59,7 @@ var FaceoffPage = (function () {
                 switch (_b.label) {
                     case 0:
                         _a = this;
-                        return [4 /*yield*/, this.profileServiceProvider.getProfiles()];
+                        return [4 /*yield*/, this.profileServiceProvider.getProfilesWithPhotos()];
                     case 1:
                         _a.profiles = _b.sent();
                         this.startNewGame();

@@ -32,6 +32,7 @@ var LoginPage = (function () {
                 _this.navCtrl.setRoot('HomePage');
             }
             else {
+                alert('Login failed.'); // replace with something better
                 //TODO: find out why toastCtrl .present() causes tests to fail
                 /*
                 this.toastCtrl.create({
@@ -50,7 +51,6 @@ LoginPage = __decorate([
     IonicPage(),
     Component({
         selector: 'page-login',
-        providers: [AccountServiceProvider],
         templateUrl: 'login.html'
     }),
     __metadata("design:paramtypes", [NavController,

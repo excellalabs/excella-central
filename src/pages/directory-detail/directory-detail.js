@@ -40,9 +40,10 @@ DirectoryDetailPage = __decorate([
     IonicPage(),
     Component({
         selector: 'page-directory-detail',
-        templateUrl: 'directory-detail.html',
+        templateUrl: 'directory-detail.html'
     }),
-    __metadata("design:paramtypes", [NavController, NavParams /*, public toastCtrl: ToastController*/])
+    __metadata("design:paramtypes", [NavController,
+        NavParams /*, public toastCtrl: ToastController*/])
 ], DirectoryDetailPage);
 export { DirectoryDetailPage };
 //# sourceMappingURL=directory-detail.js.map
