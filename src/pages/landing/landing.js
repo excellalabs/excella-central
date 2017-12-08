@@ -17,6 +17,9 @@ var LandingPage = (function () {
     LandingPage.prototype.openLoginPage = function () {
         this.navCtrl.push('LoginPage');
     };
+    LandingPage.prototype.openRegisterPage = function () {
+        this.navCtrl.push('RegisterPage');
+    };
     return LandingPage;
 }());
 LandingPage = __decorate([

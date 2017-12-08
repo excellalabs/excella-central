@@ -3,17 +3,12 @@ import { IonicModule, NavController, NavParams } from 'ionic-angular';
 import {
   NavMock,
   NavParamsMock,
-  StorageMock
+  AccountServiceProviderMock
 } from '../../../test-config/mocks-ionic';
 import { LoginPage } from './login';
 import { HttpModule } from '@angular/http';
-import {
-  AccountsApi,
-  AccountsInjectionToken,
-  ProfilesApi,
-  ProfilesInjectionToken
-} from '../../app/app-config';
 import { Storage } from '@ionic/storage/es2015/storage';
+import { AccountServiceProvider } from '../../providers/account.service/account.service';
 
 describe('LoginPage', () => {
   let fixture: ComponentFixture<LoginPage>;
@@ -26,9 +21,10 @@ describe('LoginPage', () => {
         providers: [
           { provide: NavController, useClass: NavMock },
           { provide: NavParams, useClass: NavParamsMock },
-          { provide: ProfilesInjectionToken, useValue: ProfilesApi },
-          { provide: AccountsInjectionToken, useValue: AccountsApi },
-          { provide: Storage, useClass: StorageMock }
+          {
+            provide: AccountServiceProvider,
+            useValue: AccountServiceProviderMock
+          }
         ]
       });
 
