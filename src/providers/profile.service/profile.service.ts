@@ -44,6 +44,22 @@ export class ProfileServiceProvider {
     });
   }
 
+  async getProfileById(id): Promise<Profile> {
+    return new Promise<Profile>(resolve => {
+      this.http
+        .get(this.profilesApi.url, {
+          params: {
+            filter: {
+              where: { id: id }
+            }
+          }
+        })
+        .subscribe(data => {
+          resolve(data.json()[0]);
+        });
+    });
+  }
+
   async updateProfileById(profile): Promise<Profile> {
     return new Promise<Profile>(resolve => {
       this.http
@@ -52,5 +68,13 @@ export class ProfileServiceProvider {
           resolve(data.json()[0]);
         });
     });
+  }
+
+  async getNextProfile(id): Promise<Profile> {
+    return new Promise<Profile>(function() {});
+  }
+
+  async getPreviousProfile(id): Promise<Profile> {
+    return new Promise<Profile>(function() {});
   }
 }

@@ -4,7 +4,7 @@
     <ion-title>Faceoff</ion-title>
   </ion-navbar>
   <ion-toolbar *ngIf="totalQuestions > answeredQuestions" color="primary">
-    <ion-title>Score: {{correctAnswers}}/{{answeredQuestions}}</ion-title>
+    <ion-title class="faceoff-score">Score: {{correctAnswers}}/{{answeredQuestions}}</ion-title>
   </ion-toolbar>
 </ion-header>
 

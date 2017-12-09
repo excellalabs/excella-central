@@ -41,7 +41,11 @@ export class PictureUploadPage {
   }
 
   uploadPicture() {
-    this.pictureUploadServiceProvider.uploadPicture(this.image, this.profile);
+    if (this.image) {
+      this.pictureUploadServiceProvider.uploadPicture(this.image, this.profile);
+    } else {
+      alert('Please choose a picture to upload'); // replace with something better
+    }
   }
 
   imgChange(event) {

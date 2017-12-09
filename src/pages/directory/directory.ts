@@ -29,7 +29,7 @@ export class DirectoryPage {
   }
 
   goToDirectoryDetail(profile) {
-    this.navCtrl.push('DirectoryDetailPage', { profile: profile });
+    this.navCtrl.push('DirectoryDetailPage', { id: profile.id });
   }
 
   getFullName(profile: Profile): string {

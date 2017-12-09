@@ -48,6 +48,7 @@ export class AccountServiceProvider {
   }
 
   async register(email: string, password: string): Promise<boolean> {
+    var that = this;
     let newAccount = new Account(email, password, false, false);
     return await this.http
       .post(this.accountsApi.url, newAccount)
@@ -55,7 +56,7 @@ export class AccountServiceProvider {
       .then(res => res.json())
       .then(
         data => {
-          return true;
+          return that.login(email, password);
         },
         err => {
           return false;
