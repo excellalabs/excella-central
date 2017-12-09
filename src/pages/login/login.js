@@ -51,7 +51,6 @@ LoginPage = __decorate([
     IonicPage(),
     Component({
         selector: 'page-login',
-        providers: [AccountServiceProvider],
         templateUrl: 'login.html'
     }),
     __metadata("design:paramtypes", [NavController,

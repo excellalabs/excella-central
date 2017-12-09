@@ -46,34 +46,56 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import { Injectable, Inject } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { ProfilesInjectionToken } from '../../app/app-config';
+import { Storage } from '@ionic/storage';
 var ProfileServiceProvider = (function () {
-    function ProfileServiceProvider(http, profilesApi) {
+    function ProfileServiceProvider(http, storage, profilesApi) {
         this.http = http;
+        this.storage = storage;
         this.profilesApi = profilesApi;
     }
     ProfileServiceProvider.prototype.getProfiles = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
+            var userToken, headers;
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve) {
-                        _this.http.get(_this.profilesApi.url).subscribe(function (data) {
-                            resolve(data.json());
-                        });
-                    })];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.storage.get('userToken')];
+                    case 1:
+                        userToken = _a.sent();
+                        headers = new Headers();
+                        headers.append('Authorization', userToken);
+                        return [2 /*return*/, new Promise(function (resolve) {
+                                _this.http
+                                    .get(_this.profilesApi.url, new RequestOptions({ headers: headers }))
+                                    .subscribe(function (data) {
+                                    resolve(data.json());
+                                });
+                            })];
+                }
             });
         });
     };
     ProfileServiceProvider.prototype.getProfilesWithPhotos = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
+            var userToken, headers;
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve) {
-                        _this.http.get(_this.profilesApi.url).subscribe(function (data) {
-                            resolve(data.json().filter(function (profile) { return profile['photoUrl'] !== undefined; }));
-                        });
-                    })];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.storage.get('userToken')];
+                    case 1:
+                        userToken = _a.sent();
+                        headers = new Headers();
+                        headers.append('Authorization', userToken);
+                        return [2 /*return*/, new Promise(function (resolve) {
+                                _this.http
+                                    .get(_this.profilesApi.url, new RequestOptions({ headers: headers }))
+                                    .subscribe(function (data) {
+                                    resolve(data.json().filter(function (profile) { return profile['photoUrl'] !== undefined; }));
+                                });
+                            })];
+                }
             });
         });
     };
@@ -81,8 +103,9 @@ var ProfileServiceProvider = (function () {
 }());
 ProfileServiceProvider = __decorate([
     Injectable(),
-    __param(1, Inject(ProfilesInjectionToken)),
-    __metadata("design:paramtypes", [Http, Object])
+    __param(2, Inject(ProfilesInjectionToken)),
+    __metadata("design:paramtypes", [Http,
+        Storage, Object])
 ], ProfileServiceProvider);
 export { ProfileServiceProvider };
 //# sourceMappingURL=profile.service.js.map
