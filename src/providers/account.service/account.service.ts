@@ -1,6 +1,6 @@
 import { Account } from './../../models/account/account';
 import { Injectable, Inject } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import {
   ConnectionString,
   AccountsInjectionToken,
@@ -8,7 +8,6 @@ import {
 } from '../../app/app-config';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
-import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class AccountServiceProvider {
@@ -64,14 +63,15 @@ export class AccountServiceProvider {
       );
   }
 
-  async getAccount(id: string): Promise<Account[]> {
+  async getAccount(id: string): Promise<Account> {
+    const userToken = await this.storage.get('userToken');
+    const headers = new Headers();
+    headers.append('Authorization', userToken);
     const getAccountByIdUrl = this.accountsApi.url + '/' + id;
-    return new Promise<Account[]>(resolve => {
+    return new Promise<Account>(resolve => {
       this.storage.get('userToken').then(userToken => {
         this.http
-          .get(getAccountByIdUrl, {
-            params: new HttpParams().set('access_token', userToken)
-          })
+          .get(getAccountByIdUrl, { headers: headers })
           .subscribe(data => {
             resolve(data.json());
           });

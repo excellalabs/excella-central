@@ -5,6 +5,7 @@ import { AccountServiceProvider } from '../../providers/account.service/account.
 import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
 import { PictureUploadServiceProvider } from '../../providers/picture-upload.service.ts/picture-upload.service';
 import { Profile } from '../../models/profile/profile';
+import { Account } from '../../models/account/account';
 
 @IonicPage()
 @Component({
@@ -30,11 +31,11 @@ export class PictureUploadPage {
     this.storage.get('userId').then(userId => {
       (async () => {
         this.userId = userId;
-        //this.account = await this.accountServiceProvider.getAccount(
-        //  this.userId
-        // );
+        this.account = await this.accountServiceProvider.getAccount(
+          this.userId
+        );
         this.profile = await this.profileServiceProvider.getProfileByEmail(
-          'alex.hoffman@excella.com' //this.account.email
+          this.account.email
         );
       })();
     });

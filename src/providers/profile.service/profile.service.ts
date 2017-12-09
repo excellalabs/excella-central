@@ -32,13 +32,6 @@ export class ProfileServiceProvider {
     headers.append('Authorization', userToken);
 
     return new Promise<Profile[]>(resolve => {
-<<<<<<< HEAD
-      this.http.get(this.profilesApi.url).subscribe(data => {
-        resolve(
-          data.json().filter(profile => profile['photoUrl'] !== undefined)
-        );
-      });
-=======
       this.http
         .get(this.profilesApi.url, new RequestOptions({ headers: headers }))
         .subscribe(data => {
@@ -46,14 +39,17 @@ export class ProfileServiceProvider {
             data.json().filter(profile => profile['photoUrl'] !== undefined)
           );
         });
->>>>>>> master
     });
   }
 
   async getProfileByEmail(email): Promise<Profile> {
+    const userToken = await this.storage.get('userToken');
+    const headers = new Headers();
+    headers.append('Authorization', userToken);
     return new Promise<Profile>(resolve => {
       this.http
         .get(this.profilesApi.url, {
+          headers: headers,
           params: {
             filter: {
               where: { email: email }
@@ -67,9 +63,13 @@ export class ProfileServiceProvider {
   }
 
   async getProfileById(id): Promise<Profile> {
+    const userToken = await this.storage.get('userToken');
+    const headers = new Headers();
+    headers.append('Authorization', userToken);
     return new Promise<Profile>(resolve => {
       this.http
         .get(this.profilesApi.url, {
+          headers: headers,
           params: {
             filter: {
               where: { id: id }
@@ -83,9 +83,14 @@ export class ProfileServiceProvider {
   }
 
   async updateProfileById(profile): Promise<Profile> {
+    const userToken = await this.storage.get('userToken');
+    const headers = new Headers();
+    headers.append('Authorization', userToken);
     return new Promise<Profile>(resolve => {
       this.http
-        .patch(this.profilesApi.url + '/' + profile.id, profile)
+        .patch(this.profilesApi.url + '/' + profile.id, profile, {
+          headers: headers
+        })
         .subscribe(data => {
           resolve(data.json()[0]);
         });
