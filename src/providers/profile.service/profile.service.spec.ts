@@ -12,8 +12,12 @@ import {
   ProfilesInjectionToken
 } from '../../app/app-config';
 import { Profile } from '../../models/profile/profile';
-import { StorageMock } from '../../../test-config/mocks-ionic';
+import {
+  StorageMock,
+  AuthenticationServiceMock
+} from '../../../test-config/mocks-ionic';
 import { IonicStorageModule } from '@ionic/storage';
+import { AuthenticationService } from '../authentication.service/authentication.service';
 
 describe('ApiService', () => {
   beforeEach(() => {
@@ -23,8 +27,7 @@ describe('ApiService', () => {
         ProfileService,
         { provide: XHRBackend, useClass: MockBackend },
         { provide: ProfilesInjectionToken, useValue: '' },
-        { provide: AccountsInjectionToken, useValue: '' },
-        { provide: Storage, useClass: StorageMock }
+        { provide: AuthenticationService, useValue: AuthenticationServiceMock }
       ]
     });
   });

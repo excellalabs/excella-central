@@ -2,6 +2,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Pipe, PipeTransform } from '@angular/core';
 import { Profile } from '../src/models/profile/profile';
+import { RequestOptions } from 'https';
 
 export class PlatformMock {
   public ready(): Promise<string> {
@@ -151,6 +152,20 @@ export class AccountServiceMock {
   register(email: string, password: string) {
     return new Promise<Profile[]>((resolve, reject) => {});
   }
+}
+
+export class AuthenticationServiceMock {
+  buildAuthenticationService() {
+    return new Promise<RequestOptions>((resolve, reject) => {});
+  }
+
+  getUserToken() {
+    return new Promise<string>((resolve, reject) => {});
+  }
+
+  storeUserToken(data) {}
+
+  clearUserToken() {}
 }
 
 export class StorageMock {
