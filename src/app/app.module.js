@@ -16,6 +16,7 @@ import { AccountsApi, AccountsInjectionToken, ProfilesApi, ProfilesInjectionToke
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileService } from '../providers/profile.service/profile.service';
 import { AccountService } from '../providers/account.service/account.service';
+import { AuthenticationService } from '../providers/authentication.service/authentication.service';
 var AppModule = (function () {
     function AppModule() {
     }
@@ -40,7 +41,8 @@ AppModule = __decorate([
             ProfileService,
             AccountService,
             { provide: ProfilesInjectionToken, useValue: ProfilesApi },
-            { provide: AccountsInjectionToken, useValue: AccountsApi }
+            { provide: AccountsInjectionToken, useValue: AccountsApi },
+            AuthenticationService
         ]
     })
 ], AppModule);

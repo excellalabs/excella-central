@@ -1,6 +1,8 @@
 import { Storage } from '@ionic/storage';
 import { Headers, RequestOptions } from '@angular/http';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class AuthenticationService {
   constructor(private storage: Storage) {}
 
