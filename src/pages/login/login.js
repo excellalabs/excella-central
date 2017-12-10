@@ -8,15 +8,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from '../../providers/account.service/account.service';
 var LoginPage = (function () {
-    function LoginPage(
-        /*public toastCtrl: ToastController, */
-        navCtrl, formBuilder, accountService) {
+    function LoginPage(navCtrl, formBuilder, alertCtrl, accountService) {
         this.navCtrl = navCtrl;
         this.formBuilder = formBuilder;
+        this.alertCtrl = alertCtrl;
         this.accountService = accountService;
         this.userForm = this.formBuilder.group({
             email: ['', Validators.required],
@@ -32,16 +31,12 @@ var LoginPage = (function () {
                 _this.navCtrl.setRoot('HomePage');
             }
             else {
-                alert('Login failed.'); // replace with something better
-                //TODO: find out why toastCtrl .present() causes tests to fail
-                /*
-                this.toastCtrl.create({
-                message: "Your credentials didn't work. Please try again.",
-                duration: 3000,
-                showCloseButton: true,
-                dismissOnPageChange: true
-                }).present();
-                */
+                var alert_1 = _this.alertCtrl.create({
+                    title: 'Login failed!',
+                    subTitle: 'Please try again.',
+                    buttons: ['OK']
+                });
+                alert_1.present();
             }
         });
     };
@@ -55,6 +50,7 @@ LoginPage = __decorate([
     }),
     __metadata("design:paramtypes", [NavController,
         FormBuilder,
+        AlertController,
         AccountService])
 ], LoginPage);
 export { LoginPage };

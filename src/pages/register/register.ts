@@ -1,6 +1,11 @@
 import { AccountService } from './../../providers/account.service/account.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  AlertController
+} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PasswordValidator } from '../../../src/validators/passwords';
 
@@ -16,6 +21,7 @@ export class RegisterPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private formBuilder: FormBuilder,
+    private alertCtrl: AlertController,
     private accountService: AccountService
   ) {
     this.registerForm = this.formBuilder.group({
@@ -37,16 +43,31 @@ export class RegisterPage {
     const accountExists = await this.accountExists(email);
     const profileDoesNotExist = await this.profileDoesExist(email);
     if (accountExists) {
-      alert('Account already exists for this email.');
+      const alert = this.alertCtrl.create({
+        title: 'Register failed!',
+        subTitle: 'An account with this email already exists.',
+        buttons: ['OK']
+      });
+      alert.present();
     } else if (!profileDoesNotExist) {
-      alert('Email was not found in the Excella directory.');
+      const alert = this.alertCtrl.create({
+        title: 'Register failed!',
+        subTitle: 'This email could not be found in the employee directory.',
+        buttons: ['OK']
+      });
+      alert.present();
     } else {
       this.accountService.register(email, password).then(
         success => {
           this.navCtrl.setRoot('HomePage');
         },
         err => {
-          alert('Registration failed.'); // replace with something better
+          const alert = this.alertCtrl.create({
+            title: 'Register failed!',
+            subTitle: 'Please try again.',
+            buttons: ['OK']
+          });
+          alert.present();
         }
       );
     }

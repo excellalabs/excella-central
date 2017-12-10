@@ -44,14 +44,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { AccountService } from './../../providers/account.service/account.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PasswordValidator } from '../../../src/validators/passwords';
 var RegisterPage = (function () {
-    function RegisterPage(navCtrl, navParams, formBuilder, accountService) {
+    function RegisterPage(navCtrl, navParams, formBuilder, alertCtrl, accountService) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.formBuilder = formBuilder;
+        this.alertCtrl = alertCtrl;
         this.accountService = accountService;
         this.registerForm = this.formBuilder.group({
             email: [
@@ -68,7 +69,7 @@ var RegisterPage = (function () {
     RegisterPage.prototype.registerUser = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var email, password, accountExists, profileDoesNotExist;
+            var email, password, accountExists, profileDoesNotExist, alert_1, alert_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -81,16 +82,31 @@ var RegisterPage = (function () {
                     case 2:
                         profileDoesNotExist = _a.sent();
                         if (accountExists) {
-                            alert('Account already exists for this email.');
+                            alert_1 = this.alertCtrl.create({
+                                title: 'Register failed!',
+                                subTitle: 'An account with this email already exists.',
+                                buttons: ['OK']
+                            });
+                            alert_1.present();
                         }
                         else if (!profileDoesNotExist) {
-                            alert('Email was not found in the Excella directory.');
+                            alert_2 = this.alertCtrl.create({
+                                title: 'Register failed!',
+                                subTitle: 'This email could not be found in the employee directory.',
+                                buttons: ['OK']
+                            });
+                            alert_2.present();
                         }
                         else {
                             this.accountService.register(email, password).then(function (success) {
                                 _this.navCtrl.setRoot('HomePage');
                             }, function (err) {
-                                alert('Registration failed.'); // replace with something better
+                                var alert = _this.alertCtrl.create({
+                                    title: 'Register failed!',
+                                    subTitle: 'Please try again.',
+                                    buttons: ['OK']
+                                });
+                                alert.present();
                             });
                         }
                         return [2 /*return*/];
@@ -129,6 +145,7 @@ RegisterPage = __decorate([
     __metadata("design:paramtypes", [NavController,
         NavParams,
         FormBuilder,
+        AlertController,
         AccountService])
 ], RegisterPage);
 export { RegisterPage };
