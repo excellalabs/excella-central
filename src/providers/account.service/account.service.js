@@ -49,14 +49,12 @@ import { Account } from './../../models/account/account';
 import { Injectable, Inject } from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
 import { AccountsInjectionToken, ProfilesInjectionToken } from '../../app/app-config';
-import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
 import { AuthenticationService } from '../authentication.service/authentication.service';
 var AccountService = (function () {
-    function AccountService(http, authService, storage, profilesApi, accountsApi) {
+    function AccountService(http, authService, profilesApi, accountsApi) {
         this.http = http;
         this.authService = authService;
-        this.storage = storage;
         this.profilesApi = profilesApi;
         this.accountsApi = accountsApi;
     }
@@ -180,11 +178,10 @@ var AccountService = (function () {
 }());
 AccountService = __decorate([
     Injectable(),
-    __param(3, Inject(ProfilesInjectionToken)),
-    __param(4, Inject(AccountsInjectionToken)),
+    __param(2, Inject(ProfilesInjectionToken)),
+    __param(3, Inject(AccountsInjectionToken)),
     __metadata("design:paramtypes", [Http,
-        AuthenticationService,
-        Storage, Object, Object])
+        AuthenticationService, Object, Object])
 ], AccountService);
 export { AccountService };
 //# sourceMappingURL=account.service.js.map

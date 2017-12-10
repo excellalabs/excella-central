@@ -1,12 +1,11 @@
 import { Account } from './../../models/account/account';
 import { Injectable, Inject } from '@angular/core';
-import { Http, Headers, URLSearchParams } from '@angular/http';
+import { Http, URLSearchParams } from '@angular/http';
 import {
   ConnectionString,
   AccountsInjectionToken,
   ProfilesInjectionToken
 } from '../../app/app-config';
-import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
 import { AuthenticationService } from '../authentication.service/authentication.service';
 
@@ -15,7 +14,6 @@ export class AccountService {
   constructor(
     public http: Http,
     private authService: AuthenticationService,
-    private storage: Storage,
     @Inject(ProfilesInjectionToken) public profilesApi: ConnectionString,
     @Inject(AccountsInjectionToken) public accountsApi: ConnectionString
   ) {}
