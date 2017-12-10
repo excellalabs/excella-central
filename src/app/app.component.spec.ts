@@ -12,10 +12,12 @@ import {
   SplashScreenMock,
   ProfileServiceMock,
   AccountServiceMock,
-  StorageMock
+  StorageMock,
+  AuthenticationServiceMock
 } from '../../test-config/mocks-ionic';
 import { ProfileService } from '../providers/profile.service/profile.service';
 import { AccountService } from '../providers/account.service/account.service';
+import { AuthenticationService } from '../providers/authentication.service/authentication.service';
 
 describe('MyApp Component', () => {
   let fixture: ComponentFixture<MyApp>;
@@ -33,6 +35,10 @@ describe('MyApp Component', () => {
           { provide: Platform, useClass: PlatformMock },
           { provide: ProfileService, useClass: ProfileServiceMock },
           { provide: AccountService, useClass: AccountServiceMock },
+          {
+            provide: AuthenticationService,
+            useClass: AuthenticationServiceMock
+          },
           { provide: Storage, useClass: StorageMock }
         ],
         schemas: [NO_ERRORS_SCHEMA]

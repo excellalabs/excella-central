@@ -13,17 +13,18 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { AccountService } from '../providers/account.service/account.service';
+import { AuthenticationService } from '../providers/authentication.service/authentication.service';
 var MyApp = (function () {
-    function MyApp(platform, statusBar, splashScreen, accountService, storage) {
+    function MyApp(platform, statusBar, splashScreen, storage, accountService, authService) {
         var _this = this;
         this.platform = platform;
         this.statusBar = statusBar;
         this.splashScreen = splashScreen;
-        this.accountService = accountService;
         this.storage = storage;
-        this.storage.get('rememberUser').then(function (rememberUser) {
-            _this.rememberUser = rememberUser;
-            if (rememberUser) {
+        this.accountService = accountService;
+        this.authService = authService;
+        this.authService.getUserToken().then(function (userToken) {
+            if (userToken && userToken !== '') {
                 _this.rootPage = 'HomePage';
             }
             else {
@@ -70,8 +71,9 @@ MyApp = __decorate([
     __metadata("design:paramtypes", [Platform,
         StatusBar,
         SplashScreen,
+        Storage,
         AccountService,
-        Storage])
+        AuthenticationService])
 ], MyApp);
 export { MyApp };
 //# sourceMappingURL=app.component.js.map
