@@ -1,6 +1,6 @@
 import { Account } from './../../models/account/account';
 import { Injectable, Inject } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import {
   ConnectionString,
   AccountsInjectionToken,
@@ -8,11 +8,13 @@ import {
 } from '../../app/app-config';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
+import { AuthenticationService } from '../authentication.service/authentication.service';
 
 @Injectable()
-export class AccountServiceProvider {
+export class AccountService {
   constructor(
     public http: Http,
+    private authService: AuthenticationService,
     private storage: Storage,
     @Inject(ProfilesInjectionToken) public profilesApi: ConnectionString,
     @Inject(AccountsInjectionToken) public accountsApi: ConnectionString
@@ -21,61 +23,83 @@ export class AccountServiceProvider {
   async login(email: string, password: string): Promise<boolean> {
     const loginUrl = this.accountsApi.url + '/login';
     const accountInfo = { email: email, password: password };
-    return await this.http
-      .post(loginUrl, accountInfo)
-      .toPromise()
-      .then(res => res.json())
-      .then(
+    return new Promise<boolean>(resolve => {
+      this.http.post(loginUrl, accountInfo).subscribe(
         data => {
-          this.storage.set('userToken', data.id);
-          this.storage.set('userId', data.userId);
-          return true;
+          const body = data.json();
+          this.authService.storeUserToken(body);
+          resolve(true);
         },
         err => {
-          this.storage.set('userToken', null);
-          this.storage.set('userId', null);
-          return false;
+          this.authService.clearUserToken();
+          resolve(false);
         }
       );
-  }
-
-  async logout(): Promise<void> {
-    const logoutUrl = this.accountsApi.url + '/logout';
-    this.storage.get('userToken').then(userToken => {
-      this.http.post(logoutUrl, { access_token: userToken });
     });
   }
 
+  async logout(): Promise<void> {
+    const userToken = await this.authService.getUserToken();
+    const logoutUrl = this.accountsApi.url + '/logout';
+    await this.http.post(logoutUrl, { access_token: userToken });
+  }
+
   async register(email: string, password: string): Promise<boolean> {
-    var that = this;
-    let newAccount = new Account(email, password, false, false);
-    return await this.http
-      .post(this.accountsApi.url, newAccount)
-      .toPromise()
-      .then(res => res.json())
-      .then(
+    const newAccount = new Account(email, password, false, false);
+    return new Promise<boolean>(resolve => {
+      this.http.post(this.accountsApi.url, newAccount).subscribe(
         data => {
-          return that.login(email, password);
+          this.login(email, password);
+          resolve(true);
         },
         err => {
-          return false;
+          resolve(false);
         }
       );
+    });
   }
 
   async getAccount(id: string): Promise<Account> {
-    const userToken = await this.storage.get('userToken');
-    const headers = new Headers();
-    headers.append('Authorization', userToken);
+    const requestHeaders = await this.authService.buildAuthenticationRequest();
     const getAccountByIdUrl = this.accountsApi.url + '/' + id;
     return new Promise<Account>(resolve => {
-      this.storage.get('userToken').then(userToken => {
-        this.http
-          .get(getAccountByIdUrl, { headers: headers })
-          .subscribe(data => {
-            resolve(data.json());
-          });
+      this.http.get(getAccountByIdUrl, requestHeaders).subscribe(data => {
+        resolve(data.json());
       });
+    });
+  }
+
+  async checkAccountExists(email: string): Promise<boolean> {
+    const checkAccountExistsUrl =
+      this.accountsApi.url + '/' + 'checkAccountExists';
+    const params = new URLSearchParams();
+    params.append('email', email);
+    return new Promise<boolean>(resolve => {
+      this.http
+        .get(checkAccountExistsUrl, {
+          params: params
+        })
+        .subscribe(data => {
+          const body = data.json();
+          resolve(body.doesAccountExist);
+        });
+    });
+  }
+
+  async checkProfileExists(email: string): Promise<boolean> {
+    const checkProfileExistsUrl =
+      this.accountsApi.url + '/' + 'checkProfileExists';
+    const params = new URLSearchParams();
+    params.append('email', email);
+    return new Promise<boolean>(resolve => {
+      this.http
+        .get(checkProfileExistsUrl, {
+          params: params
+        })
+        .subscribe(data => {
+          const body = data.json();
+          resolve(body.doesProfileExist);
+        });
     });
   }
 }

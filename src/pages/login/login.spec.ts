@@ -3,12 +3,12 @@ import { IonicModule, NavController, NavParams } from 'ionic-angular';
 import {
   NavMock,
   NavParamsMock,
-  AccountServiceProviderMock
+  AccountServiceMock
 } from '../../../test-config/mocks-ionic';
 import { LoginPage } from './login';
 import { HttpModule } from '@angular/http';
 import { Storage } from '@ionic/storage/es2015/storage';
-import { AccountServiceProvider } from '../../providers/account.service/account.service';
+import { AccountService } from '../../providers/account.service/account.service';
 
 describe('LoginPage', () => {
   let fixture: ComponentFixture<LoginPage>;
@@ -22,8 +22,8 @@ describe('LoginPage', () => {
           { provide: NavController, useClass: NavMock },
           { provide: NavParams, useClass: NavParamsMock },
           {
-            provide: AccountServiceProvider,
-            useValue: AccountServiceProviderMock
+            provide: AccountService,
+            useValue: AccountServiceMock
           }
         ]
       });

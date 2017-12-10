@@ -7,9 +7,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -45,59 +42,51 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { Injectable, Inject } from '@angular/core';
-import { Http } from '@angular/http';
-import { ProfilesInjectionToken } from '../../app/app-config';
-import { AuthenticationService } from '../authentication.service/authentication.service';
-var ProfileService = (function () {
-    function ProfileService(http, authService, profilesApi) {
-        this.http = http;
-        this.authService = authService;
-        this.profilesApi = profilesApi;
+import { Storage } from '@ionic/storage';
+import { Headers, RequestOptions } from '@angular/http';
+import { Injectable } from '@angular/core';
+var AuthenticationService = (function () {
+    function AuthenticationService(storage) {
+        this.storage = storage;
     }
-    ProfileService.prototype.getProfiles = function () {
+    AuthenticationService.prototype.buildAuthenticationRequest = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            var requestHeaders;
+            var userToken, headers;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.authService.buildAuthenticationRequest()];
+                    case 0: return [4 /*yield*/, this.storage.get('userToken')];
                     case 1:
-                        requestHeaders = _a.sent();
-                        return [2 /*return*/, new Promise(function (resolve) {
-                                _this.http.get(_this.profilesApi.url, requestHeaders).subscribe(function (data) {
-                                    resolve(data.json());
-                                });
-                            })];
+                        userToken = _a.sent();
+                        headers = new Headers();
+                        headers.append('Authorization', userToken);
+                        return [2 /*return*/, new RequestOptions({ headers: headers })];
                 }
             });
         });
     };
-    ProfileService.prototype.getProfilesWithPhotos = function () {
+    AuthenticationService.prototype.getUserToken = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            var requestHeaders;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.authService.buildAuthenticationRequest()];
-                    case 1:
-                        requestHeaders = _a.sent();
-                        return [2 /*return*/, new Promise(function (resolve) {
-                                _this.http.get(_this.profilesApi.url, requestHeaders).subscribe(function (data) {
-                                    resolve(data.json().filter(function (profile) { return profile['photoUrl'] !== undefined; }));
-                                });
-                            })];
+                    case 0: return [4 /*yield*/, this.storage.get('userToken')];
+                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    return ProfileService;
+    AuthenticationService.prototype.storeUserToken = function (data) {
+        this.storage.set('userToken', data.id);
+        this.storage.set('userId', data.userId);
+    };
+    AuthenticationService.prototype.clearUserToken = function () {
+        this.storage.set('userToken', null);
+        this.storage.set('userId', null);
+    };
+    return AuthenticationService;
 }());
-ProfileService = __decorate([
+AuthenticationService = __decorate([
     Injectable(),
-    __param(2, Inject(ProfilesInjectionToken)),
-    __metadata("design:paramtypes", [Http,
-        AuthenticationService, Object])
-], ProfileService);
-export { ProfileService };
-//# sourceMappingURL=profile.service.js.map
+    __metadata("design:paramtypes", [Storage])
+], AuthenticationService);
+export { AuthenticationService };
+//# sourceMappingURL=authentication.service.js.map

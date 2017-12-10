@@ -14,9 +14,10 @@ import {
   ProfilesInjectionToken
 } from '../app/app-config';
 import { HttpClientModule } from '@angular/common/http';
-import { ProfileServiceProvider } from '../providers/profile.service/profile.service';
-import { AccountServiceProvider } from '../providers/account.service/account.service';
-import { PictureUploadServiceProvider } from '../providers/picture-upload.service.ts/picture-upload.service';
+import { ProfileService } from '../providers/profile.service/profile.service';
+import { AccountService } from '../providers/account.service/account.service';
+import { PictureUploadService } from '../providers/picture-upload.service.ts/picture-upload.service';
+import { AuthenticationService } from '../providers/authentication.service/authentication.service';
 
 @NgModule({
   declarations: [MyApp],
@@ -33,11 +34,12 @@ import { PictureUploadServiceProvider } from '../providers/picture-upload.servic
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    ProfileServiceProvider,
-    AccountServiceProvider,
+    ProfileService,
+    AccountService,
     { provide: ProfilesInjectionToken, useValue: ProfilesApi },
     { provide: AccountsInjectionToken, useValue: AccountsApi },
-    PictureUploadServiceProvider
+    PictureUploadService,
+    AuthenticationService
   ]
 })
 export class AppModule {}

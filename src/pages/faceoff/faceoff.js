@@ -44,12 +44,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
+import { ProfileService } from '../../providers/profile.service/profile.service';
 var FaceoffPage = (function () {
-    function FaceoffPage(navCtrl, navParams, profileServiceProvider) {
+    function FaceoffPage(navCtrl, navParams, profileService) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.profileServiceProvider = profileServiceProvider;
+        this.profileService = profileService;
         this.totalQuestions = 10;
     }
     FaceoffPage.prototype.ionViewDidLoad = function () {
@@ -59,7 +59,7 @@ var FaceoffPage = (function () {
                 switch (_b.label) {
                     case 0:
                         _a = this;
-                        return [4 /*yield*/, this.profileServiceProvider.getProfilesWithPhotos()];
+                        return [4 /*yield*/, this.profileService.getProfilesWithPhotos()];
                     case 1:
                         _a.profiles = _b.sent();
                         this.startNewGame();
@@ -139,7 +139,7 @@ FaceoffPage = __decorate([
     }),
     __metadata("design:paramtypes", [NavController,
         NavParams,
-        ProfileServiceProvider])
+        ProfileService])
 ], FaceoffPage);
 export { FaceoffPage };
 //# sourceMappingURL=faceoff.js.map

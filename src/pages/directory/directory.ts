@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Profile, generateFullName } from '../../models/profile/profile';
-import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
+import { ProfileService } from '../../providers/profile.service/profile.service';
 
 @IonicPage()
 @Component({
@@ -16,7 +16,7 @@ export class DirectoryPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public profileServiceProvider: ProfileServiceProvider
+    public profileService: ProfileService
   ) {}
 
   ionViewDidLoad() {
@@ -25,7 +25,7 @@ export class DirectoryPage {
   }
 
   async getProfiles() {
-    return await this.profileServiceProvider.getProfiles();
+    return await this.profileService.getProfiles();
   }
 
   goToDirectoryDetail(profile) {

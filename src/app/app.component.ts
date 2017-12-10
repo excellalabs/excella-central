@@ -3,7 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
-import { AccountServiceProvider } from '../providers/account.service/account.service';
+import { AccountService } from '../providers/account.service/account.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,7 +18,7 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public accountServiceProvider: AccountServiceProvider,
+    public accountService: AccountService,
     public storage: Storage
   ) {
     this.storage.get('rememberUser').then(rememberUser => {
@@ -56,7 +56,7 @@ export class MyApp {
   }
 
   logout() {
-    this.accountServiceProvider.logout();
+    this.accountService.logout();
     this.nav.setRoot('LandingPage');
   }
 }
