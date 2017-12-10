@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AccountServiceProvider } from '../../providers/account.service/account.service';
+import { AccountService } from '../../providers/account.service/account.service';
 
 @IonicPage()
 @Component({
@@ -15,7 +15,7 @@ export class LoginPage {
     /*public toastCtrl: ToastController, */
     private navCtrl: NavController,
     private formBuilder: FormBuilder,
-    private accountServiceProvider: AccountServiceProvider
+    private accountService: AccountService
   ) {
     this.userForm = this.formBuilder.group({
       email: ['', Validators.required],
@@ -24,7 +24,7 @@ export class LoginPage {
   }
 
   loginUser() {
-    this.accountServiceProvider
+    this.accountService
       .login(this.userForm.value.email, this.userForm.value.password)
       .then(loggedIn => {
         if (loggedIn) {

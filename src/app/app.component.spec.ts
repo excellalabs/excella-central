@@ -10,12 +10,12 @@ import {
   PlatformMock,
   StatusBarMock,
   SplashScreenMock,
-  ProfileServiceProviderMock,
-  AccountServiceProviderMock,
+  ProfileServiceMock,
+  AccountServiceMock,
   StorageMock
 } from '../../test-config/mocks-ionic';
-import { ProfileServiceProvider } from '../providers/profile.service/profile.service';
-import { AccountServiceProvider } from '../providers/account.service/account.service';
+import { ProfileService } from '../providers/profile.service/profile.service';
+import { AccountService } from '../providers/account.service/account.service';
 
 describe('MyApp Component', () => {
   let fixture: ComponentFixture<MyApp>;
@@ -31,8 +31,8 @@ describe('MyApp Component', () => {
           { provide: StatusBar, useClass: StatusBarMock },
           { provide: SplashScreen, useClass: SplashScreenMock },
           { provide: Platform, useClass: PlatformMock },
-          { provide: ProfileServiceProvider, useClass: ProfileServiceProviderMock },
-          { provide: AccountServiceProvider, useClass: AccountServiceProviderMock },
+          { provide: ProfileService, useClass: ProfileServiceMock },
+          { provide: AccountService, useClass: AccountServiceMock },
           { provide: Storage, useClass: StorageMock }
         ],
         schemas: [NO_ERRORS_SCHEMA]

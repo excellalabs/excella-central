@@ -10,14 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AccountServiceProvider } from '../../providers/account.service/account.service';
+import { AccountService } from '../../providers/account.service/account.service';
 var LoginPage = (function () {
     function LoginPage(
         /*public toastCtrl: ToastController, */
-        navCtrl, formBuilder, accountServiceProvider) {
+        navCtrl, formBuilder, accountService) {
         this.navCtrl = navCtrl;
         this.formBuilder = formBuilder;
-        this.accountServiceProvider = accountServiceProvider;
+        this.accountService = accountService;
         this.userForm = this.formBuilder.group({
             email: ['', Validators.required],
             password: ['', [Validators.required, Validators.minLength(6)]]
@@ -25,7 +25,7 @@ var LoginPage = (function () {
     }
     LoginPage.prototype.loginUser = function () {
         var _this = this;
-        this.accountServiceProvider
+        this.accountService
             .login(this.userForm.value.email, this.userForm.value.password)
             .then(function (loggedIn) {
             if (loggedIn) {
@@ -55,7 +55,7 @@ LoginPage = __decorate([
     }),
     __metadata("design:paramtypes", [NavController,
         FormBuilder,
-        AccountServiceProvider])
+        AccountService])
 ], LoginPage);
 export { LoginPage };
 //# sourceMappingURL=login.js.map

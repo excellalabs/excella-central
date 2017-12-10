@@ -14,8 +14,9 @@ import {
   ProfilesInjectionToken
 } from '../app/app-config';
 import { HttpClientModule } from '@angular/common/http';
-import { ProfileServiceProvider } from '../providers/profile.service/profile.service';
-import { AccountServiceProvider } from '../providers/account.service/account.service';
+import { ProfileService } from '../providers/profile.service/profile.service';
+import { AccountService } from '../providers/account.service/account.service';
+import { AuthenticationService } from '../providers/authentication.service/authentication.service';
 
 @NgModule({
   declarations: [MyApp],
@@ -32,10 +33,11 @@ import { AccountServiceProvider } from '../providers/account.service/account.ser
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    ProfileServiceProvider,
-    AccountServiceProvider,
+    ProfileService,
+    AccountService,
     { provide: ProfilesInjectionToken, useValue: ProfilesApi },
-    { provide: AccountsInjectionToken, useValue: AccountsApi }
+    { provide: AccountsInjectionToken, useValue: AccountsApi },
+    AuthenticationService
   ]
 })
 export class AppModule {}
