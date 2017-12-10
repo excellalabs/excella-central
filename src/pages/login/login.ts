@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '../../providers/account.service/account.service';
 
@@ -12,9 +12,9 @@ export class LoginPage {
   public userForm: FormGroup;
 
   constructor(
-    /*public toastCtrl: ToastController, */
     private navCtrl: NavController,
     private formBuilder: FormBuilder,
+    private alertCtrl: AlertController,
     private accountService: AccountService
   ) {
     this.userForm = this.formBuilder.group({
@@ -30,16 +30,12 @@ export class LoginPage {
         if (loggedIn) {
           this.navCtrl.setRoot('HomePage');
         } else {
-          alert('Login failed.'); // replace with something better
-          //TODO: find out why toastCtrl .present() causes tests to fail
-          /*
-          this.toastCtrl.create({
-          message: "Your credentials didn't work. Please try again.",
-          duration: 3000,
-          showCloseButton: true,
-          dismissOnPageChange: true
-          }).present();
-          */
+          const alert = this.alertCtrl.create({
+            title: 'Login failed!',
+            subTitle: 'Please try again.',
+            buttons: ['OK']
+          });
+          alert.present();
         }
       });
   }
