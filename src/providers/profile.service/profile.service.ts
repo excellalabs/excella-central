@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { ConnectionString, ProfilesInjectionToken } from '../../app/app-config';
 import { Profile } from '../../models/profile/profile';
 import { AuthenticationService } from '../authentication.service/authentication.service';
+import { request } from 'http';
 
 @Injectable()
 export class ProfileService {
@@ -33,13 +34,12 @@ export class ProfileService {
   }
 
   async getProfileByEmail(email): Promise<Profile> {
-    const userToken = await this.storage.get('userToken');
-    const headers = new Headers();
-    headers.append('Authorization', userToken);
+    const requestHeaders = (await this.authService.buildAuthenticationRequest())
+      .headers;
     return new Promise<Profile>(resolve => {
       this.http
         .get(this.profilesApi.url, {
-          headers: headers,
+          headers: requestHeaders,
           params: {
             filter: {
               where: { email: email }
@@ -53,13 +53,12 @@ export class ProfileService {
   }
 
   async getProfileById(id): Promise<Profile> {
-    const userToken = await this.storage.get('userToken');
-    const headers = new Headers();
-    headers.append('Authorization', userToken);
+    const requestHeaders = (await this.authService.buildAuthenticationRequest())
+      .headers;
     return new Promise<Profile>(resolve => {
       this.http
         .get(this.profilesApi.url, {
-          headers: headers,
+          headers: requestHeaders,
           params: {
             filter: {
               where: { id: id }
@@ -73,13 +72,12 @@ export class ProfileService {
   }
 
   async updateProfileById(profile): Promise<Profile> {
-    const userToken = await this.storage.get('userToken');
-    const headers = new Headers();
-    headers.append('Authorization', userToken);
+    const requestHeaders = (await this.authService.buildAuthenticationRequest())
+      .headers;
     return new Promise<Profile>(resolve => {
       this.http
         .patch(this.profilesApi.url + '/' + profile.id, profile, {
-          headers: headers
+          headers: requestHeaders
         })
         .subscribe(data => {
           resolve(data.json()[0]);

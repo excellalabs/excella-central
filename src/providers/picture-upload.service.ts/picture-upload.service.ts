@@ -1,11 +1,11 @@
 import { Account } from './../../models/account/account';
 import { Injectable, Inject } from '@angular/core';
 import { Profile } from '../../models/profile/profile';
-import { ProfileServiceProvider } from '../profile.service/profile.service';
+import { ProfileService } from '../profile.service/profile.service';
 
 @Injectable()
-export class PictureUploadServiceProvider {
-  constructor(public profileServiceProvider: ProfileServiceProvider) {}
+export class PictureUploadService {
+  constructor(public profileServiceProvider: ProfileService) {}
 
   uploadPicture(image: Blob, profile: Profile) {
     const cloudName = 'excella';
