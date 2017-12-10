@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  AlertController
+} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AccountService } from '../../providers/account.service/account.service';
 import { ProfileService } from '../../providers/profile.service/profile.service';
@@ -22,9 +27,10 @@ export class PictureUploadPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public storage: Storage,
-    public accountService: AccountService,
-    public profileService: ProfileService,
-    public pictureUploadService: PictureUploadService
+    private alertCtrl: AlertController,
+    private accountService: AccountService,
+    private profileService: ProfileService,
+    private pictureUploadService: PictureUploadService
   ) {}
 
   async ionViewDidLoad() {
@@ -43,7 +49,12 @@ export class PictureUploadPage {
     if (this.image) {
       this.pictureUploadService.uploadPicture(this.image, this.profile);
     } else {
-      alert('Please choose a picture to upload'); // replace with something better
+      const alert = this.alertCtrl.create({
+        title: 'Picture upload failed!',
+        subTitle: 'Please select a picture and try again.',
+        buttons: ['OK']
+      });
+      alert.present();
     }
   }
 

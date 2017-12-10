@@ -43,16 +43,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AccountService } from '../../providers/account.service/account.service';
 import { ProfileService } from '../../providers/profile.service/profile.service';
 import { PictureUploadService } from '../../providers/picture-upload.service.ts/picture-upload.service';
 var PictureUploadPage = (function () {
-    function PictureUploadPage(navCtrl, navParams, storage, accountService, profileService, pictureUploadService) {
+    function PictureUploadPage(navCtrl, navParams, storage, alertCtrl, accountService, profileService, pictureUploadService) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.storage = storage;
+        this.alertCtrl = alertCtrl;
         this.accountService = accountService;
         this.profileService = profileService;
         this.pictureUploadService = pictureUploadService;
@@ -90,7 +91,12 @@ var PictureUploadPage = (function () {
             this.pictureUploadService.uploadPicture(this.image, this.profile);
         }
         else {
-            alert('Please choose a picture to upload'); // replace with something better
+            var alert_1 = this.alertCtrl.create({
+                title: 'Picture upload failed!',
+                subTitle: 'Please select a picture and try again.',
+                buttons: ['OK']
+            });
+            alert_1.present();
         }
     };
     PictureUploadPage.prototype.imgChange = function (event) {
@@ -108,6 +114,7 @@ PictureUploadPage = __decorate([
     __metadata("design:paramtypes", [NavController,
         NavParams,
         Storage,
+        AlertController,
         AccountService,
         ProfileService,
         PictureUploadService])
