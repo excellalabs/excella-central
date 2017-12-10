@@ -49,13 +49,13 @@ import { AccountService } from '../../providers/account.service/account.service'
 import { ProfileService } from '../../providers/profile.service/profile.service';
 import { PictureUploadService } from '../../providers/picture-upload.service.ts/picture-upload.service';
 var PictureUploadPage = (function () {
-    function PictureUploadPage(navCtrl, navParams, storage, accountServiceProvider, profileServiceProvider, pictureUploadServiceProvider) {
+    function PictureUploadPage(navCtrl, navParams, storage, accountService, profileService, pictureUploadService) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.storage = storage;
-        this.accountServiceProvider = accountServiceProvider;
-        this.profileServiceProvider = profileServiceProvider;
-        this.pictureUploadServiceProvider = pictureUploadServiceProvider;
+        this.accountService = accountService;
+        this.profileService = profileService;
+        this.pictureUploadService = pictureUploadService;
     }
     PictureUploadPage.prototype.ionViewDidLoad = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -69,11 +69,11 @@ var PictureUploadPage = (function () {
                                 case 0:
                                     this.userId = userId;
                                     _a = this;
-                                    return [4 /*yield*/, this.accountServiceProvider.getAccount(this.userId)];
+                                    return [4 /*yield*/, this.accountService.getAccount(this.userId)];
                                 case 1:
                                     _a.account = _c.sent();
                                     _b = this;
-                                    return [4 /*yield*/, this.profileServiceProvider.getProfileByEmail(this.account.email)];
+                                    return [4 /*yield*/, this.profileService.getProfileByEmail(this.account.email)];
                                 case 2:
                                     _b.profile = _c.sent();
                                     return [2 /*return*/];
@@ -87,7 +87,7 @@ var PictureUploadPage = (function () {
     };
     PictureUploadPage.prototype.uploadPicture = function () {
         if (this.image) {
-            this.pictureUploadServiceProvider.uploadPicture(this.image, this.profile);
+            this.pictureUploadService.uploadPicture(this.image, this.profile);
         }
         else {
             alert('Please choose a picture to upload'); // replace with something better
@@ -95,7 +95,7 @@ var PictureUploadPage = (function () {
     };
     PictureUploadPage.prototype.imgChange = function (event) {
         this.image = event.srcElement.files[0];
-        this.pictureUploadServiceProvider.imgChange(this.image);
+        this.pictureUploadService.imgChange(this.image);
     };
     return PictureUploadPage;
 }());

@@ -1,11 +1,10 @@
-import { Account } from './../../models/account/account';
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Profile } from '../../models/profile/profile';
 import { ProfileService } from '../profile.service/profile.service';
 
 @Injectable()
 export class PictureUploadService {
-  constructor(public profileServiceProvider: ProfileService) {}
+  constructor(public profileService: ProfileService) {}
 
   uploadPicture(image: Blob, profile: Profile) {
     const cloudName = 'excella';
@@ -37,7 +36,7 @@ export class PictureUploadService {
     fd.append('file', image, 'test.png');
     xhr.onload = () => {
       profile.photoUrl = JSON.parse(xhr.response).url;
-      this.profileServiceProvider.updateProfileById(profile);
+      this.profileService.updateProfileById(profile);
     };
     xhr.send(fd);
   }

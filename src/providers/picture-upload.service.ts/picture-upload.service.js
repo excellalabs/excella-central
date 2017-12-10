@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import { ProfileService } from '../profile.service/profile.service';
 var PictureUploadService = (function () {
-    function PictureUploadService(profileServiceProvider) {
-        this.profileServiceProvider = profileServiceProvider;
+    function PictureUploadService(profileService) {
+        this.profileService = profileService;
     }
     PictureUploadService.prototype.uploadPicture = function (image, profile) {
         var _this = this;
@@ -41,7 +41,7 @@ var PictureUploadService = (function () {
         fd.append('file', image, 'test.png');
         xhr.onload = function () {
             profile.photoUrl = JSON.parse(xhr.response).url;
-            _this.profileServiceProvider.updateProfileById(profile);
+            _this.profileService.updateProfileById(profile);
         };
         xhr.send(fd);
     };

@@ -22,19 +22,17 @@ export class PictureUploadPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public storage: Storage,
-    public accountServiceProvider: AccountService,
-    public profileServiceProvider: ProfileService,
-    public pictureUploadServiceProvider: PictureUploadService
+    public accountService: AccountService,
+    public profileService: ProfileService,
+    public pictureUploadService: PictureUploadService
   ) {}
 
   async ionViewDidLoad() {
     this.storage.get('userId').then(userId => {
       (async () => {
         this.userId = userId;
-        this.account = await this.accountServiceProvider.getAccount(
-          this.userId
-        );
-        this.profile = await this.profileServiceProvider.getProfileByEmail(
+        this.account = await this.accountService.getAccount(this.userId);
+        this.profile = await this.profileService.getProfileByEmail(
           this.account.email
         );
       })();
@@ -43,7 +41,7 @@ export class PictureUploadPage {
 
   uploadPicture() {
     if (this.image) {
-      this.pictureUploadServiceProvider.uploadPicture(this.image, this.profile);
+      this.pictureUploadService.uploadPicture(this.image, this.profile);
     } else {
       alert('Please choose a picture to upload'); // replace with something better
     }
@@ -51,6 +49,6 @@ export class PictureUploadPage {
 
   imgChange(event) {
     this.image = event.srcElement.files[0];
-    this.pictureUploadServiceProvider.imgChange(this.image);
+    this.pictureUploadService.imgChange(this.image);
   }
 }
