@@ -88,7 +88,7 @@ var RegisterPage = (function () {
                         }
                         else {
                             this.accountService.register(email, password).then(function (success) {
-                                _this.navCtrl.setRoot('LandingPage'); // direct to a confirm password email was sent screen
+                                _this.navCtrl.setRoot('HomePage');
                             }, function (err) {
                                 alert('Registration failed.'); // replace with something better
                             });

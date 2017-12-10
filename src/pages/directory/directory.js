@@ -68,7 +68,7 @@ var DirectoryPage = (function () {
         });
     };
     DirectoryPage.prototype.goToDirectoryDetail = function (profile) {
-        this.navCtrl.push('DirectoryDetailPage', { profile: profile });
+        this.navCtrl.push('DirectoryDetailPage', { id: profile.id });
     };
     DirectoryPage.prototype.getFullName = function (profile) {
         return generateFullName(profile.firstName, profile.lastName);

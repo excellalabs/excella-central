@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { AccountServiceProvider } from '../../providers/account.service/account.service';
-import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
-import { PictureUploadServiceProvider } from '../../providers/picture-upload.service.ts/picture-upload.service';
+import { AccountService } from '../../providers/account.service/account.service';
+import { ProfileService } from '../../providers/profile.service/profile.service';
+import { PictureUploadService } from '../../providers/picture-upload.service.ts/picture-upload.service';
 import { Profile } from '../../models/profile/profile';
 import { Account } from '../../models/account/account';
 
@@ -22,9 +22,9 @@ export class PictureUploadPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public storage: Storage,
-    public accountServiceProvider: AccountServiceProvider,
-    public profileServiceProvider: ProfileServiceProvider,
-    public pictureUploadServiceProvider: PictureUploadServiceProvider
+    public accountServiceProvider: AccountService,
+    public profileServiceProvider: ProfileService,
+    public pictureUploadServiceProvider: PictureUploadService
   ) {}
 
   async ionViewDidLoad() {

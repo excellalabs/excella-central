@@ -34,7 +34,8 @@ var MyApp = (function () {
         this.pages = [
             { title: 'Home', component: 'HomePage' },
             { title: 'Directory', component: 'DirectoryPage' },
-            { title: 'Faceoff', component: 'FaceoffPage' }
+            { title: 'Faceoff', component: 'FaceoffPage' },
+            { title: 'Profile Photo', component: 'PictureUploadPage' }
         ];
     }
     MyApp.prototype.initializeApp = function () {
