@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { AccountService } from '../providers/account.service/account.service';
+import { AuthenticationService } from '../providers/authentication.service/authentication.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,12 +19,12 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public accountService: AccountService,
-    public storage: Storage
+    public storage: Storage,
+    private accountService: AccountService,
+    private authService: AuthenticationService
   ) {
-    this.storage.get('rememberUser').then(rememberUser => {
-      this.rememberUser = rememberUser;
-      if (rememberUser) {
+    this.authService.getUserToken().then(userToken => {
+      if (userToken && userToken !== '') {
         this.rootPage = 'HomePage';
       } else {
         this.rootPage = 'LandingPage';

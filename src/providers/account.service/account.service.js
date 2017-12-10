@@ -92,6 +92,7 @@ var AccountService = (function () {
                         return [4 /*yield*/, this.http.post(logoutUrl, { access_token: userToken })];
                     case 2:
                         _a.sent();
+                        this.authService.clearUserToken();
                         return [2 /*return*/];
                 }
             });

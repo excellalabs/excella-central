@@ -42,6 +42,7 @@ export class AccountService {
     const userToken = await this.authService.getUserToken();
     const logoutUrl = this.accountsApi.url + '/logout';
     await this.http.post(logoutUrl, { access_token: userToken });
+    this.authService.clearUserToken();
   }
 
   async register(email: string, password: string): Promise<boolean> {
