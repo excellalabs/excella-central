@@ -8,7 +8,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomePage {
   loggedIn = false;
-
+  image: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   openDirectoryPage() {

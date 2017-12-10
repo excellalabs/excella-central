@@ -3,12 +3,11 @@ button.faceoff-button {
   max-width: 800px;
   margin: 5px 0px !important;
 }
-img.faceoff-photo {
-  object-fit: cover;
-  width: 250px;
-  height: 250px;
-}
+
 .faceoff-card {
-  width: max-content;
-  display: inline-flex;
+  margin-top: 85px;
+}
+
+.faceoff-score {
+  text-align: center;
 }

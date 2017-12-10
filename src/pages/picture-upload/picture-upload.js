@@ -44,104 +44,73 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { AccountService } from '../../providers/account.service/account.service';
 import { ProfileService } from '../../providers/profile.service/profile.service';
-var FaceoffPage = (function () {
-    function FaceoffPage(navCtrl, navParams, profileService) {
+import { PictureUploadService } from '../../providers/picture-upload.service.ts/picture-upload.service';
+var PictureUploadPage = (function () {
+    function PictureUploadPage(navCtrl, navParams, storage, accountService, profileService, pictureUploadService) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.storage = storage;
+        this.accountService = accountService;
         this.profileService = profileService;
-        this.totalQuestions = 10;
+        this.pictureUploadService = pictureUploadService;
     }
-    FaceoffPage.prototype.ionViewDidLoad = function () {
+    PictureUploadPage.prototype.ionViewDidLoad = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.profileService.getProfilesWithPhotos()];
-                    case 1:
-                        _a.profiles = _b.sent();
-                        this.startNewGame();
-                        return [2 /*return*/];
-                }
+            var _this = this;
+            return __generator(this, function (_a) {
+                this.storage.get('userId').then(function (userId) {
+                    (function () { return __awaiter(_this, void 0, void 0, function () {
+                        var _a, _b;
+                        return __generator(this, function (_c) {
+                            switch (_c.label) {
+                                case 0:
+                                    this.userId = userId;
+                                    _a = this;
+                                    return [4 /*yield*/, this.accountService.getAccount(this.userId)];
+                                case 1:
+                                    _a.account = _c.sent();
+                                    _b = this;
+                                    return [4 /*yield*/, this.profileService.getProfileByEmail(this.account.email)];
+                                case 2:
+                                    _b.profile = _c.sent();
+                                    return [2 /*return*/];
+                            }
+                        });
+                    }); })();
+                });
+                return [2 /*return*/];
             });
         });
     };
-    FaceoffPage.prototype.startNewGame = function () {
-        this.correctAnswers = 0;
-        this.answeredQuestions = 0;
-        this.newFaceoffQuestion();
-    };
-    FaceoffPage.prototype.newFaceoffQuestion = function () {
-        this.profilesForQuestion = this.getUniqueProfiles(4);
-        this.correctProfile = this.profilesForQuestion[0];
-        this.shuffleArray(this.profilesForQuestion);
-    };
-    FaceoffPage.prototype.shuffleArray = function (array) {
-        for (var i = array.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            _a = [array[j], array[i]], array[i] = _a[0], array[j] = _a[1];
-        }
-        var _a;
-    };
-    FaceoffPage.prototype.answer = function (profile) {
-        var _this = this;
-        this.buttonsDisabled = true;
-        if (this.correctProfile.id === profile.id) {
-            this.correctAnswers++;
-            this.highlightAnswerButton(profile, true);
+    PictureUploadPage.prototype.uploadPicture = function () {
+        if (this.image) {
+            this.pictureUploadService.uploadPicture(this.image, this.profile);
         }
         else {
-            this.highlightAnswerButton(profile, false);
-            var correctProfile = this.profilesForQuestion.find(function (p) {
-                return p.id == _this.correctProfile.id;
-            });
-            this.highlightAnswerButton(correctProfile, true);
-        }
-        this.answeredQuestions++;
-        setTimeout(function () {
-            _this.buttonsDisabled = false;
-            _this.advanceGame();
-        }, 1800);
-    };
-    FaceoffPage.prototype.advanceGame = function () {
-        if (this.answeredQuestions < this.totalQuestions) {
-            this.newFaceoffQuestion();
+            alert('Please choose a picture to upload'); // replace with something better
         }
     };
-    FaceoffPage.prototype.getUniqueProfiles = function (numberOfProfiles) {
-        var profilesCopy = this.profiles.map(function (x) { return Object.assign({}, x); });
-        var profilesForQuestion = Array();
-        for (var i = 0; i < numberOfProfiles; i++) {
-            var index = Math.floor(Math.random() * profilesCopy.length);
-            var removed = profilesCopy.splice(index, 1);
-            removed[0].buttonColor = 'primary';
-            removed[0].showSolidButton = false;
-            profilesForQuestion.push(removed[0]);
-        }
-        return profilesForQuestion;
+    PictureUploadPage.prototype.imgChange = function (event) {
+        this.image = event.srcElement.files[0];
+        this.pictureUploadService.imgChange(this.image);
     };
-    FaceoffPage.prototype.highlightAnswerButton = function (profile, isCorrect) {
-        profile.showSolidButton = true;
-        if (isCorrect) {
-            profile.buttonColor = 'correctAnswer';
-        }
-        else {
-            profile.buttonColor = 'incorrectAnswer';
-        }
-    };
-    return FaceoffPage;
+    return PictureUploadPage;
 }());
-FaceoffPage = __decorate([
+PictureUploadPage = __decorate([
     IonicPage(),
     Component({
-        selector: 'page-faceoff',
-        templateUrl: 'faceoff.html'
+        selector: 'page-picture-upload',
+        templateUrl: 'picture-upload.html'
     }),
     __metadata("design:paramtypes", [NavController,
         NavParams,
-        ProfileService])
-], FaceoffPage);
-export { FaceoffPage };
-//# sourceMappingURL=faceoff.js.map
+        Storage,
+        AccountService,
+        ProfileService,
+        PictureUploadService])
+], PictureUploadPage);
+export { PictureUploadPage };
+//# sourceMappingURL=picture-upload.js.map

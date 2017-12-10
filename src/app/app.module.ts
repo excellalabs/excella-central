@@ -16,6 +16,7 @@ import {
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileService } from '../providers/profile.service/profile.service';
 import { AccountService } from '../providers/account.service/account.service';
+import { PictureUploadService } from '../providers/picture-upload.service.ts/picture-upload.service';
 import { AuthenticationService } from '../providers/authentication.service/authentication.service';
 
 @NgModule({
@@ -37,6 +38,7 @@ import { AuthenticationService } from '../providers/authentication.service/authe
     AccountService,
     { provide: ProfilesInjectionToken, useValue: ProfilesApi },
     { provide: AccountsInjectionToken, useValue: AccountsApi },
+    PictureUploadService,
     AuthenticationService
   ]
 })

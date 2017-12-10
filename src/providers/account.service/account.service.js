@@ -65,23 +65,18 @@ var AccountService = (function () {
             var _this = this;
             var loginUrl, accountInfo;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        loginUrl = this.accountsApi.url + '/login';
-                        accountInfo = { email: email, password: password };
-                        return [4 /*yield*/, this.http
-                                .post(loginUrl, accountInfo)
-                                .toPromise()
-                                .then(function (res) { return res.json(); })
-                                .then(function (data) {
-                                _this.authService.storeUserToken(data);
-                                return true;
-                            }, function (err) {
-                                _this.authService.clearUserToken();
-                                return false;
-                            })];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
+                loginUrl = this.accountsApi.url + '/login';
+                accountInfo = { email: email, password: password };
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.http.post(loginUrl, accountInfo).subscribe(function (data) {
+                            var body = data.json();
+                            _this.authService.storeUserToken(body);
+                            resolve(true);
+                        }, function (err) {
+                            _this.authService.clearUserToken();
+                            resolve(false);
+                        });
+                    })];
             });
         });
     };
@@ -94,7 +89,9 @@ var AccountService = (function () {
                     case 1:
                         userToken = _a.sent();
                         logoutUrl = this.accountsApi.url + '/logout';
-                        this.http.post(logoutUrl, { access_token: userToken });
+                        return [4 /*yield*/, this.http.post(logoutUrl, { access_token: userToken })];
+                    case 2:
+                        _a.sent();
                         return [2 /*return*/];
                 }
             });
@@ -102,55 +99,78 @@ var AccountService = (function () {
     };
     AccountService.prototype.register = function (email, password) {
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             var newAccount;
             return __generator(this, function (_a) {
                 newAccount = new Account(email, password, false, false);
-                return [2 /*return*/, this.http
-                        .post(this.accountsApi.url, newAccount)
-                        .toPromise()
-                        .then(function (res) { return res.json(); })
-                        .then(function (data) {
-                        return true;
-                    }, function (err) {
-                        return false;
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.http.post(_this.accountsApi.url, newAccount).subscribe(function (data) {
+                            _this.login(email, password);
+                            resolve(true);
+                        }, function (err) {
+                            resolve(false);
+                        });
                     })];
+            });
+        });
+    };
+    AccountService.prototype.getAccount = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            var requestHeaders, getAccountByIdUrl;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.authService.buildAuthenticationRequest()];
+                    case 1:
+                        requestHeaders = _a.sent();
+                        getAccountByIdUrl = this.accountsApi.url + '/' + id;
+                        return [2 /*return*/, new Promise(function (resolve) {
+                                _this.http.get(getAccountByIdUrl, requestHeaders).subscribe(function (data) {
+                                    resolve(data.json());
+                                });
+                            })];
+                }
             });
         });
     };
     AccountService.prototype.checkAccountExists = function (email) {
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             var checkAccountExistsUrl, params;
             return __generator(this, function (_a) {
                 checkAccountExistsUrl = this.accountsApi.url + '/' + 'checkAccountExists';
                 params = new URLSearchParams();
                 params.append('email', email);
-                return [2 /*return*/, this.http
-                        .get(checkAccountExistsUrl, {
-                        params: params
-                    })
-                        .toPromise()
-                        .then(function (res) { return res.json(); })
-                        .then(function (data) {
-                        return data.doesAccountExist;
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.http
+                            .get(checkAccountExistsUrl, {
+                            params: params
+                        })
+                            .subscribe(function (data) {
+                            var body = data.json();
+                            resolve(body.doesAccountExist);
+                        });
                     })];
             });
         });
     };
     AccountService.prototype.checkProfileExists = function (email) {
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             var checkProfileExistsUrl, params;
             return __generator(this, function (_a) {
                 checkProfileExistsUrl = this.accountsApi.url + '/' + 'checkProfileExists';
                 params = new URLSearchParams();
                 params.append('email', email);
-                return [2 /*return*/, this.http
-                        .get(checkProfileExistsUrl, {
-                        params: params
-                    })
-                        .toPromise()
-                        .then(function (res) { return res.json(); })
-                        .then(function (data) {
-                        return data.doesProfileExist;
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.http
+                            .get(checkProfileExistsUrl, {
+                            params: params
+                        })
+                            .subscribe(function (data) {
+                            var body = data.json();
+                            resolve(body.doesProfileExist);
+                        });
                     })];
             });
         });

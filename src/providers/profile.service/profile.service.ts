@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { ConnectionString, ProfilesInjectionToken } from '../../app/app-config';
 import { Profile } from '../../models/profile/profile';
 import { AuthenticationService } from '../authentication.service/authentication.service';
+import { request } from 'http';
 
 @Injectable()
 export class ProfileService {
@@ -30,5 +31,65 @@ export class ProfileService {
         );
       });
     });
+  }
+
+  async getProfileByEmail(email): Promise<Profile> {
+    const requestHeaders = (await this.authService.buildAuthenticationRequest())
+      .headers;
+    return new Promise<Profile>(resolve => {
+      this.http
+        .get(this.profilesApi.url, {
+          headers: requestHeaders,
+          params: {
+            filter: {
+              where: { email: email }
+            }
+          }
+        })
+        .subscribe(data => {
+          resolve(data.json()[0]);
+        });
+    });
+  }
+
+  async getProfileById(id): Promise<Profile> {
+    const requestHeaders = (await this.authService.buildAuthenticationRequest())
+      .headers;
+    return new Promise<Profile>(resolve => {
+      this.http
+        .get(this.profilesApi.url, {
+          headers: requestHeaders,
+          params: {
+            filter: {
+              where: { id: id }
+            }
+          }
+        })
+        .subscribe(data => {
+          resolve(data.json()[0]);
+        });
+    });
+  }
+
+  async updateProfileById(profile): Promise<Profile> {
+    const requestHeaders = (await this.authService.buildAuthenticationRequest())
+      .headers;
+    return new Promise<Profile>(resolve => {
+      this.http
+        .patch(this.profilesApi.url + '/' + profile.id, profile, {
+          headers: requestHeaders
+        })
+        .subscribe(data => {
+          resolve(data.json()[0]);
+        });
+    });
+  }
+
+  async getNextProfile(id): Promise<Profile> {
+    return new Promise<Profile>(function() {});
+  }
+
+  async getPreviousProfile(id): Promise<Profile> {
+    return new Promise<Profile>(function() {});
   }
 }

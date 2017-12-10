@@ -43,7 +43,7 @@ export class RegisterPage {
     } else {
       this.accountService.register(email, password).then(
         success => {
-          this.navCtrl.setRoot('LandingPage'); // direct to a confirm password email was sent screen
+          this.navCtrl.setRoot('HomePage');
         },
         err => {
           alert('Registration failed.'); // replace with something better

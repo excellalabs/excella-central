@@ -16,6 +16,7 @@ export class FaceoffPage {
   answeredQuestions: number;
   showSolidButton: boolean;
   totalQuestions = 10;
+  buttonsDisabled: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -48,6 +49,7 @@ export class FaceoffPage {
   }
 
   answer(profile): void {
+    this.buttonsDisabled = true;
     if (this.correctProfile.id === profile.id) {
       this.correctAnswers++;
       this.highlightAnswerButton(profile, true);
@@ -60,6 +62,7 @@ export class FaceoffPage {
     }
     this.answeredQuestions++;
     setTimeout(() => {
+      this.buttonsDisabled = false;
       this.advanceGame();
     }, 1800);
   }

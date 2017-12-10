@@ -13,7 +13,7 @@ export class Profile {
   constructor(
     firstName: string,
     lastName: string,
-    avatarUrl: string,
+    photoUrl: string,
     primarySkillset?: string,
     client?: string,
     email?: string,
@@ -21,7 +21,7 @@ export class Profile {
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
-    this.photoUrl = avatarUrl || '';
+    this.photoUrl = photoUrl || '';
     this.client = client;
     this.email = email;
     this.primarySkillset = primarySkillset;

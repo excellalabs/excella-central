@@ -1,50 +1,28 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title></ion-title>
+    <ion-title>Details</ion-title>
   </ion-navbar>
-
 </ion-header>
-
-
-<ion-content padding>
+<ion-content padding (pan)=swipe($event)>
+  <ion-card class="fourty-percent-photo-card with-text">
+    <img class="profile-photo" src="{{profile?.photoUrl || '/assets/no_photo.png'}}" />
+    <ion-item class="photo">
+      <h1>{{ profile?.firstName }} {{ profile?.lastName }}</h1>
+    </ion-item>
+  </ion-card>
   <ion-grid *ngIf="profile != null">
-    <ion-row>
-      <ion-col col-12 text-start class="header-detail">
-        <ion-card>
-          <ion-avatar item-start item-left>
-            <img class="profile-photo" src="{{profile.photoUrl}}" />
-          </ion-avatar>
-          <ion-item>
-            <h1>{{ profile.firstName }} {{ profile.lastName }}</h1>
-          </ion-item>
-        </ion-card>
-
-
-
-      </ion-col>
-    </ion-row>
     <ion-row>
       <ion-col col-12>
         <ion-list>
           <ion-item text-wrap>
-            Email:
-            <strong>{{ profile.email || 'N/A' }}</strong>
-          </ion-item>
-          <ion-item text-wrap>
             Primary Skillset:
             <strong>{{ profile.primarySkillset || 'N/A' }}</strong>
-          </ion-item>
-          <ion-item text-wrap>
-            Service Area:
-            <strong>{{ profile.serviceArea || 'N/A' }}</strong>
           </ion-item>
           <ion-item text-wrap>
             Client:
             <strong>{{ profile.client || 'N/A' }}</strong>
           </ion-item>
         </ion-list>
-
       </ion-col>
     </ion-row>
   </ion-grid>

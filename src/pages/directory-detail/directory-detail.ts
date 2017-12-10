@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Profile } from '../../models/profile/profile';
+import { ProfileService } from '../../providers/profile.service/profile.service';
 
 @IonicPage()
 @Component({
@@ -12,10 +13,15 @@ export class DirectoryDetailPage {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams /*, public toastCtrl: ToastController*/
-  ) {
-    if (navParams.get('profile') !== undefined) {
-      this.profile = navParams.get('profile');
+    public navParams: NavParams,
+    public profileService: ProfileService /*, public toastCtrl: ToastController*/
+  ) {}
+
+  async ionViewDidLoad() {
+    if (this.navParams.get('id') !== undefined) {
+      this.profile = await this.profileService.getProfileById(
+        this.navParams.get('id')
+      );
     } else {
       //TODO: find out why toastCtrl .present() causes tests to fail
       /*
@@ -31,6 +37,26 @@ export class DirectoryDetailPage {
       toast.present();
       */
       this.navCtrl.push('DirectoryPage');
+    }
+  }
+
+  async swipe(event) {
+    if (event.direction === 2) {
+      //right to left swipe
+      const previousProfile = await this.profileService.getPreviousProfile(
+        this.profile.id
+      );
+      if (previousProfile) {
+        this.profile = previousProfile;
+      }
+    } else if (event.direction === 4) {
+      //left to right swipe
+      const nextProfile = await this.profileService.getNextProfile(
+        this.profile.id
+      );
+      if (nextProfile) {
+        this.profile = nextProfile;
+      }
     }
   }
 }
