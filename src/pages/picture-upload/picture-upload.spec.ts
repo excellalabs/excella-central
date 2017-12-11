@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { NavMock, NavParamsMock } from '../../../test-config/mocks-ionic';
 import { PictureUploadPage } from './picture-upload';
 
-describe('LandingPage', () => {
+describe('PictureUploadPage', () => {
   let fixture: ComponentFixture<PictureUploadPage>;
   let component: PictureUploadPage;
   beforeEach(
