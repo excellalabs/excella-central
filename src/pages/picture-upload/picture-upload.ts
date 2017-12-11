@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  AlertController
+} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { AccountServiceProvider } from '../../providers/account.service/account.service';
-import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
-import { PictureUploadServiceProvider } from '../../providers/picture-upload.service.ts/picture-upload.service';
+import { AccountService } from '../../providers/account.service/account.service';
+import { ProfileService } from '../../providers/profile.service/profile.service';
+import { PictureUploadService } from '../../providers/picture-upload.service.ts/picture-upload.service';
 import { Profile } from '../../models/profile/profile';
 import { Account } from '../../models/account/account';
 
@@ -22,19 +27,18 @@ export class PictureUploadPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public storage: Storage,
-    public accountServiceProvider: AccountServiceProvider,
-    public profileServiceProvider: ProfileServiceProvider,
-    public pictureUploadServiceProvider: PictureUploadServiceProvider
+    private alertCtrl: AlertController,
+    private accountService: AccountService,
+    private profileService: ProfileService,
+    private pictureUploadService: PictureUploadService
   ) {}
 
   async ionViewDidLoad() {
     this.storage.get('userId').then(userId => {
       (async () => {
         this.userId = userId;
-        this.account = await this.accountServiceProvider.getAccount(
-          this.userId
-        );
-        this.profile = await this.profileServiceProvider.getProfileByEmail(
+        this.account = await this.accountService.getAccount(this.userId);
+        this.profile = await this.profileService.getProfileByEmail(
           this.account.email
         );
       })();
@@ -43,14 +47,19 @@ export class PictureUploadPage {
 
   uploadPicture() {
     if (this.image) {
-      this.pictureUploadServiceProvider.uploadPicture(this.image, this.profile);
+      this.pictureUploadService.uploadPicture(this.image, this.profile);
     } else {
-      alert('Please choose a picture to upload'); // replace with something better
+      const alert = this.alertCtrl.create({
+        title: 'Picture upload failed!',
+        subTitle: 'Please select a picture and try again.',
+        buttons: ['OK']
+      });
+      alert.present();
     }
   }
 
   imgChange(event) {
     this.image = event.srcElement.files[0];
-    this.pictureUploadServiceProvider.imgChange(this.image);
+    this.pictureUploadService.imgChange(this.image);
   }
 }

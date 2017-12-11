@@ -42,88 +42,51 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ProfileService } from '../../providers/profile.service/profile.service';
-var DirectoryDetailPage = (function () {
-    function DirectoryDetailPage(navCtrl, navParams, profileService /*, public toastCtrl: ToastController*/) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.profileService = profileService; /*, public toastCtrl: ToastController*/
-        this.profile = null;
+import { Storage } from '@ionic/storage';
+import { Headers, RequestOptions } from '@angular/http';
+import { Injectable } from '@angular/core';
+var AuthenticationService = (function () {
+    function AuthenticationService(storage) {
+        this.storage = storage;
     }
-    DirectoryDetailPage.prototype.ionViewDidLoad = function () {
+    AuthenticationService.prototype.buildAuthenticationRequest = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        if (!(this.navParams.get('id') !== undefined)) return [3 /*break*/, 2];
-                        _a = this;
-                        return [4 /*yield*/, this.profileService.getProfileById(this.navParams.get('id'))];
-                    case 1:
-                        _a.profile = _b.sent();
-                        return [3 /*break*/, 3];
-                    case 2:
-                        //TODO: find out why toastCtrl .present() causes tests to fail
-                        /*
-                        let toast = this.toastCtrl.create({
-                          message: "Sorry, this profile could not be loaded.",
-                          duration: 3000,
-                          showCloseButton: true,
-                          dismissOnPageChange: true
-                        });
-                        toast.onDidDismiss(() => {
-                          this.navCtrl.push('DirectoryPage');
-                        });
-                        toast.present();
-                        */
-                        this.navCtrl.push('DirectoryPage');
-                        _b.label = 3;
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    DirectoryDetailPage.prototype.swipe = function (event) {
-        return __awaiter(this, void 0, void 0, function () {
-            var previousProfile, nextProfile;
+            var userToken, headers;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        if (!(event.direction === 2)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.profileService.getPreviousProfile(this.profile.id)];
+                    case 0: return [4 /*yield*/, this.storage.get('userToken')];
                     case 1:
-                        previousProfile = _a.sent();
-                        if (previousProfile) {
-                            this.profile = previousProfile;
-                        }
-                        return [3 /*break*/, 4];
-                    case 2:
-                        if (!(event.direction === 4)) return [3 /*break*/, 4];
-                        return [4 /*yield*/, this.profileService.getNextProfile(this.profile.id)];
-                    case 3:
-                        nextProfile = _a.sent();
-                        if (nextProfile) {
-                            this.profile = nextProfile;
-                        }
-                        _a.label = 4;
-                    case 4: return [2 /*return*/];
+                        userToken = _a.sent();
+                        headers = new Headers();
+                        headers.append('Authorization', userToken);
+                        return [2 /*return*/, new RequestOptions({ headers: headers })];
                 }
             });
         });
     };
-    return DirectoryDetailPage;
+    AuthenticationService.prototype.getUserToken = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.storage.get('userToken')];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    AuthenticationService.prototype.storeUserToken = function (data) {
+        this.storage.set('userToken', data.id);
+        this.storage.set('userId', data.userId);
+    };
+    AuthenticationService.prototype.clearUserToken = function () {
+        this.storage.set('userToken', null);
+        this.storage.set('userId', null);
+    };
+    return AuthenticationService;
 }());
-DirectoryDetailPage = __decorate([
-    IonicPage(),
-    Component({
-        selector: 'page-directory-detail',
-        templateUrl: 'directory-detail.html'
-    }),
-    __metadata("design:paramtypes", [NavController,
-        NavParams,
-        ProfileService /*, public toastCtrl: ToastController*/])
-], DirectoryDetailPage);
-export { DirectoryDetailPage };
-//# sourceMappingURL=directory-detail.js.map
+AuthenticationService = __decorate([
+    Injectable(),
+    __metadata("design:paramtypes", [Storage])
+], AuthenticationService);
+export { AuthenticationService };
+//# sourceMappingURL=authentication.service.js.map

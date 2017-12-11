@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AccountServiceProvider } from '../../providers/account.service/account.service';
+import { AccountService } from '../../providers/account.service/account.service';
 
 @IonicPage()
 @Component({
@@ -12,10 +12,10 @@ export class LoginPage {
   public userForm: FormGroup;
 
   constructor(
-    /*public toastCtrl: ToastController, */
     private navCtrl: NavController,
     private formBuilder: FormBuilder,
-    private accountServiceProvider: AccountServiceProvider
+    private alertCtrl: AlertController,
+    private accountService: AccountService
   ) {
     this.userForm = this.formBuilder.group({
       email: ['', Validators.required],
@@ -24,22 +24,18 @@ export class LoginPage {
   }
 
   loginUser() {
-    this.accountServiceProvider
+    this.accountService
       .login(this.userForm.value.email, this.userForm.value.password)
       .then(loggedIn => {
         if (loggedIn) {
           this.navCtrl.setRoot('HomePage');
         } else {
-          alert('Login failed.'); // replace with something better
-          //TODO: find out why toastCtrl .present() causes tests to fail
-          /*
-          this.toastCtrl.create({
-          message: "Your credentials didn't work. Please try again.",
-          duration: 3000,
-          showCloseButton: true,
-          dismissOnPageChange: true
-          }).present();
-          */
+          const alert = this.alertCtrl.create({
+            title: 'Login failed!',
+            subTitle: 'Please try again.',
+            buttons: ['OK']
+          });
+          alert.present();
         }
       });
   }

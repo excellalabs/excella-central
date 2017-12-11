@@ -12,18 +12,19 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
-import { AccountServiceProvider } from '../providers/account.service/account.service';
+import { AccountService } from '../providers/account.service/account.service';
+import { AuthenticationService } from '../providers/authentication.service/authentication.service';
 var MyApp = (function () {
-    function MyApp(platform, statusBar, splashScreen, accountServiceProvider, storage) {
+    function MyApp(platform, statusBar, splashScreen, storage, accountService, authService) {
         var _this = this;
         this.platform = platform;
         this.statusBar = statusBar;
         this.splashScreen = splashScreen;
-        this.accountServiceProvider = accountServiceProvider;
         this.storage = storage;
-        this.storage.get('rememberUser').then(function (rememberUser) {
-            _this.rememberUser = rememberUser;
-            if (rememberUser) {
+        this.accountService = accountService;
+        this.authService = authService;
+        this.authService.getUserToken().then(function (userToken) {
+            if (userToken && userToken !== '') {
                 _this.rootPage = 'HomePage';
             }
             else {
@@ -34,7 +35,8 @@ var MyApp = (function () {
         this.pages = [
             { title: 'Home', component: 'HomePage' },
             { title: 'Directory', component: 'DirectoryPage' },
-            { title: 'Faceoff', component: 'FaceoffPage' }
+            { title: 'Faceoff', component: 'FaceoffPage' },
+            { title: 'Profile Photo', component: 'PictureUploadPage' }
         ];
     }
     MyApp.prototype.initializeApp = function () {
@@ -53,7 +55,7 @@ var MyApp = (function () {
         }
     };
     MyApp.prototype.logout = function () {
-        this.accountServiceProvider.logout();
+        this.accountService.logout();
         this.nav.setRoot('LandingPage');
     };
     return MyApp;
@@ -69,8 +71,9 @@ MyApp = __decorate([
     __metadata("design:paramtypes", [Platform,
         StatusBar,
         SplashScreen,
-        AccountServiceProvider,
-        Storage])
+        Storage,
+        AccountService,
+        AuthenticationService])
 ], MyApp);
 export { MyApp };
 //# sourceMappingURL=app.component.js.map

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Profile } from '../../models/profile/profile';
-import { ProfileServiceProvider } from '../../providers/profile.service/profile.service';
+import { ProfileService } from '../../providers/profile.service/profile.service';
 
 @IonicPage()
 @Component({
@@ -14,12 +14,12 @@ export class DirectoryDetailPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public profileServiceProvider: ProfileServiceProvider /*, public toastCtrl: ToastController*/
+    public profileService: ProfileService /*, public toastCtrl: ToastController*/
   ) {}
 
   async ionViewDidLoad() {
     if (this.navParams.get('id') !== undefined) {
-      this.profile = await this.profileServiceProvider.getProfileById(
+      this.profile = await this.profileService.getProfileById(
         this.navParams.get('id')
       );
     } else {
@@ -43,7 +43,7 @@ export class DirectoryDetailPage {
   async swipe(event) {
     if (event.direction === 2) {
       //right to left swipe
-      const previousProfile = await this.profileServiceProvider.getPreviousProfile(
+      const previousProfile = await this.profileService.getPreviousProfile(
         this.profile.id
       );
       if (previousProfile) {
@@ -51,7 +51,7 @@ export class DirectoryDetailPage {
       }
     } else if (event.direction === 4) {
       //left to right swipe
-      const nextProfile = await this.profileServiceProvider.getNextProfile(
+      const nextProfile = await this.profileService.getNextProfile(
         this.profile.id
       );
       if (nextProfile) {

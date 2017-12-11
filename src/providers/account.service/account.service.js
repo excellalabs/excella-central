@@ -47,86 +47,141 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { Account } from './../../models/account/account';
 import { Injectable, Inject } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, URLSearchParams } from '@angular/http';
 import { AccountsInjectionToken, ProfilesInjectionToken } from '../../app/app-config';
-import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/toPromise';
-var AccountServiceProvider = (function () {
-    function AccountServiceProvider(http, storage, profilesApi, accountsApi) {
+import { AuthenticationService } from '../authentication.service/authentication.service';
+var AccountService = (function () {
+    function AccountService(http, authService, profilesApi, accountsApi) {
         this.http = http;
-        this.storage = storage;
+        this.authService = authService;
         this.profilesApi = profilesApi;
         this.accountsApi = accountsApi;
     }
-    AccountServiceProvider.prototype.login = function (email, password) {
+    AccountService.prototype.login = function (email, password) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             var loginUrl, accountInfo;
             return __generator(this, function (_a) {
+                loginUrl = this.accountsApi.url + '/login';
+                accountInfo = { email: email, password: password };
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.http.post(loginUrl, accountInfo).subscribe(function (data) {
+                            var body = data.json();
+                            _this.authService.storeUserToken(body);
+                            resolve(true);
+                        }, function (err) {
+                            _this.authService.clearUserToken();
+                            resolve(false);
+                        });
+                    })];
+            });
+        });
+    };
+    AccountService.prototype.logout = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var userToken, logoutUrl;
+            return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        loginUrl = this.accountsApi.url + '/login';
-                        accountInfo = { email: email, password: password };
-                        return [4 /*yield*/, this.http
-                                .post(loginUrl, accountInfo)
-                                .toPromise()
-                                .then(function (res) { return res.json(); })
-                                .then(function (data) {
-                                _this.storage.set('userToken', data.id);
-                                _this.storage.set('userId', data.userId);
-                                return true;
-                            }, function (err) {
-                                _this.storage.set('userToken', null);
-                                _this.storage.set('userId', null);
-                                return false;
-                            })];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 0: return [4 /*yield*/, this.authService.getUserToken()];
+                    case 1:
+                        userToken = _a.sent();
+                        logoutUrl = this.accountsApi.url + '/logout';
+                        return [4 /*yield*/, this.http.post(logoutUrl, { access_token: userToken })];
+                    case 2:
+                        _a.sent();
+                        this.authService.clearUserToken();
+                        return [2 /*return*/];
                 }
             });
         });
     };
-    AccountServiceProvider.prototype.logout = function () {
+    AccountService.prototype.register = function (email, password) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var logoutUrl;
+            var newAccount;
             return __generator(this, function (_a) {
-                logoutUrl = this.accountsApi.url + '/logout';
-                this.storage.get('userToken').then(function (userToken) {
-                    _this.http.post(logoutUrl, { access_token: userToken });
-                });
-                return [2 /*return*/];
+                newAccount = new Account(email, password, false, false);
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.http.post(_this.accountsApi.url, newAccount).subscribe(function (data) {
+                            _this.login(email, password);
+                            resolve(true);
+                        }, function (err) {
+                            resolve(false);
+                        });
+                    })];
             });
         });
     };
-    AccountServiceProvider.prototype.register = function (email, password) {
+    AccountService.prototype.getAccount = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var newAccount;
+            var _this = this;
+            var requestHeaders, getAccountByIdUrl;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        newAccount = new Account(email, password, false, false);
-                        return [4 /*yield*/, this.http
-                                .post(this.accountsApi.url, newAccount)
-                                .toPromise()
-                                .then(function (res) { return res.json(); })
-                                .then(function (data) {
-                                return true;
-                            }, function (err) {
-                                return false;
+                    case 0: return [4 /*yield*/, this.authService.buildAuthenticationRequest()];
+                    case 1:
+                        requestHeaders = _a.sent();
+                        getAccountByIdUrl = this.accountsApi.url + '/' + id;
+                        return [2 /*return*/, new Promise(function (resolve) {
+                                _this.http.get(getAccountByIdUrl, requestHeaders).subscribe(function (data) {
+                                    resolve(data.json());
+                                });
                             })];
-                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    return AccountServiceProvider;
+    AccountService.prototype.checkAccountExists = function (email) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            var checkAccountExistsUrl, params;
+            return __generator(this, function (_a) {
+                checkAccountExistsUrl = this.accountsApi.url + '/' + 'checkAccountExists';
+                params = new URLSearchParams();
+                params.append('email', email);
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.http
+                            .get(checkAccountExistsUrl, {
+                            params: params
+                        })
+                            .subscribe(function (data) {
+                            var body = data.json();
+                            resolve(body.doesAccountExist);
+                        });
+                    })];
+            });
+        });
+    };
+    AccountService.prototype.checkProfileExists = function (email) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            var checkProfileExistsUrl, params;
+            return __generator(this, function (_a) {
+                checkProfileExistsUrl = this.accountsApi.url + '/' + 'checkProfileExists';
+                params = new URLSearchParams();
+                params.append('email', email);
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.http
+                            .get(checkProfileExistsUrl, {
+                            params: params
+                        })
+                            .subscribe(function (data) {
+                            var body = data.json();
+                            resolve(body.doesProfileExist);
+                        });
+                    })];
+            });
+        });
+    };
+    return AccountService;
 }());
-AccountServiceProvider = __decorate([
+AccountService = __decorate([
     Injectable(),
     __param(2, Inject(ProfilesInjectionToken)),
     __param(3, Inject(AccountsInjectionToken)),
     __metadata("design:paramtypes", [Http,
-        Storage, Object, Object])
-], AccountServiceProvider);
-export { AccountServiceProvider };
+        AuthenticationService, Object, Object])
+], AccountService);
+export { AccountService };
 //# sourceMappingURL=account.service.js.map
