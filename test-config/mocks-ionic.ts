@@ -174,4 +174,12 @@ export class StorageMock {
   }
 }
 
+export class AlertControllerMock {
+  create(param) {
+    return;
+  }
+}
+
+export class PictureUploadServiceMock {}
+
 export class DeepLinkerMock {}

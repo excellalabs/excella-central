@@ -10,7 +10,7 @@
 
 
 <ion-content>
-  <ng-container *ngIf="totalQuestions > answeredQuestions">
+  <ng-container *ngIf="!isGameFinished">
     <ion-card class="faceoff-card fourty-percent-photo-card">
       <img class="faceoff-photo" src="{{correctProfile?.photoUrl}}" />
     </ion-card>
@@ -21,7 +21,7 @@
       </button>
     </ng-container>
   </ng-container>
-  <ng-container *ngIf="answeredQuestions >= totalQuestions">
+  <ng-container *ngIf="isGameFinished">
     <h3>Score: {{correctAnswers}}/{{answeredQuestions}}</h3>
     <button class="faceoff-button" ion-button color="primary" (click)="startNewGame()">
       Play Again
