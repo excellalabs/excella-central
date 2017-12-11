@@ -16,7 +16,7 @@ import {
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileService } from '../providers/profile.service/profile.service';
 import { AccountService } from '../providers/account.service/account.service';
-import { PictureUploadService } from '../providers/picture-upload.service.ts/picture-upload.service';
+import { PictureUploadService } from '../providers/picture-upload.service/picture-upload.service';
 import { AuthenticationService } from '../providers/authentication.service/authentication.service';
 
 @NgModule({
