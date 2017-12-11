@@ -1,9 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { ConnectionString, ProfilesInjectionToken } from '../../app/app-config';
 import { Profile } from '../../models/profile/profile';
 import { AuthenticationService } from '../authentication.service/authentication.service';
-import { request } from 'http';
 
 @Injectable()
 export class ProfileService {
@@ -24,11 +23,13 @@ export class ProfileService {
 
   public async getProfilesWithPhotos(): Promise<Profile[]> {
     const requestHeaders = await this.authService.buildAuthenticationRequest();
+    requestHeaders.headers.append(
+      'filter',
+      '{"where":{"photoUrl":{"neq":""}}}'
+    );
     return new Promise<Profile[]>(resolve => {
       this.http.get(this.profilesApi.url, requestHeaders).subscribe(data => {
-        resolve(
-          data.json().filter(profile => profile['photoUrl'])
-        );
+        resolve(data.json());
       });
     });
   }
