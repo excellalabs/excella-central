@@ -11,9 +11,11 @@ import {
 } from '../../../test-config/mocks-ionic';
 import { HttpModule } from '@angular/http';
 import { AccountService } from '../../providers/account.service/account.service';
+import { ProfileService } from '../../providers/profile.service/profile.service';
 import { PictureUploadService } from '../../providers/picture-upload.service/picture-upload.service';
 import { PictureUploadPage } from './picture-upload';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { Storage } from '@ionic/storage';
 
 describe('PictureUploadPage', () => {
   let fixture: ComponentFixture<PictureUploadPage>;
@@ -28,7 +30,9 @@ describe('PictureUploadPage', () => {
           { provide: NavParams, useClass: NavParamsMock },
           { provide: AlertController, useClass: AlertControllerMock },
           { provide: AccountService, useClass: AccountServiceMock },
-          { provide: PictureUploadService, useClass: PictureUploadServiceMock }
+          { provide: ProfileService, useClass: ProfileServiceMock },
+          { provide: PictureUploadService, useClass: PictureUploadServiceMock },
+          { provide: Storage, useClass: StorageMock }
         ]
       });
       fixture = TestBed.createComponent(PictureUploadPage);
