@@ -10,7 +10,6 @@ import {
   AlertControllerMock
 } from '../../../test-config/mocks-ionic';
 import { HttpModule } from '@angular/http';
-import { Storage } from '@ionic/storage/es2015/storage';
 import { AccountService } from '../../providers/account.service/account.service';
 import { PictureUploadService } from '../../providers/picture-upload.service/picture-upload.service';
 import { PictureUploadPage } from './picture-upload';
@@ -27,7 +26,6 @@ describe('PictureUploadPage', () => {
         providers: [
           { provide: NavController, useClass: NavMock },
           { provide: NavParams, useClass: NavParamsMock },
-          { provide: Storage, useClass: StorageMock },
           { provide: AlertController, useClass: AlertControllerMock },
           { provide: AccountService, useClass: AccountServiceMock },
           { provide: PictureUploadService, useClass: PictureUploadServiceMock }
