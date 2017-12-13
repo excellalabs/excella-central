@@ -46,11 +46,13 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { generateFullName } from '../../models/profile/profile';
 import { ProfileService } from '../../providers/profile.service/profile.service';
+import { Cloudinary } from '@cloudinary/angular-4.x';
 var DirectoryPage = (function () {
-    function DirectoryPage(navCtrl, navParams, profileService) {
+    function DirectoryPage(navCtrl, navParams, profileService, cloudinary) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.profileService = profileService;
+        this.cloudinary = cloudinary;
         this.generateFullName = generateFullName;
     }
     DirectoryPage.prototype.ionViewDidLoad = function () {
@@ -73,6 +75,19 @@ var DirectoryPage = (function () {
     DirectoryPage.prototype.getFullName = function (profile) {
         return generateFullName(profile.firstName, profile.lastName);
     };
+    DirectoryPage.prototype.getPhotoPublicId = function (photoUrl) {
+        if (photoUrl) {
+            // check wheter URL is full URL or already in "public ID" format
+            if (photoUrl.includes('/')) {
+                var parts = photoUrl.split('/');
+                return parts[parts.length - 1];
+            }
+            else {
+                return photoUrl;
+            }
+        }
+        return null;
+    };
     return DirectoryPage;
 }());
 DirectoryPage = __decorate([
@@ -83,7 +98,8 @@ DirectoryPage = __decorate([
     }),
     __metadata("design:paramtypes", [NavController,
         NavParams,
-        ProfileService])
+        ProfileService,
+        Cloudinary])
 ], DirectoryPage);
 export { DirectoryPage };
 //# sourceMappingURL=directory.js.map

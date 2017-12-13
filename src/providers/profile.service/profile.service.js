@@ -82,9 +82,10 @@ var ProfileService = (function () {
                     case 0: return [4 /*yield*/, this.authService.buildAuthenticationRequest()];
                     case 1:
                         requestHeaders = _a.sent();
+                        requestHeaders.headers.append('filter', '{"where":{"photoUrl":{"neq":""}}}');
                         return [2 /*return*/, new Promise(function (resolve) {
                                 _this.http.get(_this.profilesApi.url, requestHeaders).subscribe(function (data) {
-                                    resolve(data.json().filter(function (profile) { return profile['photoUrl'] !== undefined; }));
+                                    resolve(data.json());
                                 });
                             })];
                 }

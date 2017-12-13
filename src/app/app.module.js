@@ -10,13 +10,13 @@ import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { AccountsApi, AccountsInjectionToken, ProfilesApi, ProfilesInjectionToken } from '../app/app-config';
-import { HttpClientModule } from '@angular/common/http';
 import { ProfileService } from '../providers/profile.service/profile.service';
 import { AccountService } from '../providers/account.service/account.service';
-import { PictureUploadService } from '../providers/picture-upload.service.ts/picture-upload.service';
+import { PictureUploadService } from '../providers/picture-upload.service/picture-upload.service';
 import { AuthenticationService } from '../providers/authentication.service/authentication.service';
 var AppModule = (function () {
     function AppModule() {

@@ -11,7 +11,10 @@
   <ion-list>
     <button ion-item *ngFor="let profile of profiles | async | search: searchText" (click)="goToDirectoryDetail(profile)">
       <ion-avatar item-start>
-        <img src="{{profile.photoUrl || '/assets/no_photo.png'}}" />
+        <cl-image *ngIf="profile.photoUrl" public-id="{{profile.photoUrl}}">
+          <cl-transformation quality="auto:low" fetch_format="auto" width="40px"></cl-transformation>
+        </cl-image>
+        <img *ngIf="!profile.photoUrl " src="/assets/no_photo.png ">
       </ion-avatar>
       {{getFullName(profile)}}
     </button>
