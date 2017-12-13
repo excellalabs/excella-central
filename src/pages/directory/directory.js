@@ -53,19 +53,20 @@ var DirectoryPage = (function () {
         this.navParams = navParams;
         this.profileService = profileService;
         this.cloudinary = cloudinary;
+        this.profilesToDisplay = [];
         this.generateFullName = generateFullName;
+        this.resultsPerPage = 30;
+        this.totalRecordsRetrieved = 0;
     }
     DirectoryPage.prototype.ionViewDidLoad = function () {
-        this.searchText = '';
-        this.profiles = this.getProfiles();
-    };
-    DirectoryPage.prototype.getProfiles = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.profileService.getProfiles()];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
+                this.searchText = '';
+                this.getNewProfiles(this.resultsPerPage, this.totalRecordsRetrieved).then(function (profiles) {
+                    _this.addNewData(profiles);
+                });
+                return [2 /*return*/];
             });
         });
     };
@@ -75,18 +76,27 @@ var DirectoryPage = (function () {
     DirectoryPage.prototype.getFullName = function (profile) {
         return generateFullName(profile.firstName, profile.lastName);
     };
-    DirectoryPage.prototype.getPhotoPublicId = function (photoUrl) {
-        if (photoUrl) {
-            // check wheter URL is full URL or already in "public ID" format
-            if (photoUrl.includes('/')) {
-                var parts = photoUrl.split('/');
-                return parts[parts.length - 1];
-            }
-            else {
-                return photoUrl;
-            }
-        }
-        return null;
+    DirectoryPage.prototype.doInfinite = function () {
+        var _this = this;
+        return this.getNewProfiles(this.resultsPerPage, this.totalRecordsRetrieved).then(function (profiles) {
+            setTimeout(function () {
+                _this.addNewData(profiles);
+            }, 500);
+        });
+    };
+    DirectoryPage.prototype.getNewProfiles = function (limit, skip) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.profileService.getProfilesWithinLimit(limit, skip)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    DirectoryPage.prototype.addNewData = function (profiles) {
+        this.profilesToDisplay = this.profilesToDisplay.concat(profiles);
+        this.totalRecordsRetrieved += this.resultsPerPage;
     };
     return DirectoryPage;
 }());

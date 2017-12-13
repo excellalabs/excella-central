@@ -76,15 +76,55 @@ var ProfileService = (function () {
     ProfileService.prototype.getProfilesWithPhotos = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var requestHeaders;
+            var requestHeaders, requestParams;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.authService.buildAuthenticationRequest()];
                     case 1:
-                        requestHeaders = _a.sent();
-                        requestHeaders.headers.append('filter', '{"where":{"photoUrl":{"neq":""}}}');
+                        requestHeaders = (_a.sent())
+                            .headers;
+                        requestParams = {
+                            filter: {
+                                where: { photoUrl: { neq: '' } }
+                            }
+                        };
                         return [2 /*return*/, new Promise(function (resolve) {
-                                _this.http.get(_this.profilesApi.url, requestHeaders).subscribe(function (data) {
+                                _this.http
+                                    .get(_this.profilesApi.url, {
+                                    headers: requestHeaders,
+                                    params: requestParams
+                                })
+                                    .subscribe(function (data) {
+                                    resolve(data.json());
+                                });
+                            })];
+                }
+            });
+        });
+    };
+    ProfileService.prototype.getProfilesWithinLimit = function (limit, skip) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            var requestHeaders, requestParams;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.authService.buildAuthenticationRequest()];
+                    case 1:
+                        requestHeaders = (_a.sent())
+                            .headers;
+                        requestParams = {
+                            filter: {
+                                limit: limit,
+                                skip: skip
+                            }
+                        };
+                        return [2 /*return*/, new Promise(function (resolve) {
+                                _this.http
+                                    .get(_this.profilesApi.url, {
+                                    headers: requestHeaders,
+                                    params: requestParams
+                                })
+                                    .subscribe(function (data) {
                                     resolve(data.json());
                                 });
                             })];
@@ -95,22 +135,21 @@ var ProfileService = (function () {
     ProfileService.prototype.getProfileByEmail = function (email) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var requestHeaders;
+            var requestHeaders, requestParams;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.authService.buildAuthenticationRequest()];
                     case 1:
                         requestHeaders = (_a.sent())
                             .headers;
+                        requestParams = {
+                            filter: { where: { email: email } }
+                        };
                         return [2 /*return*/, new Promise(function (resolve) {
                                 _this.http
                                     .get(_this.profilesApi.url, {
                                     headers: requestHeaders,
-                                    params: {
-                                        filter: {
-                                            where: { email: email }
-                                        }
-                                    }
+                                    params: requestParams
                                 })
                                     .subscribe(function (data) {
                                     resolve(data.json()[0]);

@@ -22,30 +22,57 @@ export class ProfileService {
   }
 
   public async getProfilesWithPhotos(): Promise<Profile[]> {
-    const requestHeaders = await this.authService.buildAuthenticationRequest();
-    requestHeaders.headers.append(
-      'filter',
-      '{"where":{"photoUrl":{"neq":""}}}'
-    );
+    const requestHeaders = (await this.authService.buildAuthenticationRequest())
+      .headers;
+    const requestParams = {
+      filter: {
+        where: { photoUrl: { neq: '' } }
+      }
+    };
     return new Promise<Profile[]>(resolve => {
-      this.http.get(this.profilesApi.url, requestHeaders).subscribe(data => {
-        resolve(data.json());
-      });
+      this.http
+        .get(this.profilesApi.url, {
+          headers: requestHeaders,
+          params: requestParams
+        })
+        .subscribe(data => {
+          resolve(data.json());
+        });
+    });
+  }
+
+  public async getProfilesWithinLimit(limit: number, skip: number) {
+    const requestHeaders = (await this.authService.buildAuthenticationRequest())
+      .headers;
+    const requestParams = {
+      filter: {
+        limit: limit,
+        skip: skip
+      }
+    };
+    return new Promise<Profile[]>(resolve => {
+      this.http
+        .get(this.profilesApi.url, {
+          headers: requestHeaders,
+          params: requestParams
+        })
+        .subscribe(data => {
+          resolve(data.json());
+        });
     });
   }
 
   async getProfileByEmail(email): Promise<Profile> {
     const requestHeaders = (await this.authService.buildAuthenticationRequest())
       .headers;
+    const requestParams = {
+      filter: { where: { email: email } }
+    };
     return new Promise<Profile>(resolve => {
       this.http
         .get(this.profilesApi.url, {
           headers: requestHeaders,
-          params: {
-            filter: {
-              where: { email: email }
-            }
-          }
+          params: requestParams
         })
         .subscribe(data => {
           resolve(data.json()[0]);

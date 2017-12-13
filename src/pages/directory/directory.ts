@@ -10,9 +10,11 @@ import { Cloudinary } from '@cloudinary/angular-4.x';
   templateUrl: 'directory.html'
 })
 export class DirectoryPage {
-  profiles: Promise<Profile[]>;
+  profilesToDisplay: Profile[] = [];
   generateFullName = generateFullName;
   searchText: string;
+  resultsPerPage: number = 30;
+  totalRecordsRetrieved: number = 0;
 
   constructor(
     public navCtrl: NavController,
@@ -21,13 +23,13 @@ export class DirectoryPage {
     private cloudinary: Cloudinary
   ) {}
 
-  ionViewDidLoad() {
+  async ionViewDidLoad() {
     this.searchText = '';
-    this.profiles = this.getProfiles();
-  }
-
-  async getProfiles() {
-    return await this.profileService.getProfiles();
+    this.getNewProfiles(this.resultsPerPage, this.totalRecordsRetrieved).then(
+      profiles => {
+        this.addNewData(profiles);
+      }
+    );
   }
 
   goToDirectoryDetail(profile) {
@@ -38,16 +40,26 @@ export class DirectoryPage {
     return generateFullName(profile.firstName, profile.lastName);
   }
 
-  getPhotoPublicId(photoUrl: string): string {
-    if (photoUrl) {
-      // check wheter URL is full URL or already in "public ID" format
-      if (photoUrl.includes('/')) {
-        const parts = photoUrl.split('/');
-        return parts[parts.length - 1];
-      } else {
-        return photoUrl;
-      }
-    }
-    return null;
+  doInfinite() {
+    return this.getNewProfiles(
+      this.resultsPerPage,
+      this.totalRecordsRetrieved
+    ).then(profiles => {
+      setTimeout(() => {
+        this.addNewData(profiles);
+      }, 500);
+    });
+  }
+
+  private async getNewProfiles(
+    limit: number,
+    skip: number
+  ): Promise<Profile[]> {
+    return await this.profileService.getProfilesWithinLimit(limit, skip);
+  }
+
+  private addNewData(profiles: Profile[]): void {
+    this.profilesToDisplay = this.profilesToDisplay.concat(profiles);
+    this.totalRecordsRetrieved += this.resultsPerPage;
   }
 }

@@ -9,7 +9,7 @@
 <ion-content>
   <ion-searchbar [(ngModel)]="searchText"></ion-searchbar>
   <ion-list>
-    <button ion-item *ngFor="let profile of profiles | async | search: searchText" (click)="goToDirectoryDetail(profile)">
+    <button ion-item *ngFor="let profile of profilesToDisplay | search: searchText" (click)="goToDirectoryDetail(profile)">
       <ion-avatar item-start>
         <cl-image *ngIf="profile.photoUrl" public-id="{{profile.photoUrl}}">
           <cl-transformation quality="auto:low" fetch_format="auto" width="40px"></cl-transformation>
@@ -19,4 +19,8 @@
       {{getFullName(profile)}}
     </button>
   </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
