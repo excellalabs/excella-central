@@ -40,15 +40,15 @@ export class DirectoryPage {
     return generateFullName(profile.firstName, profile.lastName);
   }
 
-  doInfinite() {
-    return this.getNewProfiles(
-      this.resultsPerPage,
-      this.totalRecordsRetrieved
-    ).then(profiles => {
-      setTimeout(() => {
-        this.addNewData(profiles);
-      }, 500);
-    });
+  doInfinite(infiniteScroll) {
+    this.getNewProfiles(this.resultsPerPage, this.totalRecordsRetrieved).then(
+      profiles => {
+        setTimeout(() => {
+          this.addNewData(profiles);
+          infiniteScroll.complete();
+        }, 500);
+      }
+    );
   }
 
   private async getNewProfiles(

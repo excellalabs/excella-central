@@ -76,11 +76,12 @@ var DirectoryPage = (function () {
     DirectoryPage.prototype.getFullName = function (profile) {
         return generateFullName(profile.firstName, profile.lastName);
     };
-    DirectoryPage.prototype.doInfinite = function () {
+    DirectoryPage.prototype.doInfinite = function (infiniteScroll) {
         var _this = this;
-        return this.getNewProfiles(this.resultsPerPage, this.totalRecordsRetrieved).then(function (profiles) {
+        this.getNewProfiles(this.resultsPerPage, this.totalRecordsRetrieved).then(function (profiles) {
             setTimeout(function () {
                 _this.addNewData(profiles);
+                infiniteScroll.complete();
             }, 500);
         });
     };
