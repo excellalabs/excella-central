@@ -11,7 +11,7 @@
   <ion-list>
     <button ion-item *ngFor="let profile of profilesToDisplay" (click)="goToDirectoryDetail(profile)">
       <ion-avatar item-start>
-        <cl-image *ngIf="profile.photoUrl" public-id="{{profile.photoUrl}}">
+        <cl-image *ngIf="profile.photoUrl" public-id="{{getSmallUrl(profile.photoUrl)}}">
           <cl-transformation quality="auto:low" fetch_format="auto" width="40px"></cl-transformation>
         </cl-image>
         <img *ngIf="!profile.photoUrl " src="/assets/no_photo.png ">

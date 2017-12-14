@@ -92,4 +92,8 @@ export class DirectoryPage {
   private onInput(event) {
     this.searchTextSubject.next(this.searchTextValue);
   }
+
+  public getSmallUrl(url) {
+    return url.replace('upload', 'upload/c_scale,w_50,q_25');
+  }
 }
