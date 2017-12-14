@@ -9,10 +9,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { DirectoryPage } from './directory';
 import { PipesModule } from '../../pipes/pipes.module';
 import { CloudinaryModule } from '@cloudinary/angular-4.x';
-import { Cloudinary as CloudinaryCore } from 'cloudinary-core';
-export var cloudinary = {
-    Cloudinary: CloudinaryCore
-};
+import * as Cloudinary from 'cloudinary-core';
 var DirectoryPageModule = (function () {
     function DirectoryPageModule() {
     }
@@ -24,7 +21,7 @@ DirectoryPageModule = __decorate([
         imports: [
             IonicPageModule.forChild(DirectoryPage),
             PipesModule,
-            CloudinaryModule.forRoot(cloudinary, {
+            CloudinaryModule.forRoot(Cloudinary, {
                 cloud_name: 'excella'
             })
         ],

@@ -8,18 +8,14 @@ import {
   CloudinaryModule,
   CloudinaryConfiguration
 } from '@cloudinary/angular-4.x';
-import { Cloudinary as CloudinaryCore } from 'cloudinary-core';
-
-export const cloudinary = {
-  Cloudinary: CloudinaryCore
-};
+import * as Cloudinary from 'cloudinary-core';
 
 @NgModule({
   declarations: [DirectoryPage],
   imports: [
     IonicPageModule.forChild(DirectoryPage),
     PipesModule,
-    CloudinaryModule.forRoot(cloudinary, {
+    CloudinaryModule.forRoot(Cloudinary, {
       cloud_name: 'excella'
     } as CloudinaryConfiguration)
   ],
