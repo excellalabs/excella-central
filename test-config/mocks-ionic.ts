@@ -138,6 +138,13 @@ export class ProfileServiceMock {
   async getProfilesWithPhotos(): Promise<Profile[]> {
     return new Promise<Profile[]>((resolve, reject) => {});
   }
+
+  async getProfilesWithinLimit(
+    limit: number,
+    skip: number
+  ): Promise<Profile[]> {
+    return new Promise<Profile[]>((resolve, reject) => {});
+  }
 }
 
 export class AccountServiceMock {

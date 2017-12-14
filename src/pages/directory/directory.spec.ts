@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule, NavController, NavParams } from 'ionic-angular';
 import {
+  CloudinaryModule,
+  CloudinaryConfiguration
+} from '@cloudinary/angular-4.x';
+import * as Cloudinary from 'cloudinary-core';
+import {
   NavMock,
   NavParamsMock,
   SearchPipeMock,
@@ -17,7 +22,12 @@ describe('DirectoryPage', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [DirectoryPage, SearchPipeMock],
-        imports: [IonicModule.forRoot(DirectoryPage)],
+        imports: [
+          IonicModule.forRoot(DirectoryPage),
+          CloudinaryModule.forRoot(Cloudinary, {
+            cloud_name: ''
+          } as CloudinaryConfiguration)
+        ],
         providers: [
           { provide: NavController, useClass: NavMock },
           { provide: NavParams, useClass: NavParamsMock },

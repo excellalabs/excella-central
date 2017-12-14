@@ -14,7 +14,7 @@ export class DirectoryDetailPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public profileService: ProfileService /*, public toastCtrl: ToastController*/
+    public profileService: ProfileService
   ) {}
 
   async ionViewDidLoad() {
@@ -23,26 +23,13 @@ export class DirectoryDetailPage {
         this.navParams.get('id')
       );
     } else {
-      //TODO: find out why toastCtrl .present() causes tests to fail
-      /*
-      let toast = this.toastCtrl.create({
-        message: "Sorry, this profile could not be loaded.",
-        duration: 3000,
-        showCloseButton: true,
-        dismissOnPageChange: true
-      });
-      toast.onDidDismiss(() => {
-        this.navCtrl.push('DirectoryPage');
-      });
-      toast.present();
-      */
       this.navCtrl.push('DirectoryPage');
     }
   }
 
   async swipe(event) {
     if (event.direction === 2) {
-      //right to left swipe
+      // right to left swipe
       const previousProfile = await this.profileService.getPreviousProfile(
         this.profile.id
       );
@@ -50,7 +37,7 @@ export class DirectoryDetailPage {
         this.profile = previousProfile;
       }
     } else if (event.direction === 4) {
-      //left to right swipe
+      // left to right swipe
       const nextProfile = await this.profileService.getNextProfile(
         this.profile.id
       );
@@ -58,5 +45,9 @@ export class DirectoryDetailPage {
         this.profile = nextProfile;
       }
     }
+  }
+
+  public transformUrl(url) {
+    return url.replace('upload', 'upload/c_scale,w_300,q_50');
   }
 }
