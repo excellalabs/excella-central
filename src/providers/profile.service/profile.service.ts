@@ -12,7 +12,7 @@ export class ProfileService {
     @Inject(ProfilesInjectionToken) public profilesApi: ConnectionString
   ) {}
 
-  async getProfiles(): Promise<Profile[]> {
+  public async getProfiles(): Promise<Profile[]> {
     const requestHeaders = await this.authService.buildAuthenticationRequest();
     return new Promise<Profile[]>(resolve => {
       this.http.get(this.profilesApi.url, requestHeaders).subscribe(data => {
@@ -62,7 +62,7 @@ export class ProfileService {
     });
   }
 
-  async getProfileByEmail(email): Promise<Profile> {
+  public async getProfileByEmail(email): Promise<Profile> {
     const requestHeaders = (await this.authService.buildAuthenticationRequest())
       .headers;
     const requestParams = {
@@ -80,7 +80,7 @@ export class ProfileService {
     });
   }
 
-  async getProfileById(id): Promise<Profile> {
+  public async getProfileById(id): Promise<Profile> {
     const requestHeaders = (await this.authService.buildAuthenticationRequest())
       .headers;
     return new Promise<Profile>(resolve => {
@@ -99,7 +99,7 @@ export class ProfileService {
     });
   }
 
-  async updateProfileById(profile): Promise<Profile> {
+  public async updateProfileById(profile): Promise<Profile> {
     const requestHeaders = (await this.authService.buildAuthenticationRequest())
       .headers;
     return new Promise<Profile>(resolve => {
@@ -109,6 +109,22 @@ export class ProfileService {
         })
         .subscribe(data => {
           resolve(data.json()[0]);
+        });
+    });
+  }
+
+  public async getProfilesBySearch(searchText: string): Promise<Profile[]> {
+    const profileSearchUrl = this.profilesApi.url + '/search';
+    const requestHeaders = (await this.authService.buildAuthenticationRequest())
+      .headers;
+    return new Promise<Profile[]>(resolve => {
+      this.http
+        .get(profileSearchUrl, {
+          headers: requestHeaders,
+          params: { searchText: searchText }
+        })
+        .subscribe(data => {
+          resolve(data.json().profiles);
         });
     });
   }

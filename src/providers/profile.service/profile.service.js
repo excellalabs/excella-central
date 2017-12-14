@@ -210,6 +210,32 @@ var ProfileService = (function () {
             });
         });
     };
+    ProfileService.prototype.getProfilesBySearch = function (searchText) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            var profileSearchUrl, requestHeaders;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        profileSearchUrl = this.profilesApi.url + '/search';
+                        return [4 /*yield*/, this.authService.buildAuthenticationRequest()];
+                    case 1:
+                        requestHeaders = (_a.sent())
+                            .headers;
+                        return [2 /*return*/, new Promise(function (resolve) {
+                                _this.http
+                                    .get(profileSearchUrl, {
+                                    headers: requestHeaders,
+                                    params: { searchText: searchText }
+                                })
+                                    .subscribe(function (data) {
+                                    resolve(data.json().profiles);
+                                });
+                            })];
+                }
+            });
+        });
+    };
     ProfileService.prototype.getNextProfile = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {

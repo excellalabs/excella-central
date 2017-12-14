@@ -44,32 +44,42 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
 import { generateFullName } from '../../models/profile/profile';
 import { ProfileService } from '../../providers/profile.service/profile.service';
-import { Cloudinary } from '@cloudinary/angular-4.x';
 var DirectoryPage = (function () {
-    function DirectoryPage(navCtrl, navParams, profileService, cloudinary) {
+    function DirectoryPage(navCtrl, navParams, profileService) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.profileService = profileService;
-        this.cloudinary = cloudinary;
         this.profilesToDisplay = [];
-        this.generateFullName = generateFullName;
         this.resultsPerPage = 30;
         this.totalRecordsRetrieved = 0;
-    }
-    DirectoryPage.prototype.ionViewDidLoad = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                this.searchText = '';
-                this.getNewProfiles(this.resultsPerPage, this.totalRecordsRetrieved).then(function (profiles) {
-                    _this.addNewData(profiles);
-                });
-                return [2 /*return*/];
-            });
+        this.searchTextSubject = new Subject();
+        this.generateFullName = generateFullName;
+        this.searchTextSubject
+            .debounceTime(100)
+            .distinctUntilChanged()
+            .switchMap(function (text) {
+            if (text == '') {
+                _this.resetData();
+                return _this.getNewProfiles(_this.resultsPerPage, _this.totalRecordsRetrieved);
+            }
+            else {
+                return _this.profileService.getProfilesBySearch(text);
+            }
+        })
+            .subscribe(function (profiles) {
+            _this.resetData();
+            _this.addNewData(profiles);
         });
-    };
+        this.searchTextValue = '';
+        this.searchTextSubject.next(this.searchTextValue);
+    }
     DirectoryPage.prototype.goToDirectoryDetail = function (profile) {
         this.navCtrl.push('DirectoryDetailPage', { id: profile.id });
     };
@@ -78,6 +88,7 @@ var DirectoryPage = (function () {
     };
     DirectoryPage.prototype.doInfinite = function (infiniteScroll) {
         var _this = this;
+        this.totalRecordsRetrieved += this.resultsPerPage;
         this.getNewProfiles(this.resultsPerPage, this.totalRecordsRetrieved).then(function (profiles) {
             setTimeout(function () {
                 _this.addNewData(profiles);
@@ -97,7 +108,17 @@ var DirectoryPage = (function () {
     };
     DirectoryPage.prototype.addNewData = function (profiles) {
         this.profilesToDisplay = this.profilesToDisplay.concat(profiles);
-        this.totalRecordsRetrieved += this.resultsPerPage;
+    };
+    DirectoryPage.prototype.resetData = function () {
+        this.totalRecordsRetrieved = 0;
+        this.profilesToDisplay = [];
+    };
+    DirectoryPage.prototype.onCancel = function (event) {
+        this.searchTextValue = '';
+        this.searchTextSubject.next(this.searchTextValue);
+    };
+    DirectoryPage.prototype.onInput = function (event) {
+        this.searchTextSubject.next(this.searchTextValue);
     };
     return DirectoryPage;
 }());
@@ -109,8 +130,7 @@ DirectoryPage = __decorate([
     }),
     __metadata("design:paramtypes", [NavController,
         NavParams,
-        ProfileService,
-        Cloudinary])
+        ProfileService])
 ], DirectoryPage);
 export { DirectoryPage };
 //# sourceMappingURL=directory.js.map
