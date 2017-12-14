@@ -46,4 +46,8 @@ export class DirectoryDetailPage {
       }
     }
   }
+
+  public transformUrl(url) {
+    return url.replace('upload', 'upload/c_scale,w_300,q_50');
+  }
 }

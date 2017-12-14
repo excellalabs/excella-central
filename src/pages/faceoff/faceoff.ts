@@ -98,4 +98,8 @@ export class FaceoffPage {
       profile.buttonColor = 'incorrectAnswer';
     }
   }
+
+  public transformUrl(url) {
+    return url.replace('upload', 'upload/c_scale,w_300,q_50');
+  }
 }

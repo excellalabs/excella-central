@@ -93,7 +93,7 @@ export class DirectoryPage {
     this.searchTextSubject.next(this.searchTextValue);
   }
 
-  public getSmallUrl(url) {
+  public transformUrl(url) {
     return url.replace('upload', 'upload/c_scale,w_50,q_25');
   }
 }
