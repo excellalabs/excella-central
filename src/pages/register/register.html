@@ -9,43 +9,37 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
-    <ion-list no-lines>
+    <ion-list>
       <ion-item>
-        <ion-label stacked>Email</ion-label>
-        <ion-input type="email" formControlName="email"></ion-input>
+        <ion-label color="primary" stacked>Email</ion-label>
+        <ion-input type="email" formControlName="email" #email></ion-input>
       </ion-item>
 
-      <ion-item *ngIf="!registerForm.controls.email.valid && registerForm.controls.email.errors.pattern && (registerForm.controls.email.dirty)">
+      <ion-item no-lines *ngIf="!registerForm.controls.email.valid && registerForm.controls.email.errors.pattern && (registerForm.controls.email.dirty)">
         <p>Please enter a valid Excella email.</p>
       </ion-item>
-      <ion-item *ngIf="!registerForm.controls.email.valid && registerForm.controls.email.errors.accountExists  && (registerForm.controls.email.dirty)">
-        <p>An account with that email already exists.</p>
-      </ion-item>
-      <ion-item *ngIf="!registerForm.controls.email.valid && registerForm.controls.email.errors.profileDoesNotExist  && (registerForm.controls.email.dirty)">
-        <p>This email is not registered in our database. Please contact it@excella.com</p>
-      </ion-item>
 
       <ion-item>
-        <ion-label stacked>Password</ion-label>
+        <ion-label color="primary" stacked>Password</ion-label>
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
 
-      <ion-item *ngIf="!registerForm.controls.password.valid && registerForm.controls.password.errors.minlength && (registerForm.controls.password.dirty)">
+      <ion-item no-lines *ngIf="!registerForm.controls.password.valid && registerForm.controls.password.errors.minlength && (registerForm.controls.password.dirty)">
         <p>Password must be at least 8 characters.</p>
       </ion-item>
 
       <ion-item>
-        <ion-label stacked>Confirm Password</ion-label>
+        <ion-label color="primary" stacked>Confirm Password</ion-label>
         <ion-input type="password" formControlName="confirmPassword"></ion-input>
       </ion-item>
 
-      <ion-item *ngIf="!registerForm.controls.confirmPassword.valid && registerForm.controls.confirmPassword.errors.minlength && (registerForm.controls.confirmPassword.dirty)">
+      <ion-item no-lines *ngIf="!registerForm.controls.confirmPassword.valid && registerForm.controls.confirmPassword.errors.minlength && (registerForm.controls.confirmPassword.dirty)">
         <p>Password must be at least 8 characters.</p>
       </ion-item>
 
-      <ion-item *ngIf="!registerForm.controls.confirmPassword.valid && registerForm.controls.confirmPassword.errors.passwordsDoNotMatch  && (registerForm.controls.confirmPassword.dirty)">
+      <ion-item no-lines *ngIf="!registerForm.controls.confirmPassword.valid && registerForm.controls.confirmPassword.errors.passwordsDoNotMatch  && (registerForm.controls.confirmPassword.dirty)">
         <p>Passwords do not match.</p>
       </ion-item>
     </ion-list>
