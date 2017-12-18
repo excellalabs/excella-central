@@ -46,10 +46,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfileService } from '../../providers/profile.service/profile.service';
 var DirectoryDetailPage = (function () {
-    function DirectoryDetailPage(navCtrl, navParams, profileService /*, public toastCtrl: ToastController*/) {
+    function DirectoryDetailPage(navCtrl, navParams, profileService) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.profileService = profileService; /*, public toastCtrl: ToastController*/
+        this.profileService = profileService;
         this.profile = null;
     }
     DirectoryDetailPage.prototype.ionViewDidLoad = function () {
@@ -65,19 +65,6 @@ var DirectoryDetailPage = (function () {
                         _a.profile = _b.sent();
                         return [3 /*break*/, 3];
                     case 2:
-                        //TODO: find out why toastCtrl .present() causes tests to fail
-                        /*
-                        let toast = this.toastCtrl.create({
-                          message: "Sorry, this profile could not be loaded.",
-                          duration: 3000,
-                          showCloseButton: true,
-                          dismissOnPageChange: true
-                        });
-                        toast.onDidDismiss(() => {
-                          this.navCtrl.push('DirectoryPage');
-                        });
-                        toast.present();
-                        */
                         this.navCtrl.push('DirectoryPage');
                         _b.label = 3;
                     case 3: return [2 /*return*/];
@@ -123,7 +110,7 @@ DirectoryDetailPage = __decorate([
     }),
     __metadata("design:paramtypes", [NavController,
         NavParams,
-        ProfileService /*, public toastCtrl: ToastController*/])
+        ProfileService])
 ], DirectoryDetailPage);
 export { DirectoryDetailPage };
 //# sourceMappingURL=directory-detail.js.map

@@ -1,9 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { ConnectionString, ProfilesInjectionToken } from '../../app/app-config';
 import { Profile } from '../../models/profile/profile';
 import { AuthenticationService } from '../authentication.service/authentication.service';
-import { request } from 'http';
 
 @Injectable()
 export class ProfileService {
@@ -13,7 +12,7 @@ export class ProfileService {
     @Inject(ProfilesInjectionToken) public profilesApi: ConnectionString
   ) {}
 
-  async getProfiles(): Promise<Profile[]> {
+  public async getProfiles(): Promise<Profile[]> {
     const requestHeaders = await this.authService.buildAuthenticationRequest();
     return new Promise<Profile[]>(resolve => {
       this.http.get(this.profilesApi.url, requestHeaders).subscribe(data => {
@@ -23,28 +22,57 @@ export class ProfileService {
   }
 
   public async getProfilesWithPhotos(): Promise<Profile[]> {
-    const requestHeaders = await this.authService.buildAuthenticationRequest();
+    const requestHeaders = (await this.authService.buildAuthenticationRequest())
+      .headers;
+    const requestParams = {
+      filter: {
+        where: { photoUrl: { neq: '' } }
+      }
+    };
     return new Promise<Profile[]>(resolve => {
-      this.http.get(this.profilesApi.url, requestHeaders).subscribe(data => {
-        resolve(
-          data.json().filter(profile => profile['photoUrl'] !== undefined)
-        );
-      });
+      this.http
+        .get(this.profilesApi.url, {
+          headers: requestHeaders,
+          params: requestParams
+        })
+        .subscribe(data => {
+          resolve(data.json());
+        });
     });
   }
 
-  async getProfileByEmail(email): Promise<Profile> {
+  public async getProfilesWithinLimit(limit: number, skip: number) {
     const requestHeaders = (await this.authService.buildAuthenticationRequest())
       .headers;
+    const requestParams = {
+      filter: {
+        limit: limit,
+        skip: skip
+      }
+    };
+    return new Promise<Profile[]>(resolve => {
+      this.http
+        .get(this.profilesApi.url, {
+          headers: requestHeaders,
+          params: requestParams
+        })
+        .subscribe(data => {
+          resolve(data.json());
+        });
+    });
+  }
+
+  public async getProfileByEmail(email): Promise<Profile> {
+    const requestHeaders = (await this.authService.buildAuthenticationRequest())
+      .headers;
+    const requestParams = {
+      filter: { where: { email: email } }
+    };
     return new Promise<Profile>(resolve => {
       this.http
         .get(this.profilesApi.url, {
           headers: requestHeaders,
-          params: {
-            filter: {
-              where: { email: email }
-            }
-          }
+          params: requestParams
         })
         .subscribe(data => {
           resolve(data.json()[0]);
@@ -52,7 +80,7 @@ export class ProfileService {
     });
   }
 
-  async getProfileById(id): Promise<Profile> {
+  public async getProfileById(id): Promise<Profile> {
     const requestHeaders = (await this.authService.buildAuthenticationRequest())
       .headers;
     return new Promise<Profile>(resolve => {
@@ -71,7 +99,7 @@ export class ProfileService {
     });
   }
 
-  async updateProfileById(profile): Promise<Profile> {
+  public async updateProfileById(profile): Promise<Profile> {
     const requestHeaders = (await this.authService.buildAuthenticationRequest())
       .headers;
     return new Promise<Profile>(resolve => {
@@ -81,6 +109,22 @@ export class ProfileService {
         })
         .subscribe(data => {
           resolve(data.json()[0]);
+        });
+    });
+  }
+
+  public async getProfilesBySearch(searchText: string): Promise<Profile[]> {
+    const profileSearchUrl = this.profilesApi.url + '/search';
+    const requestHeaders = (await this.authService.buildAuthenticationRequest())
+      .headers;
+    return new Promise<Profile[]>(resolve => {
+      this.http
+        .get(profileSearchUrl, {
+          headers: requestHeaders,
+          params: { searchText: searchText }
+        })
+        .subscribe(data => {
+          resolve(data.json().profiles);
         });
     });
   }

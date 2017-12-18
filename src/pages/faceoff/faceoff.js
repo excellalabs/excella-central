@@ -71,6 +71,7 @@ var FaceoffPage = (function () {
     FaceoffPage.prototype.startNewGame = function () {
         this.correctAnswers = 0;
         this.answeredQuestions = 0;
+        this.isGameFinished = false;
         this.newFaceoffQuestion();
     };
     FaceoffPage.prototype.newFaceoffQuestion = function () {
@@ -108,6 +109,9 @@ var FaceoffPage = (function () {
     FaceoffPage.prototype.advanceGame = function () {
         if (this.answeredQuestions < this.totalQuestions) {
             this.newFaceoffQuestion();
+        }
+        else {
+            this.isGameFinished = true;
         }
     };
     FaceoffPage.prototype.getUniqueProfiles = function (numberOfProfiles) {

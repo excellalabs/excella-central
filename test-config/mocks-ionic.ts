@@ -138,6 +138,13 @@ export class ProfileServiceMock {
   async getProfilesWithPhotos(): Promise<Profile[]> {
     return new Promise<Profile[]>((resolve, reject) => {});
   }
+
+  async getProfilesWithinLimit(
+    limit: number,
+    skip: number
+  ): Promise<Profile[]> {
+    return new Promise<Profile[]>((resolve, reject) => {});
+  }
 }
 
 export class AccountServiceMock {
@@ -173,5 +180,13 @@ export class StorageMock {
     new Promise((resolve, reject) => {});
   }
 }
+
+export class AlertControllerMock {
+  create(param) {
+    return;
+  }
+}
+
+export class PictureUploadServiceMock {}
 
 export class DeepLinkerMock {}

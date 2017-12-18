@@ -44,34 +44,81 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
 import { generateFullName } from '../../models/profile/profile';
 import { ProfileService } from '../../providers/profile.service/profile.service';
 var DirectoryPage = (function () {
     function DirectoryPage(navCtrl, navParams, profileService) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.profileService = profileService;
+        this.profilesToDisplay = [];
+        this.resultsPerPage = 30;
+        this.totalRecordsRetrieved = 0;
+        this.searchTextSubject = new Subject();
         this.generateFullName = generateFullName;
-    }
-    DirectoryPage.prototype.ionViewDidLoad = function () {
-        this.searchText = '';
-        this.profiles = this.getProfiles();
-    };
-    DirectoryPage.prototype.getProfiles = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.profileService.getProfiles()];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
+        this.searchTextSubject
+            .debounceTime(100)
+            .distinctUntilChanged()
+            .switchMap(function (text) {
+            if (text == '') {
+                _this.resetData();
+                return _this.getNewProfiles(_this.resultsPerPage, _this.totalRecordsRetrieved);
+            }
+            else {
+                return _this.profileService.getProfilesBySearch(text);
+            }
+        })
+            .subscribe(function (profiles) {
+            _this.resetData();
+            _this.addNewData(profiles);
         });
-    };
+        this.searchTextValue = '';
+        this.searchTextSubject.next(this.searchTextValue);
+    }
     DirectoryPage.prototype.goToDirectoryDetail = function (profile) {
         this.navCtrl.push('DirectoryDetailPage', { id: profile.id });
     };
     DirectoryPage.prototype.getFullName = function (profile) {
         return generateFullName(profile.firstName, profile.lastName);
+    };
+    DirectoryPage.prototype.doInfinite = function (infiniteScroll) {
+        var _this = this;
+        this.totalRecordsRetrieved += this.resultsPerPage;
+        this.getNewProfiles(this.resultsPerPage, this.totalRecordsRetrieved).then(function (profiles) {
+            setTimeout(function () {
+                _this.addNewData(profiles);
+                infiniteScroll.complete();
+            }, 500);
+        });
+    };
+    DirectoryPage.prototype.getNewProfiles = function (limit, skip) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.profileService.getProfilesWithinLimit(limit, skip)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    DirectoryPage.prototype.addNewData = function (profiles) {
+        this.profilesToDisplay = this.profilesToDisplay.concat(profiles);
+    };
+    DirectoryPage.prototype.resetData = function () {
+        this.totalRecordsRetrieved = 0;
+        this.profilesToDisplay = [];
+    };
+    DirectoryPage.prototype.onCancel = function (event) {
+        this.searchTextValue = '';
+        this.searchTextSubject.next(this.searchTextValue);
+    };
+    DirectoryPage.prototype.onInput = function (event) {
+        this.searchTextSubject.next(this.searchTextValue);
     };
     return DirectoryPage;
 }());
