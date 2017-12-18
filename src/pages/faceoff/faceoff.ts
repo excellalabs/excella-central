@@ -16,6 +16,7 @@ export class FaceoffPage {
   answeredQuestions: number;
   showSolidButton: boolean;
   totalQuestions = 10;
+  isGameFinished: boolean;
   buttonsDisabled: boolean;
 
   constructor(
@@ -32,6 +33,7 @@ export class FaceoffPage {
   startNewGame() {
     this.correctAnswers = 0;
     this.answeredQuestions = 0;
+    this.isGameFinished = false;
     this.newFaceoffQuestion();
   }
 
@@ -70,6 +72,8 @@ export class FaceoffPage {
   advanceGame() {
     if (this.answeredQuestions < this.totalQuestions) {
       this.newFaceoffQuestion();
+    } else {
+      this.isGameFinished = true;
     }
   }
 
@@ -93,5 +97,9 @@ export class FaceoffPage {
     } else {
       profile.buttonColor = 'incorrectAnswer';
     }
+  }
+
+  public transformUrl(url) {
+    return url.replace('upload', 'upload/c_scale,w_300,q_50');
   }
 }

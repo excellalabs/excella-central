@@ -8,7 +8,7 @@ import {
 import { Storage } from '@ionic/storage';
 import { AccountService } from '../../providers/account.service/account.service';
 import { ProfileService } from '../../providers/profile.service/profile.service';
-import { PictureUploadService } from '../../providers/picture-upload.service.ts/picture-upload.service';
+import { PictureUploadService } from '../../providers/picture-upload.service/picture-upload.service';
 import { Profile } from '../../models/profile/profile';
 import { Account } from '../../models/account/account';
 

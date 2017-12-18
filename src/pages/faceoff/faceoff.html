@@ -3,16 +3,16 @@
   <ion-navbar>
     <ion-title>Faceoff</ion-title>
   </ion-navbar>
-  <ion-toolbar *ngIf="totalQuestions > answeredQuestions" color="primary">
+  <ion-toolbar *ngIf="!isGameFinished" color="primary">
     <ion-title class="faceoff-score">Score: {{correctAnswers}}/{{answeredQuestions}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
-  <ng-container *ngIf="totalQuestions > answeredQuestions">
+  <ng-container *ngIf="!isGameFinished">
     <ion-card class="faceoff-card fourty-percent-photo-card">
-      <img class="faceoff-photo" src="{{correctProfile?.photoUrl}}" />
+      <img class="faceoff-photo" src="{{correctProfile?.photoUrl ? transformUrl(correctProfile?.photoUrl) : null}}" />
     </ion-card>
     <ng-container *ngFor="let profile of profilesForQuestion">
       <button class="faceoff-button" ion-button [color]="profile.buttonColor" [outline]="!profile.showSolidButton" [disabled]="buttonsDisabled"
@@ -21,7 +21,7 @@
       </button>
     </ng-container>
   </ng-container>
-  <ng-container *ngIf="answeredQuestions >= totalQuestions">
+  <ng-container *ngIf="isGameFinished">
     <h3>Score: {{correctAnswers}}/{{answeredQuestions}}</h3>
     <button class="faceoff-button" ion-button color="primary" (click)="startNewGame()">
       Play Again
