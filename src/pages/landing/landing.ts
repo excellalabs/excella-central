@@ -16,8 +16,4 @@ export class LandingPage {
   openRegisterPage(): void {
     this.navCtrl.push('RegisterPage');
   }
-
-  openResetPasswordPage(): void {
-    this.navCtrl.push('ResetPasswordPage');
-  }
 }
