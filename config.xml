@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.excella.centralapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.excella.central" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Excella Central</name>
-    <description>Connect with your colleagues.</description>
+    <description></description>
     <author email="support@excella.com" href="https://www.excella.com">Excella</author>
     <content src="index.html" />
     <access origin="*" />
