@@ -10,3 +10,4 @@ $ npm install
 $ cd [DIRECTORY]/excella-central/
 $ ionic serve
 ```
+ 
