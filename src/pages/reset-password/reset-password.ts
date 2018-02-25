@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from '../../providers/account.service/account.service';
 @IonicPage()
@@ -12,7 +12,7 @@ export class ResetPasswordPage {
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
-    private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
     private formBuilder: FormBuilder,
     private accountService: AccountService) {
     this.resetForm = this.formBuilder.group({
@@ -28,11 +28,12 @@ export class ResetPasswordPage {
         });
 
       } else {
-        const alert = this.alertCtrl.create({
-          title: 'Account for the provided email does not exist.',
-          buttons: ['OK']
+        let toast = this.toastCtrl.create({
+          message: 'Account does not exist',
+          duration: 4000,
+          position: 'bottom'
         });
-        alert.present();
+        toast.present();
       }
     })
   }
