@@ -23,7 +23,7 @@ export class ResetPasswordPage {
   sendResetEmail() {
     this.accountService.checkAccountExists(this.resetForm.value.email).then(accountExists => {
       if (accountExists) {
-        // send email
+        this.navCtrl.push('ResetPasswordFormPage');
       } else {
         const alert = this.alertCtrl.create({
           title: 'Account for the provided email does not exist.',
