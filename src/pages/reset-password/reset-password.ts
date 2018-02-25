@@ -24,7 +24,7 @@ export class ResetPasswordPage {
     this.accountService.checkAccountExists(this.resetForm.value.email).then(accountExists => {
       if (accountExists) {
         this.accountService.sendResetEmail(this.resetForm.value.email).then(() => {
-          this.navCtrl.push('ResetPasswordFormPage');
+          this.goToPasswordResetForm();
         });
 
       } else {
@@ -35,6 +35,10 @@ export class ResetPasswordPage {
         alert.present();
       }
     })
+  }
+
+  goToPasswordResetForm() {
+    this.navCtrl.push('ResetPasswordFormPage');
   }
 
 }
