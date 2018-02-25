@@ -16,7 +16,7 @@ export class AccountService {
     private authService: AuthenticationService,
     @Inject(ProfilesInjectionToken) public profilesApi: ConnectionString,
     @Inject(AccountsInjectionToken) public accountsApi: ConnectionString
-  ) {}
+  ) { }
 
   async login(email: string, password: string): Promise<boolean> {
     const loginUrl = this.accountsApi.url + '/login';
@@ -100,5 +100,24 @@ export class AccountService {
           resolve(body.doesProfileExist);
         });
     });
+  }
+
+  async sendResetEmail(email: string): Promise<boolean> {
+    const url = this.accountsApi.url + '/reset';
+    return new Promise<boolean>(resolve =>
+      this.http.post(url, { email: email }).subscribe(
+        data => {
+          resolve(true);
+        },
+        err => {
+          resolve(false);
+        }
+      )
+    )
+  }
+
+  async resetPassword(newPassword: string, accessToken: string): Promise<void> {
+    const url = this.accountsApi.url + '/reset-password?access_token=' + accessToken;
+    await this.http.post(url, { newPassword: newPassword });
   }
 }
