@@ -104,20 +104,29 @@ export class AccountService {
 
   async sendResetEmail(email: string): Promise<boolean> {
     const url = this.accountsApi.url + '/reset';
-    return new Promise<boolean>(resolve =>
+    return new Promise<boolean>(resolve => {
       this.http.post(url, { email: email }).subscribe(
-        data => {
+        success => {
           resolve(true);
         },
         err => {
           resolve(false);
         }
-      )
-    )
+      );
+    });
   }
 
-  async resetPassword(newPassword: string, accessToken: string): Promise<void> {
+  async resetPassword(newPassword: string, accessToken: string): Promise<boolean> {
     const url = this.accountsApi.url + '/reset-password?access_token=' + accessToken;
-    await this.http.post(url, { newPassword: newPassword });
+    return new Promise<boolean>(resolve => {
+      this.http.post(url, { newPassword: newPassword }).subscribe(
+        success => {
+          resolve(true);
+        },
+        err => {
+          resolve(false);
+        }
+      );
+    });
   }
 }
