@@ -43,8 +43,8 @@ export class AccountService {
     this.authService.clearUserToken();
   }
 
-  async register(email: string, password: string): Promise<boolean> {
-    const newAccount = new Account(email, password, false, false);
+  async register(email: string, password: string, userType: string): Promise<boolean> {
+    const newAccount = new Account(email, password, userType, false);
     return new Promise<boolean>(resolve => {
       this.http.post(this.accountsApi.url, newAccount).subscribe(
         data => {
