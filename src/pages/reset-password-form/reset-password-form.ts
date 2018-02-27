@@ -40,10 +40,10 @@ export class ResetPasswordFormPage {
         if (success) {
           let successToast = this.toastCtrl.create({
             message: 'Password reset successfully. Please login with your new password',
-            duration: 4000,
             position: 'bottom',
             showCloseButton: true
           });
+          successToast.present();
         } else {
           let errorToast = this.toastCtrl.create({
             message: 'Reset token is invalid.',
