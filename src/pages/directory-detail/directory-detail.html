@@ -5,7 +5,7 @@
 </ion-header>
 <ion-content padding (pan)=swipe($event)>
   <ion-card class="fourty-percent-photo-card with-text">
-    <img class="profile-photo" src="{{profile?.photoUrl ? transformUrl(profile.photoUrl) : '/assets/no_photo.png'}}" />
+    <img class="profile-photo" src="{{profile?.photoUrl ? transformUrl(profile.photoUrl) : 'assets/no_photo.png'}}" />
     <ion-item class="photo">
       <h1>{{ profile?.firstName }} {{ profile?.lastName }}</h1>
     </ion-item>
