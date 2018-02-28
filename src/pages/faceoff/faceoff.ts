@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Profile } from '../../models/profile/profile';
 import { ProfileService } from '../../providers/profile.service/profile.service';
+import { LoadingController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -22,7 +23,8 @@ export class FaceoffPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public profileService: ProfileService
+    public profileService: ProfileService,
+    public loadingCtrl: LoadingController
   ) {}
 
   async ionViewDidLoad() {
@@ -38,6 +40,10 @@ export class FaceoffPage {
   }
 
   newFaceoffQuestion(): void {
+    let loader = this.loadingCtrl.create({
+      duration: 150
+    });
+    loader.present();
     this.profilesForQuestion = this.getUniqueProfiles(4);
     this.correctProfile = this.profilesForQuestion[0];
     this.shuffleArray(this.profilesForQuestion);
@@ -66,7 +72,7 @@ export class FaceoffPage {
     setTimeout(() => {
       this.buttonsDisabled = false;
       this.advanceGame();
-    }, 1800);
+    }, 1500);
   }
 
   advanceGame() {
