@@ -19,10 +19,6 @@ export class HomePage {
     this.navCtrl.push('FaceoffPage');
   }
 
-  openAdminPage() {
-    this.navCtrl.push('AdminPage');
-  }
-
   logoutUser() {
     console.log('User logged out');
     this.loggedIn = false;
