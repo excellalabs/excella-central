@@ -57,7 +57,7 @@ export class RegisterPage {
       });
       alert.present();
     } else {
-      this.accountService.register(email, password, "user").then(
+      this.accountService.register(email, password).then(
         success => {
           this.navCtrl.setRoot('HomePage');
         },
