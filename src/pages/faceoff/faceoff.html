@@ -11,7 +11,8 @@
 <ion-content>
   <ng-container *ngIf="!isGameFinished">
     <ion-card class="faceoff-card fourty-percent-photo-card">
-      <img class="faceoff-photo" src="{{correctProfile?.photoUrl ? transformUrl(correctProfile?.photoUrl) : null}}" />
+      <img class="faceoff-photo" src="{{correctProfile?.photoUrl ? transformUrl(correctProfile?.photoUrl) : null}}" (load)="hideLoader()"
+      />
     </ion-card>
     <ng-container *ngFor="let profile of profilesForQuestion">
       <button class="faceoff-button" ion-button [color]="profile.buttonColor" [outline]="!profile.showSolidButton" [disabled]="buttonsDisabled"
