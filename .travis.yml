@@ -20,7 +20,6 @@ before_script:
 script:
 - npm run build
 - npm run test
-- ionic cordova build browser --release
 - npm run docker:build
 deploy:
   provider: script

@@ -4,14 +4,15 @@
   "author": "Excella Labs",
   "homepage": "https://central.excellalabs.com/",
   "private": true,
-  "imageRepo":
-    "090999229429.dkr.ecr.us-east-1.amazonaws.com/excella-central-web",
-  "imageName": "excella-central-web",
-  "imagePort": "5000",
-  "awsRegion": "us-east-1",
-  "awsEcsCluster": "excella-prod-ecs-cluster",
-  "awsService": "excella-central-web",
-
+  "config": {
+    "imageRepo":
+      "090999229429.dkr.ecr.us-east-1.amazonaws.com/excella-central-web",
+    "imageName": "excella-central-web",
+    "imagePort": "5000",
+    "awsRegion": "us-east-1",
+    "awsEcsCluster": "excella-prod-ecs-cluster",
+    "awsService": "excella-central-web"
+  },
   "scripts": {
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
@@ -27,22 +28,42 @@
     "e2e-test": "protractor ./test-config/protractor.conf.js",
     "e2e-update": "webdriver-manager update --standalone false --gecko false",
 
+    "docker:buildHelper":
+      "cross-conf-env docker image build . -t $npm_package_config_imageRepo:$npm_package_version",
     "docker:build":
-      "npm run build -- --prod && with-package docker image build . -t pkg.imageRepo:latest",
-    "docker:run": "npm run docker:clean && npm run docker:runHelper",
+      "ionic cordova build browser --release && npm run docker:buildHelper",
+    "postdocker:build": "npm run docker:tag",
+    "docker:tag":
+      "cross-conf-env docker image tag $npm_package_config_imageRepo:$npm_package_version $npm_package_config_imageRepo:latest",
+    "docker:run": "run-s -c docker:clean docker:runHelper",
     "docker:runHelper":
-      "with-package docker run --name pkg.imageName -d -p pkg.imagePort:3000 pkg.imageRepo",
-    "docker:publish": "with-package docker image push pkg.imageRepo:latest",
-    "docker:clean": "with-package docker rm -f pkg.imageName || true",
-    "docker:taillogs": "with-package docker logs -f pkg.imageName",
+      "cross-conf-env docker run -e NODE_ENV=local --name $npm_package_config_imageName -d -p $npm_package_config_imagePort:3000 $npm_package_config_imageRepo",
+    "predocker:publish": "echo Attention! Ensure `docker login` is correct.",
+    "docker:publish":
+      "cross-conf-env docker image push $npm_package_config_imageRepo:$npm_package_version",
+    "postdocker:publish":
+      "cross-conf-env docker image push $npm_package_config_imageRepo:latest",
+    "docker:clean": "cross-conf-env docker rm -f $npm_package_config_imageName",
+    "predocker:taillogs": "echo Web Server Logs:",
+    "docker:taillogs":
+      "cross-conf-env docker logs -f $npm_package_config_imageName",
+    "docker:open:win":
+      "echo Trying to launch on Windows && timeout 2 && start http://localhost:%npm_package_config_imagePort%",
+    "docker:open:mac":
+      "echo Trying to launch on MacOS && sleep 2 && URL=http://localhost:$npm_package_config_imagePort && open $URL",
+    "docker:debugmessage":
+      "echo Docker Debug Completed Successfully! Hit Ctrl+C to terminate log tailing.",
+    "predocker:debug": "run-s -c docker:build docker:run",
     "docker:debug":
-      "npm run docker:build -- --file Dockerfile.dev && npm run docker:run && sleep 1 && with-package open 'http://localhost:pkg.imagePort' && npm run docker:taillogs",
-    "aws:login":
-      "with-package aws ecr get-login --no-include-email --region pkg.awsRegion",
+      "run-s -cs docker:open:win docker:open:mac docker:debugmessage docker:taillogs",
+    "aws:login:win":
+      "cross-conf-env aws ecr get-login --no-include-email --region $npm_package_config_awsRegion > dockerLogin.cmd && call dockerLogin.cmd && del dockerLogin.cmd",
+    "aws:login:mac":
+      "eval $(aws ecr get-login --no-include-email --region $npm_package_config_awsRegion)",
+    "aws:login": "run-p -cs aws:login:win aws:login:mac",
     "aws:deploy":
-      "with-package docker run --env-file ./.env silintl/ecs-deploy -c pkg.awsEcsCluster -n pkg.awsService -i pkg.imageRepo:latest -r pkg.awsRegion --timeout 1000",
-    "aws:release":
-      "npm run aws:login && npm run docker:publish && npm run aws:deploy"
+      "cross-conf-env docker run --env-file ./.env silintl/ecs-deploy -c $npm_package_config_awsEcsCluster -n $npm_package_config_awsService -i $npm_package_config_imageRepo:latest -r $npm_package_config_awsRegion --timeout 1000",
+    "aws:release": "run-s -cs aws:login docker:publish aws:deploy"
   },
   "dependencies": {
     "@angular/common": "4.4.3",
@@ -83,6 +104,7 @@
     "@types/jasmine": "^2.8.0",
     "@types/node": "^8.0.51",
     "angular2-template-loader": "^0.6.2",
+    "cross-conf-env": "^1.1.2",
     "html-loader": "^0.5.1",
     "istanbul-instrumenter-loader": "^3.0.0",
     "jasmine": "^2.8.0",
@@ -94,11 +116,13 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.6",
+    "npm-run-all": "^4.1.2",
     "null-loader": "^0.1.1",
     "protractor": "^5.2.0",
     "ts-loader": "^3.1.1",
     "ts-node": "^3.3.0",
-    "typescript": "2.3.4"
+    "typescript": "2.3.4",
+    "with-package": "^0.2.0"
   },
   "description": "",
   "cordova": {
