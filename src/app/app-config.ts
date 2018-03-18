@@ -8,7 +8,7 @@ export interface ConnectionString {
 
 export const ProfilesApi: ConnectionString = {
   name: 'profiles',
-  url: 'https://central.excellalabs.com/api/profiles'
+  url: 'https://central-api.excellalabs.com/api/profiles'
 };
 
 export const ProfilesInjectionToken = new InjectionToken<ConnectionString>(
@@ -17,7 +17,7 @@ export const ProfilesInjectionToken = new InjectionToken<ConnectionString>(
 
 export const AccountsApi: ConnectionString = {
   name: 'accounts',
-  url: 'https://central.excellalabs.com/api/accounts'
+  url: 'https://central-api.excellalabs.com/api/accounts'
 };
 
 export const AccountsInjectionToken = new InjectionToken<ConnectionString>(
