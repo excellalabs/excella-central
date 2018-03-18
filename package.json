@@ -2,8 +2,16 @@
   "name": "excella-central",
   "version": "1.0.0",
   "author": "Excella Labs",
-  "homepage": "https://labs.excella.com/",
+  "homepage": "https://central.excellalabs.com/",
   "private": true,
+  "imageRepo":
+    "090999229429.dkr.ecr.us-east-1.amazonaws.com/excella-central-web",
+  "imageName": "excella-central-web",
+  "imagePort": "5000",
+  "awsRegion": "us-east-1",
+  "awsEcsCluster": "excella-prod-ecs-cluster",
+  "awsService": "excella-central-web",
+
   "scripts": {
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
@@ -17,7 +25,24 @@
     "test-coverage": "karma start ./test-config/karma.conf.js --coverage",
     "e2e": "npm run e2e-update && npm run e2e-test",
     "e2e-test": "protractor ./test-config/protractor.conf.js",
-    "e2e-update": "webdriver-manager update --standalone false --gecko false"
+    "e2e-update": "webdriver-manager update --standalone false --gecko false",
+
+    "docker:build":
+      "npm run build -- --prod && with-package docker image build . -t pkg.imageRepo:latest",
+    "docker:run": "npm run docker:clean && npm run docker:runHelper",
+    "docker:runHelper":
+      "with-package docker run --name pkg.imageName -d -p pkg.imagePort:3000 pkg.imageRepo",
+    "docker:publish": "with-package docker image push pkg.imageRepo:latest",
+    "docker:clean": "with-package docker rm -f pkg.imageName || true",
+    "docker:taillogs": "with-package docker logs -f pkg.imageName",
+    "docker:debug":
+      "npm run docker:build -- --file Dockerfile.dev && npm run docker:run && sleep 1 && with-package open 'http://localhost:pkg.imagePort' && npm run docker:taillogs",
+    "aws:login":
+      "with-package aws ecr get-login --no-include-email --region pkg.awsRegion",
+    "aws:deploy":
+      "with-package docker run --env-file ./.env silintl/ecs-deploy -c pkg.awsEcsCluster -n pkg.awsService -i pkg.imageRepo:latest -r pkg.awsRegion --timeout 1000",
+    "aws:release":
+      "npm run aws:login && npm run docker:publish && npm run aws:deploy"
   },
   "dependencies": {
     "@angular/common": "4.4.3",
@@ -35,8 +60,10 @@
     "@ionic/storage": "2.0.1",
     "cloudinary-core": "^2.4.0",
     "cordova-android": "6.4.0",
+    "cordova-browser": "5.0.3",
     "cordova-ios": "4.5.4",
     "cordova-plugin-device": "^1.1.7",
+    "cordova-plugin-ionic": "~2.0.4",
     "cordova-plugin-ionic-webview": "^1.1.16",
     "cordova-plugin-splashscreen": "^4.1.0",
     "cordova-plugin-statusbar":
@@ -48,8 +75,8 @@
     "ionicons": "3.0.0",
     "rxjs": "5.4.3",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.18",
-    "cordova-plugin-ionic": "~2.0.4"
+    "web": "0.0.2",
+    "zone.js": "0.8.18"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.0.0",
@@ -75,7 +102,7 @@
   },
   "description": "",
   "cordova": {
-    "platforms": ["ios", "android"],
+    "platforms": ["ios", "android", "browser"],
     "plugins": {
       "ionic-plugin-keyboard": {},
       "cordova-plugin-whitelist": {},
