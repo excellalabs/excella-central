@@ -16,7 +16,7 @@ export class AccountService {
     private authService: AuthenticationService,
     @Inject(ProfilesInjectionToken) public profilesApi: ConnectionString,
     @Inject(AccountsInjectionToken) public accountsApi: ConnectionString
-  ) {}
+  ) { }
 
   async login(email: string, password: string): Promise<boolean> {
     const loginUrl = this.accountsApi.url + '/login';
@@ -43,8 +43,8 @@ export class AccountService {
     this.authService.clearUserToken();
   }
 
-  async register(email: string, password: string): Promise<boolean> {
-    const newAccount = new Account(email, password, false, false);
+  async register(email: string, password: string, userType: string): Promise<boolean> {
+    const newAccount = new Account(email, password, userType, false);
     return new Promise<boolean>(resolve => {
       this.http.post(this.accountsApi.url, newAccount).subscribe(
         data => {
@@ -99,6 +99,34 @@ export class AccountService {
           const body = data.json();
           resolve(body.doesProfileExist);
         });
+    });
+  }
+
+  async sendResetEmail(email: string): Promise<boolean> {
+    const url = this.accountsApi.url + '/reset';
+    return new Promise<boolean>(resolve => {
+      this.http.post(url, { email: email }).subscribe(
+        success => {
+          resolve(true);
+        },
+        err => {
+          resolve(false);
+        }
+      );
+    });
+  }
+
+  async resetPassword(newPassword: string, accessToken: string): Promise<boolean> {
+    const url = this.accountsApi.url + '/reset-password?access_token=' + accessToken;
+    return new Promise<boolean>(resolve => {
+      this.http.post(url, { newPassword: newPassword }).subscribe(
+        success => {
+          resolve(true);
+        },
+        err => {
+          resolve(false);
+        }
+      );
     });
   }
 }

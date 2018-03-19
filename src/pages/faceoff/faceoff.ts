@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  LoadingController,
+  Loading
+} from 'ionic-angular';
 import { Profile } from '../../models/profile/profile';
 import { ProfileService } from '../../providers/profile.service/profile.service';
 
@@ -18,11 +24,13 @@ export class FaceoffPage {
   totalQuestions = 10;
   isGameFinished: boolean;
   buttonsDisabled: boolean;
+  loader: Loading;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public profileService: ProfileService
+    public profileService: ProfileService,
+    public loadingCtrl: LoadingController
   ) {}
 
   async ionViewDidLoad() {
@@ -38,9 +46,16 @@ export class FaceoffPage {
   }
 
   newFaceoffQuestion(): void {
-    this.profilesForQuestion = this.getUniqueProfiles(4);
-    this.correctProfile = this.profilesForQuestion[0];
-    this.shuffleArray(this.profilesForQuestion);
+    this.loader = this.loadingCtrl.create();
+    this.loader.present().then(() => {
+      this.profilesForQuestion = this.getUniqueProfiles(4);
+      this.correctProfile = this.profilesForQuestion[0];
+      this.shuffleArray(this.profilesForQuestion);
+    });
+  }
+
+  hideLoader(): void {
+    this.loader.dismiss();
   }
 
   shuffleArray(array): void {
@@ -66,7 +81,7 @@ export class FaceoffPage {
     setTimeout(() => {
       this.buttonsDisabled = false;
       this.advanceGame();
-    }, 1800);
+    }, 1500);
   }
 
   advanceGame() {
