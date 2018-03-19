@@ -8,7 +8,7 @@
     "imageRepo":
       "090999229429.dkr.ecr.us-east-1.amazonaws.com/excella-central-web",
     "imageName": "excella-central-web",
-    "imagePort": "5000",
+    "imagePort": "8080",
     "awsRegion": "us-east-1",
     "awsEcsCluster": "excella-prod-ecs-cluster",
     "awsService": "excella-central-web"
