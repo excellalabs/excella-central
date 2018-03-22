@@ -18,7 +18,7 @@ export class ProfileService {
       this.http
         .get(this.profilesApi.url + '/getAllOrderedByFirstName', requestHeaders)
         .subscribe(data => {
-          resolve(data.json());
+          resolve(data.json().profiles);
         });
     });
   }
@@ -38,7 +38,7 @@ export class ProfileService {
           params: requestParams
         })
         .subscribe(data => {
-          resolve(data.json());
+          resolve(data.json().profiles);
         });
     });
   }
@@ -59,7 +59,7 @@ export class ProfileService {
           params: requestParams
         })
         .subscribe(data => {
-          resolve(data.json());
+          resolve(data.json().profiles);
         });
     });
   }
