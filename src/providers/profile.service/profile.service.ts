@@ -15,9 +15,11 @@ export class ProfileService {
   public async getProfiles(): Promise<Profile[]> {
     const requestHeaders = await this.authService.buildAuthenticationRequest();
     return new Promise<Profile[]>(resolve => {
-      this.http.get(this.profilesApi.url, requestHeaders).subscribe(data => {
-        resolve(data.json());
-      });
+      this.http
+        .get(this.profilesApi.url + '/getAllOrderedByFirstName', requestHeaders)
+        .subscribe(data => {
+          resolve(data.json());
+        });
     });
   }
 
@@ -31,7 +33,7 @@ export class ProfileService {
     };
     return new Promise<Profile[]>(resolve => {
       this.http
-        .get(this.profilesApi.url, {
+        .get(this.profilesApi.url + '/getAllOrderedByFirstName', {
           headers: requestHeaders,
           params: requestParams
         })
@@ -52,7 +54,7 @@ export class ProfileService {
     };
     return new Promise<Profile[]>(resolve => {
       this.http
-        .get(this.profilesApi.url, {
+        .get(this.profilesApi.url + '/getAllOrderedByFirstName', {
           headers: requestHeaders,
           params: requestParams
         })
@@ -70,7 +72,7 @@ export class ProfileService {
     };
     return new Promise<Profile>(resolve => {
       this.http
-        .get(this.profilesApi.url, {
+        .get(this.profilesApi.url + '/getAllOrderedByFirstName', {
           headers: requestHeaders,
           params: requestParams
         })
@@ -85,7 +87,7 @@ export class ProfileService {
       .headers;
     return new Promise<Profile>(resolve => {
       this.http
-        .get(this.profilesApi.url, {
+        .get(this.profilesApi.url + '/getAllOrderedByFirstName', {
           headers: requestHeaders,
           params: {
             filter: {
