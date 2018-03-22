@@ -23,13 +23,18 @@ export class MyApp {
     private accountService: AccountService,
     private authService: AuthenticationService
   ) {
-    this.authService.getUserToken().then(userToken => {
-      if (userToken && userToken !== '') {
-        this.rootPage = 'HomePage';
-      } else {
-        this.rootPage = 'LandingPage';
-      }
-    });
+    const url = document.URL.split('#')[1];
+    if (url === '/download') {
+      this.rootPage = 'Download';
+    } else {
+      this.authService.getUserToken().then(userToken => {
+        if (userToken && userToken !== '') {
+          this.rootPage = 'HomePage';
+        } else {
+          this.rootPage = 'LandingPage';
+        }
+      });
+    }
 
     this.initializeApp();
 
@@ -49,7 +54,11 @@ export class MyApp {
   }
 
   openPage(page) {
-    if (page.title === 'Landing' || page.title === 'Home') {
+    if (
+      page.title === 'Landing' ||
+      page.title === 'Home' ||
+      page.title === 'Download'
+    ) {
       this.nav.setRoot(page.component);
     } else {
       this.nav.push(page.component);
