@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Excella Central</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <h3>Download Excella Central</h3>
+  <div>
+    <p>Click below to download Excella Central to your mobile device.</p>
+  </div>
+  <div>
+    <a (click)="showInstructionsPage()">View installation instructions here.</a>
+  </div>
+  <div>
+    <button ion-button color="primary" href="itms-services://?action=download-manifest&url=https://central.excellalabs.com/assets/manifest.plist">Install for iOS</button>
+    <button ion-button color="primary" href="https://central.excellalabs.com/assets/excella-central-master-76923f-release.apk">Install for Android</button>
+  </div>
+</ion-content>
