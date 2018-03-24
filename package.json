@@ -137,7 +137,7 @@
       "cordova-plugin-ionic": {
         "APP_ID": "ec3bc509",
         "CHANNEL_NAME": "Production",
-        "UPDATE_METHOD": "background"
+        "UPDATE_METHOD": "auto"
       }
     }
   }
