@@ -12,7 +12,13 @@
     <a (click)="showInstructionsPage()">View installation instructions here.</a>
   </div>
   <div>
-    <a ion-button color="primary" href="itms-services://?action=download-manifest&url=https://central.excellalabs.com/assets/manifest.plist">Install for iOS</a>
-    <a ion-button color="primary" href="https://central.excellalabs.com/assets/excella-central-master-76923f-release.apk">Install for Android</a>
+    <a ion-button icon-left color="primary" href="itms-services://?action=download-manifest&url=https://central.excellalabs.com/assets/manifest.plist">
+      <ion-icon name="logo-apple"></ion-icon>
+      Install for iOS
+    </a>
+    <a ion-button icon-left color="primary" href="https://central.excellalabs.com/assets/excella-central-master-76923f-release.apk">
+      <ion-icon name="logo-android"></ion-icon>
+      Install for Android
+    </a>
   </div>
 </ion-content>
