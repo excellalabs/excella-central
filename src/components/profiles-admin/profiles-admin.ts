@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ProfileService } from '../../providers/profile.service/profile.service';
 
 /**
  * Generated class for the ProfileAdminComponent component.
@@ -11,15 +12,23 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'profiles-admin',
   templateUrl: 'profiles-admin.html'
 })
-export class ProfilesAdminComponent {
-  text: string;
+export class ProfilesAdminComponent implements OnInit {
+  profiles;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public profileService: ProfileService
+  ) {}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    console.log('Hello ProfilesAdminComponent Component');
-    this.text = 'Profiles Admin Component';
+  async ngOnInit() {
+    this.profiles = await this.profileService.getProfiles();
   }
 
   openProfileAdminPage() {
     this.navCtrl.push('ProfileAdminPage');
+  }
+
+  edit(profile) {
+    this.navCtrl.push('ProfileAdminPage', { id: profile.id });
   }
 }
