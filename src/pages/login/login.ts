@@ -23,8 +23,8 @@ export class LoginPage {
     });
   }
 
-  loginUser() {
-    let emailVerified = this.emailVerified(this.userForm.value.email);
+  async loginUser() {
+    let emailVerified = await this.emailVerified(this.userForm.value.email);
     if (!emailVerified) {
       this.showAccountNotVerifiedAlert();
     } else {
