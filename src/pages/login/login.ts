@@ -24,22 +24,20 @@ export class LoginPage {
   }
 
   loginUser() {
-    let checkEmailVerified = this.accountService.emailVerified(this.userForm.value.email);
-    checkEmailVerified.then(verified => {
-      if (!verified) {
-        this.showEmailNotVerifiedAlert();
-      } else {
-        this.accountService
-          .login(this.userForm.value.email, this.userForm.value.password)
-          .then(loggedIn => {
-            if (loggedIn) {
-              this.navCtrl.setRoot('HomePage');
-            } else {
-              this.showLoginFailedAlert();
-            }
-          });
-      }
-    });
+    let emailVerified = this.emailVerified(this.userForm.value.email);
+    if (!emailVerified) {
+      this.showAccountNotVerifiedAlert();
+    } else {
+      this.accountService
+        .login(this.userForm.value.email, this.userForm.value.password)
+        .then(loggedIn => {
+          if (loggedIn) {
+            this.navCtrl.setRoot('HomePage');
+          } else {
+            this.showLoginFailedAlert();
+          }
+        });
+    }
   }
 
   showLoginFailedAlert() {
@@ -58,6 +56,10 @@ export class LoginPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  async emailVerified(email): Promise<boolean> {
+    return await this.accountService.emailVerified(email);
   }
 
   openResetPasswordPage(): void {
