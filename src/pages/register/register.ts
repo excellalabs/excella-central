@@ -4,7 +4,8 @@ import {
   IonicPage,
   NavController,
   NavParams,
-  AlertController
+  AlertController,
+  ToastController
 } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PasswordValidator } from '../../../src/validators/passwords';
@@ -22,6 +23,7 @@ export class RegisterPage {
     public navParams: NavParams,
     private formBuilder: FormBuilder,
     private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
     private accountService: AccountService
   ) {
     this.registerForm = this.formBuilder.group({
@@ -59,7 +61,7 @@ export class RegisterPage {
     } else {
       this.accountService.register(email, password, "user").then(
         success => {
-          this.navCtrl.setRoot('HomePage');
+          this.showConfirmationEmailToast();
         },
         err => {
           const alert = this.alertCtrl.create({
@@ -71,6 +73,15 @@ export class RegisterPage {
         }
       );
     }
+  }
+
+  showConfirmationEmailToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Confirmation email sent. Confirm your email before logging in.',
+      position: 'bottom',
+      showCloseButton: true
+    });
+    toast.present();
   }
 
   async accountExists(email): Promise<boolean> {
