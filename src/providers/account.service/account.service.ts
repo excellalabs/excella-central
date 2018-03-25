@@ -48,7 +48,6 @@ export class AccountService {
     return new Promise<boolean>(resolve => {
       this.http.post(this.accountsApi.url, newAccount).subscribe(
         data => {
-          this.login(email, password);
           resolve(true);
         },
         err => {
