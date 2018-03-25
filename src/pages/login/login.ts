@@ -51,10 +51,10 @@ export class LoginPage {
     alert.present();
   }
 
-  showEmailNotVerifiedAlert() {
+  showAccountNotVerifiedAlert() {
     const alert = this.alertCtrl.create({
-      title: 'Email not verified',
-      subTitle: 'Please confirm your email before logging in.',
+      title: 'Account not verified',
+      subTitle: 'Please confirm your account before logging in.',
       buttons: ['OK']
     });
     alert.present();
