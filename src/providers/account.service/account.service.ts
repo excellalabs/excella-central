@@ -129,4 +129,14 @@ export class AccountService {
       );
     });
   }
+
+  async emailVerified(email: string): Promise<boolean> {
+    const url = this.accountsApi.url + '/emailVerified';
+    const params = new URLSearchParams();
+    params.append('email', email);
+    return new Promise<boolean>(resolve => {
+      this.http.get(url, { params: params }).subscribe(data =>
+        resolve(data.json().verified));
+    })
+  }
 }

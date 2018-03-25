@@ -24,20 +24,40 @@ export class LoginPage {
   }
 
   loginUser() {
-    this.accountService
-      .login(this.userForm.value.email, this.userForm.value.password)
-      .then(loggedIn => {
-        if (loggedIn) {
-          this.navCtrl.setRoot('HomePage');
-        } else {
-          const alert = this.alertCtrl.create({
-            title: 'Login failed!',
-            subTitle: 'Please try again.',
-            buttons: ['OK']
+    let checkEmailVerified = this.accountService.emailVerified(this.userForm.value.email);
+    checkEmailVerified.then(verified => {
+      if (!verified) {
+        this.showEmailNotVerifiedAlert();
+      } else {
+        this.accountService
+          .login(this.userForm.value.email, this.userForm.value.password)
+          .then(loggedIn => {
+            if (loggedIn) {
+              this.navCtrl.setRoot('HomePage');
+            } else {
+              this.showLoginFailedAlert();
+            }
           });
-          alert.present();
-        }
-      });
+      }
+    });
+  }
+
+  showLoginFailedAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'Login failed!',
+      subTitle: 'Please try again.',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  showEmailNotVerifiedAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'Email not verified',
+      subTitle: 'Please confirm your email before logging in.',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
   openResetPasswordPage(): void {
