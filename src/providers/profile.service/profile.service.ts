@@ -113,6 +113,20 @@ export class ProfileService {
     });
   }
 
+  public async createProfile(profile): Promise<Profile> {
+    const requestHeaders = (await this.authService.buildAuthenticationRequest())
+      .headers;
+    return new Promise<Profile>(resolve => {
+      this.http
+        .post(this.profilesApi.url, {
+          headers: requestHeaders
+        })
+        .subscribe(data => {
+          resolve(data.json()[0]);
+        });
+    });
+  }
+
   public async getProfilesBySearch(searchText: string): Promise<Profile[]> {
     const profileSearchUrl = this.profilesApi.url + '/search';
     const requestHeaders = (await this.authService.buildAuthenticationRequest())

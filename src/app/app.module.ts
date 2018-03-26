@@ -18,6 +18,7 @@ import { ProfileService } from '../providers/profile.service/profile.service';
 import { AccountService } from '../providers/account.service/account.service';
 import { PictureUploadService } from '../providers/picture-upload.service/picture-upload.service';
 import { AuthenticationService } from '../providers/authentication.service/authentication.service';
+import { OrgService } from '../providers/org.service/org.service';
 
 @NgModule({
   declarations: [MyApp],
@@ -39,7 +40,8 @@ import { AuthenticationService } from '../providers/authentication.service/authe
     { provide: ProfilesInjectionToken, useValue: ProfilesApi },
     { provide: AccountsInjectionToken, useValue: AccountsApi },
     PictureUploadService,
-    AuthenticationService
+    AuthenticationService,
+    OrgService
   ]
 })
 export class AppModule {}

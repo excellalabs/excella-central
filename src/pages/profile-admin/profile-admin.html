@@ -14,5 +14,33 @@
 
 
 <ion-content padding>
-
+  <div *ngIf="profile">
+    <ion-list>
+      <ion-item text-wrap>
+        First Name:
+        <input [(ngModel)]="profile.firstName">
+      </ion-item>
+      <ion-item text-wrap>
+        Last Name:
+        <input [(ngModel)]="profile.lastName">
+      </ion-item>
+      <ion-item text-wrap>
+        Email:
+        <input [(ngModel)]="profile.email">
+      </ion-item>
+      <ion-item text-wrap>
+        Primary Skillset:
+        <input [(ngModel)]="profile.primarySkillset">
+      </ion-item>
+      <ion-item text-wrap>
+        Client:
+        <input [(ngModel)]="profile.client">
+      </ion-item>
+      <ion-item text-wrap>
+        Service Area:
+        <input [(ngModel)]="profile.serviceArea">
+      </ion-item>
+    </ion-list>
+    <button ion-button (click)="submit()">Submit</button>
+  </div>
 </ion-content>

@@ -1,0 +1,41 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>org-edit</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="org">
+    <ion-item>
+      <ion-label color="primary">Org Name</ion-label>
+      <ion-input [(ngModel)]="org.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Org Logo Url</ion-label>
+      <ion-input [(ngModel)]="org.logoUrl"></ion-input>
+    </ion-item>
+    <ion-item>
+      <img class="org-edit-logo" [attr.src]="org.logoUrl">
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Org Email Domain</ion-label>
+      <ion-input disabled="true" [(ngModel)]="org.emailDomain"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Org Contact Name</ion-label>
+      <ion-input [(ngModel)]="org.contactName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Org Contact Email</ion-label>
+      <ion-input [(ngModel)]="org.contactEmail"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Org Admin Email</ion-label>
+      <ion-input [(ngModel)]="org.adminEmail"></ion-input>
+    </ion-item>
+  </div>
+
+</ion-content>
