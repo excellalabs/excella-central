@@ -31,4 +31,12 @@ export class ProfilesAdminComponent implements OnInit {
   edit(profile) {
     this.navCtrl.push('ProfileAdminPage', { id: profile.id });
   }
+
+  emailAbv(email) {
+    if (!email) {
+      return '';
+    }
+    const split = email.split('@');
+    return split[0] + '@' + split[1].slice(0, 2) + '...';
+  }
 }

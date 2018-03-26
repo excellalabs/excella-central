@@ -1,4 +1,15 @@
 <!-- Generated template for the OrgAdminComponent component -->
-<div>
-  {{text}}
+<div class="row text-center">
+  <span style="max-width:50%">
+    <img [attr.src]="org?.logoUrl">
+  </span>
+  <span>
+    <div>
+      <h2 style="text-align: left">{{org?.name}}</h2>
+    </div>
+    <div style="text-align: left">
+      <button ion-button (click)="editOrg() ">Edit Org</button>
+    </div>
+  </span>
+
 </div>
