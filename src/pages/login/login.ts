@@ -39,4 +39,8 @@ export class LoginPage {
         }
       });
   }
+
+  openResetPasswordPage(): void {
+    this.navCtrl.push('ResetPasswordPage');
+  }
 }

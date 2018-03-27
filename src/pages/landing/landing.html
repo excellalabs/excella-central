@@ -1,6 +1,21 @@
 <ion-content padding>
-  <h3>Welcome to Excella Central</h3>
-  <button class="main-button" ion-button color="primary" (click)="openLoginPage()">Login</button>
-  <button class="main-button" ion-button color="primary" (click)="openRegisterPage()" outline>Register</button>
-  <button class="main-button" ion-button color="primary" (click)="openResetPasswordPage()" outline>Reset Password</button>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col col-12 col-md-8 col-lg-6 col-xl-5>
+        <ion-card>
+          <ion-card-header>
+            <h2>Welcome to Excella Central!</h2>
+          </ion-card-header>
+          <ion-card-content>
+            <img src="assets/excella_logo.png" />
+          </ion-card-content>
+          <ion-item>
+            <button ion-button clear item-start (click)="openLoginPage()">Login</button>
+            <button ion-button clear item-start (click)="openRegisterPage()">Register</button>
+            <button ion-button outline item-end (click)="openDownloadPage()">Download App</button>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
