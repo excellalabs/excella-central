@@ -35,7 +35,7 @@ export class PictureUploadService {
     fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
     fd.append('file', image, 'test.png');
     xhr.onload = () => {
-      profile.photoUrl = JSON.parse(xhr.response).url;
+      profile.photoUrl = JSON.parse(xhr.response).secure_url;
       this.profileService.updateProfileById(profile);
     };
     xhr.send(fd);
