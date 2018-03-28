@@ -92,4 +92,5 @@
         <variable name="CHANNEL_NAME" value="Production" />
         <variable name="UPDATE_METHOD" value="auto" />
     </plugin>
+    <plugin name="cordova-plugin-google-analytics" spec="^1.8.3" />
 </widget>
