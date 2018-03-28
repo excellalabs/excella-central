@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -7,7 +7,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'landing.html'
 })
 export class LandingPage {
-  constructor(public navCtrl: NavController, public navParams: NavParams) { }
+  isBrowser: boolean = false;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public platform: Platform
+  ) {}
+
+  ionViewDidLoad(): void {
+    this.checkIfBrowser();
+  }
 
   openLoginPage(): void {
     this.navCtrl.push('LoginPage');
@@ -17,7 +27,12 @@ export class LandingPage {
     this.navCtrl.push('RegisterPage');
   }
 
-  openResetPasswordPage(): void {
-    this.navCtrl.push('ResetPasswordPage');
+  openDownloadPage(): void {
+    this.navCtrl.push('DownloadPage');
+  }
+
+  checkIfBrowser(): void {
+    // Determine if user is viewing on desktop
+    this.isBrowser = this.platform.is('core');
   }
 }

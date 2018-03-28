@@ -18,6 +18,11 @@
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button type="submit" color="primary">Login</button>
+    <div>
+      <button ion-button type="submit" color="primary">Login</button>
+    </div>
   </form>
+  <div>
+    <button ion-button color="primary" (click)="openResetPasswordPage()" outline>Reset Password</button>
+  </div>
 </ion-content>
