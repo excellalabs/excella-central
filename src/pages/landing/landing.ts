@@ -33,8 +33,6 @@ export class LandingPage {
 
   checkIfBrowser(): void {
     // Determine if user is viewing on desktop
-    if (this.platform.is('core')) {
-      this.isBrowser = true;
-    }
+    this.isBrowser = this.platform.is('core');
   }
 }
