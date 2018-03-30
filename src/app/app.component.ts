@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { AccountService } from '../providers/account.service/account.service';
 import { AuthenticationService } from '../providers/authentication.service/authentication.service';
-import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 @Component({
   templateUrl: 'app.html'
@@ -22,8 +21,7 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public storage: Storage,
     private accountService: AccountService,
-    private authService: AuthenticationService,
-    private googleAnalytics: GoogleAnalytics
+    private authService: AuthenticationService
   ) {
     const url = document.URL.split('#')[1];
     if (url === '/download') {
@@ -53,9 +51,6 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-
-    const excellaGoogleAnalyticsTracker: string = 'UA-116555019-1';
-    this.googleAnalytics.startTrackerWithId(excellaGoogleAnalyticsTracker);
   }
 
   openPage(page) {
