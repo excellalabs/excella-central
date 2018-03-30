@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ToastController
+} from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from '../../providers/account.service/account.service';
 import { PasswordValidator } from '../../validators/passwords';
@@ -11,10 +16,12 @@ import { PasswordValidator } from '../../validators/passwords';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  segment: 'token/:token'
+})
 @Component({
   selector: 'page-reset-password-form',
-  templateUrl: 'reset-password-form.html',
+  templateUrl: 'reset-password-form.html'
 })
 export class ResetPasswordFormPage {
   public resetPasswordForm: FormGroup;
@@ -23,23 +30,31 @@ export class ResetPasswordFormPage {
     private toastCtrl: ToastController,
     public navParams: NavParams,
     private formBuilder: FormBuilder,
-    private accountService: AccountService) {
+    private accountService: AccountService
+  ) {
+    let token = this.navParams.get('token');
+
     this.resetPasswordForm = this.formBuilder.group({
-      resetToken: ['', [Validators.required]],
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
+      resetToken: [token, [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: [
         '',
         [Validators.required, PasswordValidator.passwordsMatch]
       ]
-    })
+    });
   }
 
   resetPassword() {
-    this.accountService.resetPassword(this.resetPasswordForm.value.newPassword, this.resetPasswordForm.value.resetToken)
+    this.accountService
+      .resetPassword(
+        this.resetPasswordForm.value.password,
+        this.resetPasswordForm.value.resetToken
+      )
       .then(success => {
         if (success) {
           let successToast = this.toastCtrl.create({
-            message: 'Password reset successfully. Please login with your new password',
+            message:
+              'Password reset successfully. Please login with your new password',
             position: 'bottom',
             showCloseButton: true
           });
@@ -58,5 +73,4 @@ export class ResetPasswordFormPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ResetPasswordFormPage');
   }
-
 }

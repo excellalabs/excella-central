@@ -1,12 +1,9 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Directory</ion-title>
   </ion-navbar>
   <ion-searchbar [(ngModel)]="searchTextValue" (ionCancel)="onCancel($event)" (ionInput)="onInput($event)" debounce="0" animated="true"></ion-searchbar>
-
 </ion-header>
-
 <ion-content>
   <ion-list>
     <button ion-item *ngFor="let profile of profilesToDisplay" (click)="goToDirectoryDetail(profile)">
@@ -19,7 +16,6 @@
       {{getFullName(profile)}}
     </button>
   </ion-list>
-
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
