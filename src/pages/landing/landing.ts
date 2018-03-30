@@ -34,7 +34,7 @@ export class LandingPage {
   }
 
   checkIfBrowser(): void {
-    // Determine if user is viewing on desktop
-    this.isBrowser = this.platform.is('core') || this.platform.is('mobileweb');
+    // Determine if user is viewing on browser
+    this.isBrowser = document.URL.startsWith('http');
   }
 }
