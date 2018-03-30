@@ -51,7 +51,7 @@ export class ResetPasswordPage {
     const toast = this.toastCtrl.create({
       message: 'Reset Password email has been sent. Please check your inbox.',
       position: 'top',
-      showCloseButton: false
+      showCloseButton: true
     });
     toast.present();
   }
