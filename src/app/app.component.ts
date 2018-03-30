@@ -26,7 +26,7 @@ export class MyApp {
     const url = document.URL.split('#')[1];
     if (url === '/download') {
       this.rootPage = 'Download';
-    } else if (url === '/reset-password-form') {
+    } else if (url.includes('/reset-password-form')) {
       this.rootPage = 'ResetPasswordForm';
     } else {
       this.authService.getUserToken().then(userToken => {
@@ -59,7 +59,8 @@ export class MyApp {
     if (
       page.title === 'Landing' ||
       page.title === 'Home' ||
-      page.title === 'Download'
+      page.title === 'Download' ||
+      page.title === 'ResetPasswordForm'
     ) {
       this.nav.setRoot(page.component);
     } else {
