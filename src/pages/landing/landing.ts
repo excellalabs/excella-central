@@ -16,7 +16,9 @@ export class LandingPage {
   ) {}
 
   ionViewDidLoad(): void {
-    this.checkIfBrowser();
+    this.platform.ready().then(() => {
+      this.checkIfBrowser();
+    });
   }
 
   openLoginPage(): void {
