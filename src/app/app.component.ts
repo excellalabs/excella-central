@@ -26,7 +26,7 @@ export class MyApp {
     const url = document.URL.split('#')[1];
     if (url === '/download') {
       this.rootPage = 'Download';
-    } else if (url.includes('/reset-password-form')) {
+    } else if (url && url.includes('/reset-password-form')) {
       this.rootPage = 'ResetPasswordForm';
     } else {
       this.authService.getUserToken().then(userToken => {
