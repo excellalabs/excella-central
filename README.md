@@ -1,6 +1,6 @@
 # Excella Central [![Build Status](https://travis-ci.org/excellalabs/excella-central.svg?branch=master)](https://travis-ci.org/excellalabs/excella-central) [![Waffle.io - Columns and their card count](https://badge.waffle.io/excellalabs/excella-central.svg?columns=all)](https://waffle.io/excellalabs/excella-central)
 
-Excella Central is a project developed by the JavaScript Specialty Area of Excella Labs. The purpose is to bring Excellians together, familiarizing employees with each other in a fun & interactive way. Using Ionic, we have created a native in-house mobile app for iOS & Android, as well as a Progressive Web App (which can be found at https://central.excellalabs.com).
+Excella Central is a project developed by the JavaScript Specialty Area of Excella Labs. The purpose is to bring Excellians together, familiarizing employees with each other in a fun & interactive way. Using Ionic Pro, we have created a native in-house mobile app for iOS & Android, as well as a Progressive Web App (which can be found at https://central.excellalabs.com).
 
 This application works in conjunction with our LoopBack server at https://github.com/excellalabs/excella-central-server.
 
@@ -31,3 +31,7 @@ $ ionic serve
 After the app compiles, you should see a browser window automatically open at http://localhost:8100 with the app displayed. That's it! You're ready to start contributing to Excella Central.
 
 For more details on the commands you can run, check out the [Ionic CLI documentation](https://ionicframework.com/docs/cli/commands.html) and browse the custom scripts in the [package.json](https://github.com/excellalabs/excella-central/blob/master/package.json#L15) file.
+
+## Contributing
+
+If you'd like to contribute to Excella Central, check out our [Waffle.io scrum board](https://waffle.io/excellalabs/excella-central) to see what's in progress and what we'd like to accomplish in the future. Bugs, issues, and enhancements can be submitted to this GitHub repo as well.
