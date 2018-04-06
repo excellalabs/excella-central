@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Profile } from '../../models/profile/profile';
 import { ProfileService } from '../../providers/profile.service/profile.service';
-
-/**
- * Generated class for the ProfileAdminPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -17,30 +16,53 @@ import { ProfileService } from '../../providers/profile.service/profile.service'
 })
 export class ProfileAdminPage {
   profile: Profile;
+  profileForm: FormGroup;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public profileService: ProfileService
+    public profileService: ProfileService,
+    private formBuilder: FormBuilder
   ) {}
 
   async ionViewDidLoad() {
-    if (this.navParams.get('id')) {
-      this.profile = await this.profileService.getProfileById(
-        this.navParams.get('id')
-      );
-      console.log(this.profile);
-    } else {
-      this.profile = new Profile('', '', '', '', '', '', '');
-      console.log('b');
-    }
+    const profileId = this.navParams.get('id');
+    this.profile = profileId
+      ? await this.profileService.getProfileById(profileId)
+      : new Profile();
+
+    // For testing only
+    this.profile = new Profile('Test', 'User', '', 'Skillset', 'Client');
+
+    this.profileForm = this.formBuilder.group({
+      firstName: new FormControl(this.profile.firstName, Validators.required),
+      lastName: new FormControl(this.profile.lastName, Validators.required),
+      email: new FormControl(this.profile.email, [
+        Validators.email,
+        Validators.required
+      ]),
+      primarySkillset: new FormControl(this.profile.primarySkillset),
+      client: new FormControl(this.profile.client),
+      serviceArea: new FormControl(this.profile.serviceArea)
+    });
   }
 
-  async submit() {
+  async submitProfile() {
+    this.updateProfileObject();
     if (this.profile.id) {
       await this.profileService.updateProfileById(this.profile);
     } else {
       await this.profileService.createProfile(this.profile);
     }
     this.navCtrl.push('AdminPage');
+  }
+
+  updateProfileObject(): void {
+    this.profile.firstName = this.profileForm.value.firstName;
+    this.profile.lastName = this.profileForm.value.lastName;
+    this.profile.email = this.profileForm.value.email;
+    this.profile.primarySkillset = this.profileForm.value.primarySkillset;
+    this.profile.client = this.profileForm.value.client;
+    this.profile.serviceArea = this.profileForm.value.serviceArea;
   }
 }

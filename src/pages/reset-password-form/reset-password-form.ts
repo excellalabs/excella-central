@@ -25,6 +25,7 @@ import { PasswordValidator } from '../../validators/passwords';
 })
 export class ResetPasswordFormPage {
   public resetPasswordForm: FormGroup;
+
   constructor(
     public navCtrl: NavController,
     private toastCtrl: ToastController,

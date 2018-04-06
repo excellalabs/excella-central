@@ -2,12 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ProfileService } from '../../providers/profile.service/profile.service';
 
-/**
- * Generated class for the ProfileAdminComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'profiles-admin',
   templateUrl: 'profiles-admin.html'

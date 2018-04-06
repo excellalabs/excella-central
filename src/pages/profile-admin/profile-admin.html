@@ -1,46 +1,61 @@
-<!--
-  Generated template for the ProfileAdminPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>profile-admin</ion-title>
+    <ion-title>Profile</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
   <div *ngIf="profile">
-    <ion-list>
-      <ion-item text-wrap>
-        First Name:
-        <input [(ngModel)]="profile.firstName">
-      </ion-item>
-      <ion-item text-wrap>
-        Last Name:
-        <input [(ngModel)]="profile.lastName">
-      </ion-item>
-      <ion-item text-wrap>
-        Email:
-        <input [(ngModel)]="profile.email">
-      </ion-item>
-      <ion-item text-wrap>
-        Primary Skillset:
-        <input [(ngModel)]="profile.primarySkillset">
-      </ion-item>
-      <ion-item text-wrap>
-        Client:
-        <input [(ngModel)]="profile.client">
-      </ion-item>
-      <ion-item text-wrap>
-        Service Area:
-        <input [(ngModel)]="profile.serviceArea">
-      </ion-item>
-    </ion-list>
-    <button ion-button (click)="submit()">Submit</button>
+    <form [formGroup]="profileForm" (ngSubmit)="submitProfile()">
+      <ion-list>
+
+        <ion-item text-wrap>
+          <ion-label>
+            <span class="requiredAsterisk">*</span>First Name:
+          </ion-label>
+          <ion-input color="primary" type="text" formControlName="firstName" stacked></ion-input>
+        </ion-item>
+
+        <ion-item text-wrap>
+          <ion-label>
+            <span class="requiredAsterisk">*</span>Last Name:
+          </ion-label>
+          <ion-input color="primary" type="text" formControlName="lastName" stacked></ion-input>
+        </ion-item>
+
+        <ion-item text-wrap>
+          <ion-label>
+            <span class="requiredAsterisk">*</span>Email:
+          </ion-label>
+          <ion-input color="primary" type="email" formControlName="email" stacked></ion-input>
+        </ion-item>
+
+        <ion-item text-wrap>
+          <ion-label>Primary Skillset:</ion-label>
+          <ion-input color="primary" type="text" formControlName="primarySkillset" stacked></ion-input>
+        </ion-item>
+
+        <ion-item text-wrap>
+          <ion-label>Client:</ion-label>
+          <ion-input color="primary" type="text" formControlName="client" stacked></ion-input>
+        </ion-item>
+
+        <ion-item text-wrap>
+          <ion-label>Service Area:</ion-label>
+          <ion-input color="primary" type="text" formControlName="serviceArea" stacked></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <p>
+            Fields marked with
+            <span class="requiredAsterisk">*</span> are required.
+          </p>
+        </ion-item>
+
+      </ion-list>
+    </form>
+    <button ion-button [disabled]='!profileForm.valid'>Submit</button>
   </div>
 </ion-content>
