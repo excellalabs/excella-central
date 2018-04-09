@@ -9,13 +9,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from '../../providers/account.service/account.service';
 import { PasswordValidator } from '../../validators/passwords';
 
-/**
- * Generated class for the ResetPasswordFormPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage({
   segment: 'token/:token'
 })

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Profile } from '../../models/profile/profile';
 import { ProfileService } from '../../providers/profile.service/profile.service';
+import { AuthenticationService } from '../../providers/authentication.service/authentication.service';
+import { AccountService } from '../../providers/account.service/account.service';
 
 @IonicPage()
 @Component({
@@ -10,21 +12,34 @@ import { ProfileService } from '../../providers/profile.service/profile.service'
 })
 export class DirectoryDetailPage {
   profile: Profile = null;
+  isAdmin: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public profileService: ProfileService
+    public profileService: ProfileService,
+    public authService: AuthenticationService,
+    public accountService: AccountService
   ) {}
 
   async ionViewDidLoad() {
-    if (this.navParams.get('id') !== undefined) {
-      this.profile = await this.profileService.getProfileById(
-        this.navParams.get('id')
-      );
+    await this.checkIfUserIsAdmin();
+
+    const profileId = this.navParams.get('id');
+    if (profileId !== undefined) {
+      this.profile = await this.profileService.getProfileById(profileId);
     } else {
       this.navCtrl.push('DirectoryPage');
     }
+  }
+
+  async checkIfUserIsAdmin() {
+    const userId = await this.authService.getUserId();
+    this.isAdmin = await this.accountService.isAdmin(userId);
+  }
+
+  goToProfileAdminScreen(profileId: number) {
+    this.navCtrl.push('ProfileAdminPage', { id: profileId });
   }
 
   async swipe(event) {

@@ -13,21 +13,21 @@
 
         <ion-item text-wrap>
           <ion-label>
-            <span class="requiredAsterisk">*</span>First Name:
+            <span class="requiredAsterisk">* </span>First Name:
           </ion-label>
           <ion-input color="primary" type="text" formControlName="firstName" stacked></ion-input>
         </ion-item>
 
         <ion-item text-wrap>
           <ion-label>
-            <span class="requiredAsterisk">*</span>Last Name:
+            <span class="requiredAsterisk">* </span>Last Name:
           </ion-label>
           <ion-input color="primary" type="text" formControlName="lastName" stacked></ion-input>
         </ion-item>
 
         <ion-item text-wrap>
           <ion-label>
-            <span class="requiredAsterisk">*</span>Email:
+            <span class="requiredAsterisk">* </span>Email:
           </ion-label>
           <ion-input color="primary" type="email" formControlName="email" stacked></ion-input>
         </ion-item>
@@ -56,6 +56,6 @@
 
       </ion-list>
     </form>
-    <button ion-button [disabled]='!profileForm.valid'>Submit</button>
+    <button ion-button [disabled]='!profileForm.valid' (click)="submitProfile()">Submit</button>
   </div>
 </ion-content>

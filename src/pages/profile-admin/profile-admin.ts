@@ -31,9 +31,6 @@ export class ProfileAdminPage {
       ? await this.profileService.getProfileById(profileId)
       : new Profile();
 
-    // For testing only
-    this.profile = new Profile('Test', 'User', '', 'Skillset', 'Client');
-
     this.profileForm = this.formBuilder.group({
       firstName: new FormControl(this.profile.firstName, Validators.required),
       lastName: new FormControl(this.profile.lastName, Validators.required),
@@ -54,7 +51,7 @@ export class ProfileAdminPage {
     } else {
       await this.profileService.createProfile(this.profile);
     }
-    this.navCtrl.push('AdminPage');
+    this.navCtrl.pop();
   }
 
   updateProfileObject(): void {
