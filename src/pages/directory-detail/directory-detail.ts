@@ -24,18 +24,25 @@ export class DirectoryDetailPage {
 
   async ionViewDidLoad() {
     await this.checkIfUserIsAdmin();
+    await this.getProfile();
+  }
 
+  async ionViewWillEnter() {
+    await this.getProfile();
+  }
+
+  async checkIfUserIsAdmin() {
+    const userId = await this.authService.getUserId();
+    this.isAdmin = await this.accountService.isAdmin(userId);
+  }
+
+  async getProfile() {
     const profileId = this.navParams.get('id');
     if (profileId !== undefined) {
       this.profile = await this.profileService.getProfileById(profileId);
     } else {
       this.navCtrl.push('DirectoryPage');
     }
-  }
-
-  async checkIfUserIsAdmin() {
-    const userId = await this.authService.getUserId();
-    this.isAdmin = await this.accountService.isAdmin(userId);
   }
 
   goToProfileAdminScreen(profileId: number) {
