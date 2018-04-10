@@ -44,8 +44,7 @@ export class MyApp {
       { title: 'Home', component: 'HomePage' },
       { title: 'Directory', component: 'DirectoryPage' },
       { title: 'Faceoff', component: 'FaceoffPage' },
-      { title: 'Profile Photo', component: 'PictureUploadPage' },
-      { title: 'Profile Admin', component: 'ProfileAdminPage' }
+      { title: 'Profile Photo', component: 'PictureUploadPage' }
     ];
   }
 
