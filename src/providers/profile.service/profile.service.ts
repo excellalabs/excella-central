@@ -113,7 +113,7 @@ export class ProfileService {
     });
   }
 
-  public async createProfile(profile): Promise<Profile> {
+  public async createProfile(profile: Profile): Promise<Profile> {
     const requestHeaders = (await this.authService.buildAuthenticationRequest())
       .headers;
     return new Promise<Profile>(resolve => {
@@ -124,6 +124,25 @@ export class ProfileService {
         .subscribe(data => {
           resolve(data.json()[0]);
         });
+    });
+  }
+
+  public async deleteProfile(profileId: string): Promise<boolean> {
+    const requestHeaders = (await this.authService.buildAuthenticationRequest())
+      .headers;
+    return new Promise<boolean>(resolve => {
+      this.http
+        .delete(this.profilesApi.url + '/' + profileId, {
+          headers: requestHeaders
+        })
+        .subscribe(
+          data => {
+            resolve(true);
+          },
+          err => {
+            resolve(false);
+          }
+        );
     });
   }
 

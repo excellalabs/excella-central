@@ -11,9 +11,12 @@
         <cl-image *ngIf="profile.photoUrl" public-id="{{transformUrl(profile.photoUrl)}}">
           <cl-transformation quality="auto:low" fetch_format="auto" width="40px"></cl-transformation>
         </cl-image>
-        <img *ngIf="!profile.photoUrl " src="assets/no_photo.png ">
+        <img *ngIf="!profile.photoUrl" src="assets/no_photo.png ">
       </ion-avatar>
       {{getFullName(profile)}}
+      <button ion-button color="danger" round item-end (click)="deleteUser($event, profile)">
+        <ion-icon name="remove"></ion-icon>
+      </button>
     </button>
   </ion-list>
   <ion-fab right bottom>
