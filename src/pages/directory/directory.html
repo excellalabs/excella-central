@@ -14,9 +14,6 @@
         <img *ngIf="!profile.photoUrl" src="assets/no_photo.png ">
       </ion-avatar>
       {{getFullName(profile)}}
-      <button *ngIf="isAdmin" ion-button color="danger" round item-end (click)="deleteUser($event, profile)">
-        <ion-icon name="remove"></ion-icon>
-      </button>
     </button>
   </ion-list>
   <ion-fab *ngIf="isAdmin" right bottom>

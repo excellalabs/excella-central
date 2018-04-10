@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  AlertController,
+  LoadingController
+} from 'ionic-angular';
 import { Profile } from '../../models/profile/profile';
 import { ProfileService } from '../../providers/profile.service/profile.service';
 import { AuthenticationService } from '../../providers/authentication.service/authentication.service';
@@ -19,7 +25,9 @@ export class DirectoryDetailPage {
     public navParams: NavParams,
     public profileService: ProfileService,
     public authService: AuthenticationService,
-    public accountService: AccountService
+    public accountService: AccountService,
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController
   ) {}
 
   async ionViewDidLoad() {
@@ -47,6 +55,33 @@ export class DirectoryDetailPage {
 
   goToProfileAdminScreen(profileId: number) {
     this.navCtrl.push('ProfileAdminPage', { id: profileId });
+  }
+
+  async deleteProfile(profileId: string) {
+    const confirmDelete = this.alertCtrl.create({
+      title: 'Delete Profile',
+      message:
+        'Are you sure you want to delete this profile? <br><br><b>This action cannot be undone.</b>',
+      buttons: [
+        {
+          text: 'Delete',
+          cssClass: 'delete-confirmation',
+          handler: () => {
+            const loader = this.loadingCtrl.create();
+            loader.present();
+            this.profileService.deleteProfile(profileId).then(response => {
+              this.navCtrl.pop();
+              loader.dismiss();
+            });
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ]
+    });
+    confirmDelete.present();
   }
 
   async swipe(event) {

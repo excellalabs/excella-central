@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  LoadingController
+} from 'ionic-angular';
 import { Profile } from '../../models/profile/profile';
 import { ProfileService } from '../../providers/profile.service/profile.service';
 import {
@@ -22,7 +27,8 @@ export class ProfileAdminPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public profileService: ProfileService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public loadingCtrl: LoadingController
   ) {}
 
   async ionViewDidLoad() {
@@ -45,6 +51,8 @@ export class ProfileAdminPage {
   }
 
   async submitProfile() {
+    const loader = this.loadingCtrl.create();
+    loader.present();
     this.updateProfileObject();
     if (this.profile.id) {
       await this.profileService.updateProfileById(this.profile);
@@ -52,6 +60,7 @@ export class ProfileAdminPage {
       await this.profileService.createProfile(this.profile);
     }
     this.navCtrl.pop();
+    loader.dismiss();
   }
 
   updateProfileObject(): void {

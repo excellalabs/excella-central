@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  IonicPage,
-  NavController,
-  NavParams,
-  AlertController,
-  LoadingController
-} from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -33,8 +27,6 @@ export class DirectoryPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public profileService: ProfileService,
-    public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController,
     public authService: AuthenticationService,
     public accountService: AccountService
   ) {
@@ -96,34 +88,6 @@ export class DirectoryPage {
         }, 500);
       }
     );
-  }
-
-  async deleteUser(ev: MouseEvent, profile: Profile) {
-    ev.stopPropagation();
-    const confirmDelete = this.alertCtrl.create({
-      title: 'Delete Profile',
-      message:
-        'Are you sure you want to delete this profile? <br><br><b>This action cannot be undone.</b>',
-      buttons: [
-        {
-          text: 'Delete',
-          cssClass: 'delete-confirmation',
-          handler: () => {
-            const loader = this.loadingCtrl.create();
-            loader.present();
-            this.profileService.deleteProfile(profile.id).then(response => {
-              this.loadProfiles();
-              loader.dismiss();
-            });
-          }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        }
-      ]
-    });
-    confirmDelete.present();
   }
 
   private async getNewProfiles(
