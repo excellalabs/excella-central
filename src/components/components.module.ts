@@ -1,8 +1,4 @@
 import { NgModule } from '@angular/core';
-import { ProfilesAdminComponent } from './profiles-admin/profiles-admin';
 
-@NgModule({
-  declarations: [ProfilesAdminComponent],
-  providers: [ProfilesAdminComponent]
-})
+@NgModule({})
 export class ComponentsModule {}
