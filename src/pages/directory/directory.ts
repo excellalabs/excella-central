@@ -25,6 +25,14 @@ export class DirectoryPage {
     public navParams: NavParams,
     public profileService: ProfileService
   ) {
+    this.searchProfiles();
+  }
+
+  async ionViewWillEnter() {
+    this.searchProfiles();
+  }
+
+  searchProfiles() {
     this.searchTextSubject
       .debounceTime(100)
       .distinctUntilChanged()
@@ -95,5 +103,9 @@ export class DirectoryPage {
 
   public transformUrl(url) {
     return url.replace('upload', 'upload/c_scale,w_50,q_25');
+  }
+
+  goToProfileAdminScreen() {
+    this.navCtrl.push('ProfileAdminPage');
   }
 }

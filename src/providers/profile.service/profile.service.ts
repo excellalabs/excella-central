@@ -118,7 +118,7 @@ export class ProfileService {
       .headers;
     return new Promise<Profile>(resolve => {
       this.http
-        .post(this.profilesApi.url, {
+        .post(this.profilesApi.url, profile, {
           headers: requestHeaders
         })
         .subscribe(data => {
