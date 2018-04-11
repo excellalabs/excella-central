@@ -11,7 +11,7 @@
       <button *ngIf="isAdmin" ion-button (click)="goToProfileAdminScreen(profile.id)" color="primary">
         Edit Profile
       </button>
-      <button *ngIf="isAdmin" ion-button (click)="deleteProfile(profile.id)" color="danger">
+      <button *ngIf="isAdmin" ion-button (click)="deleteProfile(profile?.id)" color="danger">
         Delete Profile
       </button>
     </ion-item>
