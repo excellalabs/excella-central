@@ -17,6 +17,10 @@ export class AuthenticationService {
     return await this.storage.get('userToken');
   }
 
+  public async getUserId(): Promise<string> {
+    return await this.storage.get('userId');
+  }
+
   public storeUserToken(data: any): void {
     this.storage.set('userToken', data.id);
     this.storage.set('userId', data.userId);

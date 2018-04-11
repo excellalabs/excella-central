@@ -9,10 +9,14 @@ import {
   NavMock,
   NavParamsMock,
   SearchPipeMock,
-  ProfileServiceMock
+  ProfileServiceMock,
+  AuthenticationServiceMock,
+  AccountServiceMock
 } from '../../../test-config/mocks-ionic';
 import { DirectoryPage } from './directory';
 import { ProfileService } from '../../providers/profile.service/profile.service';
+import { AuthenticationService } from '../../providers/authentication.service/authentication.service';
+import { AccountService } from '../../providers/account.service/account.service';
 
 describe('DirectoryPage', () => {
   let fixture: ComponentFixture<DirectoryPage>;
@@ -34,6 +38,14 @@ describe('DirectoryPage', () => {
           {
             provide: ProfileService,
             useClass: ProfileServiceMock
+          },
+          {
+            provide: AuthenticationService,
+            useClass: AuthenticationServiceMock
+          },
+          {
+            provide: AccountService,
+            useClass: AccountServiceMock
           }
         ]
       });

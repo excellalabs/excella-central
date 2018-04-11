@@ -16,7 +16,7 @@ export class AccountService {
     private authService: AuthenticationService,
     @Inject(ProfilesInjectionToken) public profilesApi: ConnectionString,
     @Inject(AccountsInjectionToken) public accountsApi: ConnectionString
-  ) { }
+  ) {}
 
   async login(email: string, password: string): Promise<boolean> {
     const loginUrl = this.accountsApi.url + '/login';
@@ -116,8 +116,12 @@ export class AccountService {
     });
   }
 
-  async resetPassword(newPassword: string, accessToken: string): Promise<boolean> {
-    const url = this.accountsApi.url + '/reset-password?access_token=' + accessToken;
+  async resetPassword(
+    newPassword: string,
+    accessToken: string
+  ): Promise<boolean> {
+    const url =
+      this.accountsApi.url + '/reset-password?access_token=' + accessToken;
     return new Promise<boolean>(resolve => {
       this.http.post(url, { newPassword: newPassword }).subscribe(
         success => {
@@ -127,6 +131,14 @@ export class AccountService {
           resolve(false);
         }
       );
+    });
+  }
+
+  async isAdmin(userId: string): Promise<boolean> {
+    return new Promise<boolean>(resolve => {
+      this.getAccount(userId).then(account => {
+        resolve(account.isAdmin);
+      });
     });
   }
 }

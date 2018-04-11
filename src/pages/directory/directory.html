@@ -11,11 +11,16 @@
         <cl-image *ngIf="profile.photoUrl" public-id="{{transformUrl(profile.photoUrl)}}">
           <cl-transformation quality="auto:low" fetch_format="auto" width="40px"></cl-transformation>
         </cl-image>
-        <img *ngIf="!profile.photoUrl " src="assets/no_photo.png ">
+        <img *ngIf="!profile.photoUrl" src="assets/no_photo.png ">
       </ion-avatar>
       {{getFullName(profile)}}
     </button>
   </ion-list>
+  <ion-fab *ngIf="isAdmin" right bottom>
+    <button ion-fab color="primary" (click)="goToProfileAdminScreen()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>

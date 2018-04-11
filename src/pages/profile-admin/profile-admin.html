@@ -1,0 +1,61 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="profile">
+    <form [formGroup]="profileForm" (ngSubmit)="submitProfile()">
+      <ion-list>
+
+        <ion-item text-wrap>
+          <ion-label>
+            <span class="requiredAsterisk">* </span>First Name:
+          </ion-label>
+          <ion-input color="primary" type="text" formControlName="firstName" stacked></ion-input>
+        </ion-item>
+
+        <ion-item text-wrap>
+          <ion-label>
+            <span class="requiredAsterisk">* </span>Last Name:
+          </ion-label>
+          <ion-input color="primary" type="text" formControlName="lastName" stacked></ion-input>
+        </ion-item>
+
+        <ion-item text-wrap>
+          <ion-label>
+            <span class="requiredAsterisk">* </span>Email:
+          </ion-label>
+          <ion-input color="primary" type="email" formControlName="email" stacked></ion-input>
+        </ion-item>
+
+        <ion-item text-wrap>
+          <ion-label>Primary Skillset:</ion-label>
+          <ion-input color="primary" type="text" formControlName="primarySkillset" stacked></ion-input>
+        </ion-item>
+
+        <ion-item text-wrap>
+          <ion-label>Client:</ion-label>
+          <ion-input color="primary" type="text" formControlName="client" stacked></ion-input>
+        </ion-item>
+
+        <ion-item text-wrap>
+          <ion-label>Service Area:</ion-label>
+          <ion-input color="primary" type="text" formControlName="serviceArea" stacked></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <p>
+            Fields marked with
+            <span class="requiredAsterisk">*</span> are required.
+          </p>
+        </ion-item>
+
+      </ion-list>
+    </form>
+    <button ion-button [disabled]='!profileForm.valid' (click)="submitProfile()">Submit</button>
+  </div>
+</ion-content>

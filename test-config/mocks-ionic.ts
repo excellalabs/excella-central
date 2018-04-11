@@ -187,6 +187,12 @@ export class AlertControllerMock {
   }
 }
 
+export class LoadingControllerMock {
+  create() {
+    return;
+  }
+}
+
 export class PictureUploadServiceMock {}
 
 export class DeepLinkerMock {}

@@ -11,9 +11,9 @@ export class Profile {
   email?: string;
 
   constructor(
-    firstName: string,
-    lastName: string,
-    photoUrl: string,
+    firstName?: string,
+    lastName?: string,
+    photoUrl?: string,
     primarySkillset?: string,
     client?: string,
     email?: string,

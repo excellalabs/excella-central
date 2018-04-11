@@ -6,6 +6,8 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import { Profile, generateFullName } from '../../models/profile/profile';
 import { ProfileService } from '../../providers/profile.service/profile.service';
+import { AuthenticationService } from '../../providers/authentication.service/authentication.service';
+import { AccountService } from '../../providers/account.service/account.service';
 
 @IonicPage()
 @Component({
@@ -19,12 +21,32 @@ export class DirectoryPage {
   searchTextSubject: Subject<string> = new Subject<string>();
   searchTextValue: string;
   generateFullName = generateFullName;
+  isAdmin: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public profileService: ProfileService
+    public profileService: ProfileService,
+    public authService: AuthenticationService,
+    public accountService: AccountService
   ) {
+    this.loadProfiles();
+  }
+
+  async ionViewDidLoad() {
+    await this.checkIfUserIsAdmin();
+  }
+
+  async ionViewWillEnter() {
+    this.loadProfiles();
+  }
+
+  async checkIfUserIsAdmin() {
+    const userId = await this.authService.getUserId();
+    this.isAdmin = await this.accountService.isAdmin(userId);
+  }
+
+  loadProfiles() {
     this.searchTextSubject
       .debounceTime(100)
       .distinctUntilChanged()
@@ -95,5 +117,9 @@ export class DirectoryPage {
 
   public transformUrl(url) {
     return url.replace('upload', 'upload/c_scale,w_50,q_25');
+  }
+
+  goToProfileAdminScreen() {
+    this.navCtrl.push('ProfileAdminPage');
   }
 }
