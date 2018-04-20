@@ -3,7 +3,9 @@ import {
   IonicPage,
   NavController,
   NavParams,
-  AlertController
+  AlertController,
+  LoadingController,
+  ToastController
 } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AccountService } from '../../providers/account.service/account.service';
@@ -30,27 +32,44 @@ export class PictureUploadPage {
     private alertCtrl: AlertController,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private pictureUploadService: PictureUploadService
+    private pictureUploadService: PictureUploadService,
+    private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController
   ) {}
 
   async ionViewDidLoad() {
-    this.storage.get('userId').then(userId => {
-      (async () => {
-        this.userId = userId;
-        this.account = await this.accountService.getAccount(this.userId);
-        this.profile = await this.profileService.getProfileByEmail(
-          this.account.email
-        );
-      })();
-    });
+    const profileId = this.navParams.get('id');
+    if (profileId) {
+      this.profile = await this.profileService.getProfileById(profileId);
+    } else {
+      this.storage.get('userId').then(userId => {
+        (async () => {
+          this.userId = userId;
+          this.account = await this.accountService.getAccount(this.userId);
+          this.profile = await this.profileService.getProfileByEmail(
+            this.account.email
+          );
+        })();
+      });
+    }
   }
 
-  uploadPicture() {
+  async uploadPicture() {
+    const loader = this.loadingCtrl.create();
+    loader.present();
     if (this.image) {
-      this.pictureUploadService.uploadPicture(this.image, this.profile);
+      await this.pictureUploadService.uploadPicture(this.image, this.profile);
+      loader.dismiss();
+      const toast = this.toastCtrl.create({
+        message: 'Profile picture was successfully updated!',
+        position: 'bottom',
+        showCloseButton: true
+      });
+      toast.present();
     } else {
+      loader.dismiss();
       const alert = this.alertCtrl.create({
-        title: 'Picture upload failed!',
+        title: 'Picture Upload Failed',
         subTitle: 'Please select a picture and try again.',
         buttons: ['OK']
       });
