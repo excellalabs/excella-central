@@ -57,6 +57,10 @@ export class DirectoryDetailPage {
     this.navCtrl.push('ProfileAdminPage', { id: profileId });
   }
 
+  goToPictureUploadScreen(profileId: number) {
+    this.navCtrl.push('PictureUploadPage', { id: profileId });
+  }
+
   async deleteProfile(profileId: string) {
     const confirmDelete = this.alertCtrl.create({
       title: 'Delete Profile',

@@ -6,7 +6,7 @@ import { ProfileService } from '../profile.service/profile.service';
 export class PictureUploadService {
   constructor(public profileService: ProfileService) {}
 
-  uploadPicture(image: Blob, profile: Profile) {
+  async uploadPicture(image: Blob, profile: Profile): Promise<boolean> {
     const cloudName = 'excella';
     const unsignedUploadPreset = 'kwoafltg';
 
@@ -34,11 +34,12 @@ export class PictureUploadService {
     fd.append('upload_preset', unsignedUploadPreset);
     fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
     fd.append('file', image, 'test.png');
-    xhr.onload = () => {
+    xhr.onload = async () => {
       profile.photoUrl = JSON.parse(xhr.response).secure_url;
-      this.profileService.updateProfileById(profile);
+      await this.profileService.updateProfileById(profile);
     };
     xhr.send(fd);
+    return Promise.resolve(true);
   }
 
   imgChange(image: Blob) {
