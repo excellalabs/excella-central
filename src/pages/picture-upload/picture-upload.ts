@@ -4,7 +4,8 @@ import {
   NavController,
   NavParams,
   AlertController,
-  LoadingController
+  LoadingController,
+  ToastController
 } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AccountService } from '../../providers/account.service/account.service';
@@ -32,7 +33,8 @@ export class PictureUploadPage {
     private accountService: AccountService,
     private profileService: ProfileService,
     private pictureUploadService: PictureUploadService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController
   ) {}
 
   async ionViewDidLoad() {
@@ -58,12 +60,12 @@ export class PictureUploadPage {
     if (this.image) {
       await this.pictureUploadService.uploadPicture(this.image, this.profile);
       loader.dismiss();
-      const alert = this.alertCtrl.create({
-        title: 'Picture Upload Successful!',
-        subTitle: 'Profile picture was successfully updated.',
-        buttons: ['OK']
+      const toast = this.toastCtrl.create({
+        message: 'Profile picture was successfully updated!',
+        position: 'bottom',
+        showCloseButton: true
       });
-      alert.present();
+      toast.present();
     } else {
       loader.dismiss();
       const alert = this.alertCtrl.create({
