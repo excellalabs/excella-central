@@ -21,6 +21,14 @@ export class LoginPage {
       email: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+
+  }
+
+  ssoLogin() {
+    console.log("Authorizing...");
+    this.accountService.checkAuthentication().then(validated => {
+      console.log('validated = ' + validated);
+    });
   }
 
   loginUser() {

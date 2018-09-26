@@ -4,7 +4,8 @@ import { Http, URLSearchParams } from '@angular/http';
 import {
   ConnectionString,
   AccountsInjectionToken,
-  ProfilesInjectionToken
+  ProfilesInjectionToken,
+  SSOInjectionToken
 } from '../../app/app-config';
 import 'rxjs/add/operator/toPromise';
 import { AuthenticationService } from '../authentication.service/authentication.service';
@@ -15,16 +16,37 @@ export class AccountService {
     public http: Http,
     private authService: AuthenticationService,
     @Inject(ProfilesInjectionToken) public profilesApi: ConnectionString,
-    @Inject(AccountsInjectionToken) public accountsApi: ConnectionString
-  ) {}
+    @Inject(AccountsInjectionToken) public accountsApi: ConnectionString,
+    @Inject(SSOInjectionToken) public ssoApi: ConnectionString
+  ) { }
+
+  async checkAuthentication(): Promise<boolean> {
+    const ssoAuthURL = this.ssoApi.url;
+    return new Promise<boolean>(resolve => {
+      this.http.get(ssoAuthURL).subscribe(
+        data => {
+          const response = data.json();
+          console.log("response from server = " + response);
+        },
+        err => {
+          console.log("error = " + err);
+          this.authService.clearUserToken();
+          resolve(false);
+        }
+      )
+    });
+  }
 
   async login(email: string, password: string): Promise<boolean> {
     const loginUrl = this.accountsApi.url + '/login';
     const accountInfo = { email: email, password: password };
+    console.log("logging in...");
     return new Promise<boolean>(resolve => {
       this.http.post(loginUrl, accountInfo).subscribe(
         data => {
+
           const body = data.json();
+          console.log("received response for login = " + body);
           this.authService.storeUserToken(body);
           resolve(true);
         },

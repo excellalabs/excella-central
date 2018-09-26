@@ -8,18 +8,25 @@ export interface ConnectionString {
 
 export const ProfilesApi: ConnectionString = {
   name: 'profiles',
-  url: 'https://central-api.excellalabs.com/api/profiles'
+  url: 'https://localhost:3000/api/profiles'
 };
-
 export const ProfilesInjectionToken = new InjectionToken<ConnectionString>(
   ProfilesApi.name
 );
 
+export const SSOApi: ConnectionString = {
+  name: 'sso',
+  url: 'https://localhost:3000/ssoauth'
+};
+export const SSOInjectionToken = new InjectionToken<ConnectionString>(
+  SSOApi.name
+);
+
+
 export const AccountsApi: ConnectionString = {
   name: 'accounts',
-  url: 'https://central-api.excellalabs.com/api/accounts'
+  url: 'https://localhost:3000/api/accounts'
 };
-
 export const AccountsInjectionToken = new InjectionToken<ConnectionString>(
   AccountsApi.name
 );
