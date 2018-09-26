@@ -12,7 +12,9 @@ import {
   AccountsApi,
   AccountsInjectionToken,
   ProfilesApi,
-  ProfilesInjectionToken
+  ProfilesInjectionToken,
+  SSOApi,
+  SSOInjectionToken
 } from '../app/app-config';
 import { ProfileService } from '../providers/profile.service/profile.service';
 import { AccountService } from '../providers/account.service/account.service';
@@ -38,8 +40,9 @@ import { AuthenticationService } from '../providers/authentication.service/authe
     AccountService,
     { provide: ProfilesInjectionToken, useValue: ProfilesApi },
     { provide: AccountsInjectionToken, useValue: AccountsApi },
+    { provide: SSOInjectionToken, useValue: SSOApi },
     PictureUploadService,
     AuthenticationService
   ]
 })
-export class AppModule {}
+export class AppModule { }
